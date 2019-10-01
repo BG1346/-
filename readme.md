@@ -26,3 +26,54 @@ rpm의 보완 패키지 설치 도구로써 의존성이 있는 패키지들을 
 * 서비스 상시가동 시키기
 
 CentOS6까지는 chkconfig명령으로 자동 부팅 여부를 설정할 수 있었지만 Ubuntu 16, CentOS7부터는 systemctl enable명령을 사용하면 된다. 
+
+
+
+
+
+
+
+# 19.10.1
+
+이슈사항
+
+* index.php없애기 실패
+
+
+학습내용
+
+* 비로그인 추천기능, 세션활용
+
+보완점
+
+* DBmigration
+
+완료, apm을 최신버전으로 바꾸고 포트변경. 
+
+
+
+로컬서버
+
+php 7.1
+
+mariadb 10.4.6
+
+apache 2.4.33
+
+
+
+원격 서버
+
+php 5.4.16
+
+mariadb 5.5.64
+
+apache 2.4.6
+
+
+
+변경
+
+php 7.1.32
+
+mariadb 10.4.8
