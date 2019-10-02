@@ -1,4 +1,4 @@
-서버 IP : 115.68.207.68/ggy
+서버 IP : 115.68.207.68
 
 # 19.9.30
 
@@ -60,6 +60,13 @@ php 7.1
 
 mariadb 10.4.6
 
+
+# 19.10.2
+
+### 보완사항
+* index.php없애기
+완료. scp명령을 쓸 때 히든파일이 옮겨지지 않아 .htaccess를 따로 만들었고 httpd.conf 파일을 수정할 떄 "var/www/html" doumentroot가 따로 있어서 그냥 documentroot의 설정을 변경해도 index.php가 사라지지 않았음. 
+centos의 httpd.conf 경로는 etc/httpd/conf
 apache 2.4.33
 
 
