@@ -47,20 +47,20 @@ class Store_m extends CI_Model
     	return $result;
     }
 
-    // function get_view($table, $id)		
-    // {
-    // 	//조회수 증가
-    // 	$sql0 = "UPDATE ".$table." SET hits=hits+1 WHERE board_id='".$id."'";
-   	// 	$this->db->query($sql0);
+    function get_view($table, $id)		
+    {
+    	//조회수 증가
+    	$sql0 = "UPDATE ".$table." SET hits=hits+1 WHERE ".$table."_id='".$id."'";
+   		$this->db->query($sql0);
 
-    // 	$sql = "SELECT * FROM ".$table." WHERE board_id='".$id."'";
-   	// 	$query = $this->db->query($sql);
+    	$sql = "SELECT * FROM ".$table." WHERE ".$table."_id='".$id."'";
+   		$query = $this->db->query($sql);
 
-    //  	//게시물 내용 반환
-	//     $result = $query->row();
+     	//게시물 내용 반환
+	    $result = $query->row();
 
-    // 	return $result;
-    // }
+    	return $result;
+    }
 
 	// function insert_board($arrays)
  	// {

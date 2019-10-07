@@ -1,5 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+header("Access-Control-Allow-Origin: *");
 
 class Index extends CI_Controller {
 
@@ -9,6 +10,7 @@ class Index extends CI_Controller {
 		// $this->load->database();
         $this->load->model('store_m');
 		$this->load->helper('form');
+		$this->load->library('image_lib');
 		// $this->load->library('encryption');
 		// $this->encryption->initialize(
 		// 	array(
@@ -32,8 +34,13 @@ class Index extends CI_Controller {
 
     public function map(){
         $this->load->view('map_v');
+	}
+	
+	public function view($store_id){
+		$data['store_id'] = $store_id;
+        $this->load->view('view_v', $data);
     }
-    public function lists($method){
+    public function lists(){
         $search_word = $page_url = '';
 		$uri_segment = 5;
 
@@ -59,7 +66,7 @@ class Index extends CI_Controller {
         // $config['total_rows'] = $this->board_m->get_list($this->uri->segment(3), 'count', '', '', $search_word); //게시물의 전체 갯수
         // $config['total_rows'] = $this->board_m->get_list($this->uri->segment(3, 'ci_board'), 'count', '', '', $search_word); //게시물의 전체 갯수
         $config['total_rows'] = $this->store_m->get_list($this->uri->segment(3, 'store'), 'count', '', '', $search_word); //게시물의 전체 갯수
-		$config['per_page'] = 5; //한 페이지에 표시할 게시물 수
+		$config['per_page'] = 20; //한 페이지에 표시할 게시물 수
 		// $config['uri_segment'] = $this->uri->segment(5, 2); //페이지 번호가 위치한 세그먼트
 		$config['uri_segment'] = $uri_segment;
 
@@ -88,8 +95,10 @@ class Index extends CI_Controller {
         // $data['list'] = $this->board_m->get_list($this->uri->segment(3), '', $start, $limit);
         // $data['list'] = $this->board_m->get_list($this->uri->segment(3, 'ci_board'), '', $start, $limit);
         // $data['list'] = $this->board_m->get_list('ci_board', '', $start, $limit);
-		$data['list'] = $this->store_m->get_list($this->uri->segment(3, 'store'), '', $start, $limit, $search_word);
-		$this->load->view('list_v', $data);
+		// $data['list'] = $this->store_m->get_list($this->uri->segment(3, 'store'), '', $start, $limit, $search_word);
+		$list = $this->store_m->get_list($this->uri->segment(3, 'store'), '', $start, $limit, $search_word);
+		exit(json_encode($list));
+		// $this->load->view('list_v', $data);
     }
 
     public function _remap($method)

@@ -1,3 +1,20 @@
+<head>
+	<style>
+	table * {
+		border : 1px solid blue;
+	}
+	img {
+		width : 300px;
+		height : 300px;
+	}
+	#thumb_image{
+		display : inline-block;
+	}	
+	#thumb_image:hover{
+		
+	}
+	</style>
+</head>
 <script>
 		$(document).ready(function(){
 			$("#search_btn").click(function(){
@@ -17,31 +34,17 @@
 		}
 	</script>
 	
-	<article id="board_area">
-		<table cellspacing="0" cellpadding="0" class="table table-striped">
-			<thead>
-				<tr>
-					<th scope="col">번호</th>
-					<th scope="col">제목</th>
-					<th scope="col">작성자</th>
-					<th scope="col">조회수</th>
-					<th scope="col">등록일</th>
-				</tr>
-			</thead>
-			<tbody>
+	
 <?php
 foreach ($list as $lt)
 {
 ?>
-				<tr>
-					<th scope="row">
-						<?php echo $lt->store_id;?>
-					</th>
-                    <td><a rel="external" href="/ggy/<?php echo $this->uri->segment(1, 'index');?>/view/<?php echo $this->uri->segment(3, 'ci_board');?>/store_id/<?php echo $lt->store_id;?>/page/1">     <?php echo $lt->content;?></a></td>
-					<!-- <td><?php echo $lt->user_name;?></td> -->
-					<!-- <td><?php echo $lt->hits;?></td> -->
-					<!-- <td><time datetime="<?php echo mdate("%Y-%M-%j", human_to_unix($lt->reg_date));?>"><?php echo mdate("%M. %j, %Y", human_to_unix($lt->reg_date));?></time></td> -->
-				</tr>
+<div id ="thumb_image">
+	<a href="index/view/<?php echo $lt->store_id?>"><img src ="<?php echo base_url();echo $lt->imagepath ;?>"></a><br>
+	<a href="index/view/<?php echo $lt->store_id?>"><img src ="<?php "/".$lt->imagepath ;?>"></a><br>
+	<?php echo "/".$lt->imagepath?>
+	<center><?php echo $lt->name?></center>
+</div>
 <?php
 }
 ?>

@@ -1,4 +1,8 @@
 서버 IP : 115.68.207.68
+프론트 repository : https://github.com/BG1346/GGY-vue
+
+ERD
+![erd](./image/erd.png)
 
 # 19.9.30
 
@@ -95,4 +99,22 @@ mariadb 10.4.8
 * php 와 vue 의 cors문제
 vue에서 php에 json형태로 데이터를 받아 구현하려고 했지만 cors정책에 의해 받지 못하고 있음. 
 
+# 19.10.7
 
+### 이슈사항
+
+* 명소 사진을 가져올 떄 저작권을 고려하지 않아도 되는지. 
+
+
+### 학습내용
+
+* vue를 통한 db내용들 렌더링
+
+### 보완점
+
+* cors문제
+
+서버에서 허용을 해줘야 하는 문제였음. 아래 헤더를 추가해 해결함. 
+```
+header("Access-Control-Allow-Origin: *");
+```

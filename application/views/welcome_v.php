@@ -98,20 +98,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <div class="header">
 <a href=""><h1 style="float : left">강릉 관광 요람</h1></a>
 <ul>
-	<a href="/ggy/index.php/index/spotlist"><li>spotlist</li></a>
-	<a href="/ggy/index.php/index/course"><li>course</li></a>
-	<a href="/ggy/index.php/index/map"><li>(map)</li></a>
+	<a href="index.php/index/spotlist"><li>spotlist</li></a>
+	<a href="index.php/index/course"><li>course</li></a>
+	<a href="index.php/index/map"><li>(map)</li></a>
 </ul>
 </div>
-<div id="body" style="border : 2px solid green">
+<!-- <div id="body" style="border : 2px solid green">
 	<div id="title" style="border : 1px solid blue">
 	
 		
 	</div>
 	<div id="title" style="border : 1px solid blue">
 		
-	</div>
-</div>
+	</div> -->
+<!-- </div> -->
 
 </body>
 </html>
