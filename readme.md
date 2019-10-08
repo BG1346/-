@@ -1,5 +1,4 @@
 서버 IP : 115.68.207.68
-프론트 repository : https://github.com/BG1346/GGY-vue
 
 ERD
 ![erd](./image/erd.png)
