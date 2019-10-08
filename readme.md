@@ -92,4 +92,35 @@ php 7.1.32
 mariadb 10.4.8
 
 
+# 19.10.8
 
+### 이슈사항
+
+* table doesn't exist in engine
+innodb엔진인 테이블을 원격서버로 옮겼으나 테이블의 engine이 NULL로 바뀌고 어떠한 명령어도 되지 않음. 
+
+### 카테고리 세분화
+category
+ ㄴ subcategory
+
+
+#### category (ㄴ subcategory)
+stay
+ㄴ motel
+ㄴ hotel
+ㄴ guest house
+ㄴ etc
+cafe
+ㄴ normal
+ㄴ abnormal
+ㄴ etc
+foot
+ㄴ meal
+ㄴ bread
+ㄴ etc
+attraction
+ㄴ cultural heritage
+ㄴ beach
+ㄴ 
+
+![erd](./image/category.png)
