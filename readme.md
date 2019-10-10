@@ -1,5 +1,4 @@
 서버 IP : 115.68.207.68
-프론트 repository : https://github.com/BG1346/GGY-vue
 
 ERD
 ![erd](./image/erd.png)
@@ -92,29 +91,50 @@ php 7.1.32
 mariadb 10.4.8
 
 
-
-# 19.10.4
-
-### 이슈사항
-* php 와 vue 의 cors문제
-vue에서 php에 json형태로 데이터를 받아 구현하려고 했지만 cors정책에 의해 받지 못하고 있음. 
-
-# 19.10.7
+# 19.10.8
 
 ### 이슈사항
 
-* 명소 사진을 가져올 떄 저작권을 고려하지 않아도 되는지. 
+* table doesn't exist in engine
+innodb엔진인 테이블을 원격서버로 옮겼으나 테이블의 engine이 NULL로 바뀌고 어떠한 명령어도 되지 않음. 
+
+### 카테고리 세분화
+category
+
+ ㄴ subcategory
 
 
-### 학습내용
+#### category (ㄴ subcategory)
+stay
 
-* vue를 통한 db내용들 렌더링
+ㄴ motel
 
-### 보완점
+ㄴ hotel
 
-* cors문제
+ㄴ guest house
 
-서버에서 허용을 해줘야 하는 문제였음. 아래 헤더를 추가해 해결함. 
-```
-header("Access-Control-Allow-Origin: *");
-```
+ㄴ etc
+
+cafe
+
+ㄴ normal
+
+ㄴ abnormal
+
+ㄴ etc
+
+foot
+
+ㄴ meal
+
+ㄴ bread
+
+ㄴ etc
+
+attraction
+
+ㄴ cultural heritage
+
+ㄴ beach 
+
+![erd](./image/category.png)
