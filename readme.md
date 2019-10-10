@@ -137,4 +137,20 @@ attraction
 
 ㄴ beach 
 
-![erd](./image/category.png)
+![category](./image/category.png)
+
+# 19.10.2
+
+### 학습사항
+
+홈페이지의 초안 제작
+
+![init](./image/init.png)
+
+
+### 보완사항
+
+* table doesn't exist in engine
+
+근본적인 해결은 하지 못하고 dump파일을 만들어 옮기고 있음. 
+

@@ -3,7 +3,6 @@
         margin-bottom : 100px;
     }
 </style>
-
 <div class="jb-wrap">
     <div class="jb-image"><img src="/image/<?php echo $data->imagepath ?>" alt="error"></div>
         <div class="jb-text">

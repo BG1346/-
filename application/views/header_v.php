@@ -1,9 +1,20 @@
 <head>
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 <style>
 * {
     margin : 0px;
     padding : 0px;
-    font-family : NanumBarunGothic;
+    font-family : NanumBarunGothic ; san-serif;
+}
+
+#sangsangfont{
+    font-family : SangSangFlowerRoad;
+    font-size : 3em;
+}
+#search_box{
+    position : absolute;
+    z-index : 2;
+    right : 0px;
 }
 #view_content{
     margin : auto;
@@ -18,20 +29,21 @@
     font-size : 1.5em;
 }
 .category{
-    background-color : gray;
-}
-.subcategory{
-    background-color : #909090;
+    background-color : #0174DF;
 }
 .container{
     /* text-align : center; */
-    margin : 3px;
+    /* margin : 3px; */
     padding : 3px;
     /* border : 2px solid blue; */
+    background-image : url("/image/sea_main.jpg");
+    background-repeat : no-repeat;
+    background-size : cover;
 }
 .subcontainer{
     /* display : grid;
     grid-template-columns: 33% 33% 33%; */
+    width : 100%;
     display : inline-block;
     padding: 3px;
     margin : 3px;
@@ -43,14 +55,19 @@
     grid-template-columns: 50% 50%;
     /* border : 1px solid black; */
     margin : 20px;
+    box-shadow : 10px 15px 5px 5px #58ACFA;
+    background-color : #DDDDDD;
 }	
-#card div {
-    /* border : 1px solid green; */
+#card {
+    border-radius : 10px;
 }
     #item1{
         overflow : hidden;
         grid-column: 1 / 3;
         border-radius : 10px;
+    }
+    #item2 {
+        padding : 0 0 0 10%;
     }
     #item3{
         text-align : center;
@@ -64,13 +81,12 @@
     width : 250px;
     height : 200px;
 }
-a, a:link, a:visited {
-    color : black;
-    text-decoration : none;
+a, a:link, a:visited {ㅁ
+    text-decoration : none; 
 }
 .jb-wrap {
 	width: 100%;
-    max-height : 300px;
+    max-height : 350px;
 	/* border: 1px solid #000000; */
 	position: relative;
     background-color : gray;
@@ -107,8 +123,14 @@ ul{
 li {
     list-style-type : none;
     display : inline-block;
-    /* float : left; */
     margin : 0 30px 0 30px;
+}
+li a{
+    color : #DDDDDD;
+    text-decoration : none;
+}
+#subName { 
+    color : #DDDDDD;
 }
 @font-face { 
     font-family: 'SangSangFlowerRoad'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_three@1.0/SangSangFlowerRoad.woff') format('woff'); font-weight: normal; font-style: normal; 
@@ -119,6 +141,22 @@ li {
 </style>
 
 </head>
+<div id="search_box">
+	<form id="search" method="GET" action="/index/search">
+		<select name="opt" class="select-css">
+			<option value="content_title" selected>제목+내용</option>
+			<option value="title">제목</option>
+			<option value="content">내용</option>
+		</select>
+		<input type="text" name="s_word" id="q" onkeypress="board_search_enter(document.q);"/>
+		<input type="button" id="search_btn" value="검색"/>
+    </form>
+    
+
+
+
+
+</div>
 <?php
 if($method == 'index'){
 ?>
@@ -132,20 +170,15 @@ if($method == 'index'){
 <?php
 }
 ?>
-
-
-<div class="category">
-<br>
-
-<?php 
+<?php
 if($method != 'index'){
 ?>
+<div class="category">
+<br>
 <a id="mark" href="/">
     강릉관광요람
 </a>
-<?php
-}
-?>
+
 <ul>
 <?
     foreach($category as $iter){
@@ -159,13 +192,12 @@ if($method != 'index'){
 </ul>
 <br>
 </div>
-
 <div class="subcategory">
 <?php 
     if(isset($_GET['category'])){
 ?>
         <br>
-        <center><h1><?php echo $_GET['category']; ?></h1></center>
+        <center><h1 id="subName" style="color : white;"><?php echo $_GET['category']; ?></h1></center>
         <br>
 <ul>
 <?php 
@@ -178,7 +210,9 @@ if($method != 'index'){
             </a>
         </li>
         <?php
+        
     }
+}
 ?>
 </ul>
 </div>

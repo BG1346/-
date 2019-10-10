@@ -20,26 +20,40 @@
 			if(keycode == 13) $("#search_btn").click();
 		}
 </script>
-<div>
-	
-	<form id="search" method="GET" action="/index/search">
-	<br><br>
-	<h2>게시글 검색</h2><br>
-		<!-- <input type="button" value="검색" id="search_btn"/> -->
-		<select name="opt">
-			<option value="content_title" default>제목+내용</option>
-			<option value="title">제목</option>
-			<option value="content">내용</option>
-		</select>
-		<input type="text" name="s_word" id="q" onkeypress="board_search_enter(document.q);"/>
-		<input type="button" id="search_btn" value="검색"/>
-	</form>
-</div>
 <body>
-<br>
 <div class="container">
 <div class="subcontainer">
+<br>
+<ul>
 <?php
+foreach($category as $iter){
+        ?>
+        <li>
+        	<a href="/index?category=<?php echo $iter->category?>"><?php echo $iter->category?></a>
+        </li>
+        <?php
+}
+?>
+</ul>
+<br>
+<div class="subcategory">
+<ul>
+<?php 
+    foreach($subcategory as $iter){
+        ?>
+        <li>
+            <a href="/index?category=<?php echo $_GET['category']?>&subcategory=<?php echo $iter->subcategory?>" id="title">
+            <?php echo $iter->subcategory?>
+            </a>
+        </li>
+        <?php
+        
+    }
+?>
+</ul>
+</div>
+<?php
+
 // spot 테이블 전체 반환
 if(empty($list)){
 	echo '내용이 존재하지 않습니다. ';
