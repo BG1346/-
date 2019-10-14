@@ -1,8 +1,4 @@
-<style>
-    .jb-wrap{
-        margin-bottom : 100px;
-    }
-</style>
+
 <div class="jb-wrap">
     <div class="jb-image"><img src="/image/<?php echo $data->imagepath ?>" alt="error"></div>
         <div class="jb-text">
@@ -16,21 +12,29 @@
 
 
 <div id="view_content">
-<?php
-print_r($data);
-?>
 <br><br><br><br><br><br>
+<h1>설명</h1>
 content = <?php echo($data->content) ?><br>
+<h1>주소</h1>
 addr = <?php echo($data->addr) ?><br>
-category = <?php echo($data->category) ?><br>
-subcategory = <?php echo($data->subcategory) ?><br>
-fburl = <?php echo($data->fburl) ?><br>
-instaurl = <?php echo($data->instaurl) ?><br>
-instahashtag = <?php echo($data->instahashtag) ?><br>
+<h1>연락처</h1>
 tel1 = <?php echo($data->tel1) ?><br>
 tel2 = <?php echo($data->tel2) ?><br>
+<h1> 운영, 휴무 시간</h1>
 hours = <?php echo($data->hours) ?><br>
+<h1> 좋아요 수 </h1>
 likes = <?php echo($data->like) ?><br>
-lat = <?php echo($data->lat) ?><br>
-long = <?php echo($data->long) ?><br>
+
+<!-- 카카오 지도-->
+<h1>map</h1>
+<div id="view_map"></div>
 </div>
+<script>
+    var container = document.getElementById('view_map');
+    var options = {
+        // center: new kakao.maps.LatLng(33.450701, 126.570667),
+        center: new kakao.maps.LatLng(<?php echo $data->x; ?>, <?php echo $data->y; ?>),
+        level: 3
+    };
+    var map = new kakao.maps.Map(container, options);
+</script>

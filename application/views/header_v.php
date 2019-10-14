@@ -1,12 +1,50 @@
 <head>
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=858cb96bc6458a7a0e355b095c6c5a5e"></script>
 <style>
 * {
     margin : 0px;
     padding : 0px;
     font-family : NanumBarunGothic ; san-serif;
 }
+#course_card{
+    display : inline-block;
+    width : 100px;
+    height : 100px;
+    border : 1px solid blue;
+}
+#map_wrapper{
+    width : 90%;
+    display : grid;
+    grid-template-columns: 30% 70%;
+}
+    #map_wrapper #item1{
+        text-align : center;
+        max-height : 50%;
+        overflow : scroll;
+        display : inline-block;
+        border : 1px solid red;
+    }
+    #map_wrapper #item2{
+        max-height : 50%;
+        display : inline-block;
+        border : 1px solid blue;
+    }
+#each_map{
+    border : 1px solid green;
+}
 
+#view_map {
+    width:80%;
+    height:50%;
+    max-width : 500px;
+    max-height : 400px;
+}
+#map_list {
+    width:100%;
+    height:100%;
+}
 #sangsangfont{
     font-family : SangSangFlowerRoad;
     font-size : 3em;
@@ -20,6 +58,9 @@
     margin : auto;
     width : 90%;
     text-align : center;
+} 
+#view_content h1{
+    margin : 100px;
 }
 #mark{
     font-family : SangSangFlowerRoad;
@@ -30,21 +71,24 @@
 }
 .category{
     background-color : #0174DF;
+    height : 7%;
 }
-.container{
+#container{
     /* text-align : center; */
     /* margin : 3px; */
     padding : 3px;
     /* border : 2px solid blue; */
-    background-image : url("/image/sea_main.jpg");
+    /* background-image : url("/image/sea_main.jpg"); */
     background-repeat : no-repeat;
     background-size : cover;
+    width : 100%;
+    display : inline-block;
 }
-.subcontainer{
+#subcontainer{
     /* display : grid;
     grid-template-columns: 33% 33% 33%; */
     width : 100%;
-    display : inline-block;
+    /* display : inline-block; */
     padding: 3px;
     margin : 3px;
     /* border : 1px solid red; */
@@ -61,18 +105,18 @@
 #card {
     border-radius : 10px;
 }
-    #item1{
+    #card #item1{
         overflow : hidden;
         grid-column: 1 / 3;
         border-radius : 10px;
     }
-    #item2 {
+    #card #item2 {
         padding : 0 0 0 10%;
     }
-    #item3{
+    #card #item3{
         text-align : center;
     }
-    #item4{
+    #card #item4{
         grid-column: 1 / 3;
         text-align : center;
     }
@@ -81,12 +125,15 @@
     width : 250px;
     height : 200px;
 }
-a, a:link, a:visited {ㅁ
+a, a:link, a:visited {
     text-decoration : none; 
+    color : black;
 }
+
 .jb-wrap {
 	width: 100%;
-    max-height : 350px;
+    height : 93%;
+    /* max-height : 300px; */
 	/* border: 1px solid #000000; */
 	position: relative;
     background-color : gray;
@@ -95,12 +142,13 @@ a, a:link, a:visited {ㅁ
 }
 .jb-wrap img {
     width : 100%;
-    /* height : auto; */
+    height : 100%;
 	vertical-align: middle;
     filter: brightness(60%); 
     overflow : hidden;
 }
 .jb-text {
+    width : 100%;
 	padding: 5px 10px;
 	text-align: center;
 	position: absolute;
@@ -108,10 +156,11 @@ a, a:link, a:visited {ㅁ
 	left: 50%;
 	transform: translate( -50%, -50% );
     color : #DDDDDD;
+    font-size : 2em;
 }
 .jb-text #title {
     font-family : SangSangFlowerRoad;
-    font-size : 5em;
+    font-size : 3em;
     color : #DDDDDD;
 }
 .jb-text a {
@@ -129,7 +178,7 @@ li a{
     color : #DDDDDD;
     text-decoration : none;
 }
-#subName { 
+#subName #subName:visited #subName:link{ 
     color : #DDDDDD;
 }
 @font-face { 
@@ -141,81 +190,8 @@ li a{
 </style>
 
 </head>
-<div id="search_box">
-	<form id="search" method="GET" action="/index/search">
-		<select name="opt" class="select-css">
-			<option value="content_title" selected>제목+내용</option>
-			<option value="title">제목</option>
-			<option value="content">내용</option>
-		</select>
-		<input type="text" name="s_word" id="q" onkeypress="board_search_enter(document.q);"/>
-		<input type="button" id="search_btn" value="검색"/>
-    </form>
-    
 
 
-
-
-</div>
-<?php
-if($method == 'index'){
-?>
-    <div class="jb-wrap">
-        <div class="jb-image"><img src="/image/main.jpg" alt=""></div>
-            <div class="jb-text">
-                <a href="/" id="title">강릉관광요람</a>
-            </div>
-        </div>
-    </div>
-<?php
-}
-?>
-<?php
-if($method != 'index'){
-?>
-<div class="category">
-<br>
-<a id="mark" href="/">
-    강릉관광요람
-</a>
-
-<ul>
-<?
-    foreach($category as $iter){
-        ?>
-        <li>
-        <a href="/index?category=<?php echo $iter->category?>"><?php echo $iter->category?></a>
-        </li>
-        <?php
-    }
-?>
-</ul>
-<br>
-</div>
-<div class="subcategory">
-<?php 
-    if(isset($_GET['category'])){
-?>
-        <br>
-        <center><h1 id="subName" style="color : white;"><?php echo $_GET['category']; ?></h1></center>
-        <br>
-<ul>
-<?php 
-}
-    foreach($subcategory as $iter){
-        ?>
-        <li>
-            <a href="/index?category=<?php echo $_GET['category']?>&subcategory=<?php echo $iter->subcategory?>" id="title">
-            <?php echo $iter->subcategory?>
-            </a>
-        </li>
-        <?php
-        
-    }
-}
-?>
-</ul>
-</div>
 
 
 
