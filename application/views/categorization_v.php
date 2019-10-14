@@ -40,8 +40,8 @@ else{
 	{
 	?>
 	<div id ="card">
-		<div id="item1"><a href="/index/view?id=<?php echo $lt->id; ?>"><img src="/image/<?php echo $lt->imagepath?>"></a></div>
-		<div id="item2"><a href="/index/view?id=<?php echo $lt->id; ?>"><?php echo $lt->title; ?></a></div>
+		<div id="item1"><a href="/index/spot_view?id=<?php echo $lt->id; ?>"><img src="/image/<?php echo $lt->imagepath?>"></a></div>
+		<div id="item2"><a href="/index/spot_view?id=<?php echo $lt->id; ?>"><?php echo $lt->title; ?></a></div>
 		<div id="item3"><?php echo $lt->hits;  ?></div>
 		<div id="item4"><?php echo $lt->desc;  ?></div>
 	</div>

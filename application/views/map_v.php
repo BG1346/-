@@ -38,7 +38,7 @@ foreach($category as $iter){
         {
 ?>
         <div id="each_map">
-            <p><?php echo $lt->title; ?></p>
+            <p><a href="/index/spot_view?id=<?php echo $lt->id; ?>"><?php echo $lt->title; ?></a></p>
             <p><?php echo $lt->addr; ?></p>
         </div>
         <?php

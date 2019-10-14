@@ -18,7 +18,11 @@
 		}
 </script>
 <div id="search_box">
-	<form id="search" method="GET" action="/index/search">
+    <form id="search" method="GET" action="/index/search">
+        <select name="opt_board" class="select-css">
+			<option value="content_title" selected>관광지</option>
+			<option value="title">여행 후기글</option>
+		</select>
 		<select name="opt" class="select-css">
 			<option value="content_title" selected>제목+내용</option>
 			<option value="title">제목</option>
@@ -27,6 +31,8 @@
 		<input type="text" name="s_word" id="q" onkeypress="board_search_enter(document.q);"/>
 		<input type="button" id="search_btn" value="검색"/>
     </form>
+</div>
+<div class="category_ghost">
 </div>
 <div class="category">
     <br>

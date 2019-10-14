@@ -10,8 +10,8 @@
 }
 #course_card{
     display : inline-block;
-    width : 100px;
-    height : 100px;
+    width : 400px;
+    height : 500px;
     border : 1px solid blue;
 }
 #map_wrapper{

@@ -38,6 +38,18 @@ class Index extends CI_Controller {
 		$this->load->view('navbar_v');
 		$this->board();
 	}
+	public function board_write(){
+		//쓰기 폼
+		if ($this->input->server('REQUEST_METHOD') == 'GET'){
+			$data['list'] = $this->spot_m->get_list('spot', '', '', '', '', '', '');
+			$this->load->view('navbar_v');
+			$this->load->view('board_write_v', $data);
+		}
+		//제출 폼(post)
+		else{
+
+		}
+	}
 	public function board(){
 		$table = 'board';
 		// $category = '';
@@ -79,12 +91,12 @@ class Index extends CI_Controller {
 		$this->load->view('categorization_v', $data);
 	}
 	
-	public function view(){
+	public function spot_view(){
 		$id = $_GET['id'];
 		$table = 'spot';
 		$data['data'] = $this->spot_m->get_view($table, $id);
 		$this->load->view('navbar_v', $data);
-		$this->load->view('view_v', $data);
+		$this->load->view('spot_view_v', $data);
         // $this->load->view('view_v', $data);
     }
     public function _remap($method)
