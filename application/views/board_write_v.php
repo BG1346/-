@@ -15,6 +15,7 @@
 <?php
     }       
 ?>
+
     </div>
     <input type="submit" value="쓰기">
 </form>

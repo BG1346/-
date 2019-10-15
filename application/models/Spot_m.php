@@ -79,10 +79,14 @@ class Spot_m extends CI_Model
    		$query = $this->db->query($sql);
     	return $query->result();
 	}
-	function get_subcategory($table, $category)
+	function get_subcategory($table, $category='')
     {
-		$sql = "SELECT distinct subcategory FROM ".$table." where category='".$category."'";
+		$category_word = '';
+		if($category != ''){
+			$category_word = " WHERE CATEGORY='".$category."'";
+		}
+		$sql = "SELECT * FROM ".$table.$category;
    		$query = $this->db->query($sql);
-    	return $query->result();
+		return $query->result();
     }
 }

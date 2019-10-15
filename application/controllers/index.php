@@ -77,6 +77,7 @@ class Index extends CI_Controller {
 		$data['list'] = $this->spot_m->get_list($table, '', '', '', '', $category, $subcategory);
 		$this->load->view('categorization_v', $data);
 	}
+	
 	public function search(){
 		$table = 'spot';
 		$category = '';
@@ -98,20 +99,17 @@ class Index extends CI_Controller {
 		$this->load->view('navbar_v', $data);
 		$this->load->view('spot_view_v', $data);
         // $this->load->view('view_v', $data);
-    }
+	}
+
     public function _remap($method)
     {
 		$table = 'spot';
 		$category = '';
 		$subcategory = '';
-		if(isset($_GET['category'])){
-			$category = $_GET['category'];
-		}
-		if(isset($_GET['subcategory'])){
-			$subcategory = $_GET['subcategory'];
-		}
+		if(isset($_GET['category']))	$category = $_GET['category'];
+		if(isset($_GET['subcategory']))	$subcategory = $_GET['subcategory'];
 		$data['category'] = $this->spot_m->get_category($table);
-		$data['subcategory'] = $this->spot_m->get_subcategory('spot', $category);
+		$data['subcategory'] = $this->spot_m->get_subcategory('SUBCATEGORY', $category);
 		$data['method'] = $method;
        $this->load->view('header_v', $data);
 
@@ -120,7 +118,7 @@ class Index extends CI_Controller {
            $this->{"{$method}"}();
        }
 
-       //푸터 include
+    //    푸터 include
        $this->load->view('footer_v');
    }
 }

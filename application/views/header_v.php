@@ -1,12 +1,15 @@
 <head>
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=858cb96bc6458a7a0e355b095c6c5a5e"></script>
+
 <style>
 * {
-    margin : 0px;
+    margin : 0px;  
     padding : 0px;
     font-family : NanumBarunGothic ; san-serif;
+}
+button {
+    padding : 10px;
 }
 #course_card{
     display : inline-block;
@@ -14,36 +17,32 @@
     height : 500px;
     border : 1px solid blue;
 }
+#list_x, #list_y {
+    display : none;
+}
 #map_wrapper{
     width : 90%;
     display : grid;
     grid-template-columns: 30% 70%;
 }
     #map_wrapper #item1{
-        text-align : center;
-        max-height : 50%;
+        width : 100%;
+        height : 700px;
+        border : 1px solid black;
         overflow : scroll;
-        display : inline-block;
-        border : 1px solid red;
     }
     #map_wrapper #item2{
-        max-height : 50%;
-        display : inline-block;
-        border : 1px solid blue;
+        width : 100%;
+        height : 700px;
+        border : 1px solid black;
+        overflow : scroll;
     }
-#each_map{
+    #right_map {
+        width : 100%;
+        height : 100%;
+    }
+.each_map{
     border : 1px solid green;
-}
-
-#view_map {
-    width:80%;
-    height:50%;
-    max-width : 500px;
-    max-height : 400px;
-}
-#map_list {
-    width:100%;
-    height:100%;
 }
 #sangsangfont{
     font-family : SangSangFlowerRoad;
@@ -72,6 +71,12 @@
 .category{
     background-color : #0174DF;
     height : 7%;
+}
+.category_button {
+    background-color : #FF3333;
+}
+.subcategory_button {
+    background-color : #33FF33;
 }
 #container{
     /* text-align : center; */
