@@ -7,19 +7,16 @@ class Index extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->database();
-		$this->load->model('spot_m');
-		$this->load->model('board_m');
-		$this->load->library('image_lib');
+		$this->load->model('Spot_m');
 	}
 	public function index(){
 		$this->load->view('navbar_v');
 		$this->load->view('mainJumbo_v');
 		$this->categorization();
 		$this->map();
-		$this->board();
 	}
 	public function map_page(){
-		$this->load->view('navBar_v');
+		$this->load->view('navbar_v');
 		$this->map();
 	}
 	public function map(){
@@ -31,35 +28,10 @@ class Index extends CI_Controller {
 		if(isset($_GET['category']))	$table = $_GET['category'];
 		if(isset($_GET['subcategory']))	$table = $_GET['subcategory'];
 
-		$data['list'] = $this->spot_m->get_list($table, '', '', '', '', $category, $subcategory);
+		$data['list'] = $this->Spot_m->get_list($table, '', '', '', '', $category, $subcategory);
+		$data['category'] = $this->Spot_m->get_category($table);
+		$data['subcategory'] = $this->Spot_m->get_subcategory('SUBCATEGORY', $category);
 		$this->load->view('map_v', $data);
-	}
-	public function board_page(){
-		$this->load->view('navbar_v');
-		$this->board();
-	}
-	public function board_write(){
-		//쓰기 폼
-		if ($this->input->server('REQUEST_METHOD') == 'GET'){
-			$data['list'] = $this->spot_m->get_list('spot', '', '', '', '', '', '');
-			$this->load->view('navbar_v');
-			$this->load->view('board_write_v', $data);
-		}
-		//제출 폼(post)
-		else{
-
-		}
-	}
-	public function board(){
-		$table = 'board';
-		// $category = '';
-
-		if(isset($_GET['table']))	$table = $_GET['table'];
-		// if(isset($_GET['category']))	$table = $_GET['category'];
-		// if(isset($_GET['subcategory']))	$table = $_GET['subcategory'];
-
-		$data['list'] = $this->board_m->get_list($table, '', '', '', '', '', '');
-		$this->load->view('board_v', $data);
 	}
 	public function categorize_page(){
 		$this->load->view('navbar_v');
@@ -73,8 +45,9 @@ class Index extends CI_Controller {
 		if(isset($_GET['table']))	$table = $_GET['table'];
 		if(isset($_GET['category']))	$category = $_GET['category'];
 		if(isset($_GET['subcategory']))	$subcategory = $_GET['subcategory'];
-
-		$data['list'] = $this->spot_m->get_list($table, '', '', '', '', $category, $subcategory);
+		$data['spot_list'] = $this->Spot_m->get_list($table, '', '', '', '', $category, $subcategory);
+		$data['category_list'] = $this->Spot_m->get_list('category', '', '', '', '', '', $subcategory);
+		$data['subcategory_list'] = $this->Spot_m->get_list('SUBCATEGORY', '', '', '', '', $category, '');
 		$this->load->view('categorization_v', $data);
 	}
 	
@@ -86,8 +59,7 @@ class Index extends CI_Controller {
 
 		if(isset($_GET['table']))	$table = $_GET['table'];
 		if(isset($_GET['s_word']))	$s_word = $_GET['s_word'];
-		$data['list'] = $this->spot_m->get_list($table, '', '', '', $s_word, $category, $subcategory);
-		// $this->load->view('index_v', $data);
+		$data['spot_list'] = $this->Spot_m->get_list($table, '', '', '', $s_word, $category, $subcategory);
 		$this->load->view('navbar_v');
 		$this->load->view('categorization_v', $data);
 	}
@@ -95,7 +67,7 @@ class Index extends CI_Controller {
 	public function spot_view(){
 		$id = $_GET['id'];
 		$table = 'spot';
-		$data['data'] = $this->spot_m->get_view($table, $id);
+		$data['data'] = $this->Spot_m->get_view($table, $id);
 		$this->load->view('navbar_v', $data);
 		$this->load->view('spot_view_v', $data);
         // $this->load->view('view_v', $data);
@@ -103,15 +75,7 @@ class Index extends CI_Controller {
 
     public function _remap($method)
     {
-		$table = 'spot';
-		$category = '';
-		$subcategory = '';
-		if(isset($_GET['category']))	$category = $_GET['category'];
-		if(isset($_GET['subcategory']))	$subcategory = $_GET['subcategory'];
-		$data['category'] = $this->spot_m->get_category($table);
-		$data['subcategory'] = $this->spot_m->get_subcategory('SUBCATEGORY', $category);
-		$data['method'] = $method;
-       $this->load->view('header_v', $data);
+		$this->load->view('header_v');
 
        if( method_exists($this, $method) )
        {

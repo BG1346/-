@@ -21,7 +21,6 @@
     <form id="search" method="GET" action="/index/search">
         <select name="opt_board" class="select-css">
 			<option value="content_title" selected>관광지</option>
-			<option value="title">여행 후기글</option>
 		</select>
 		<select name="opt" class="select-css">
 			<option value="content_title" selected>제목+내용</option>
@@ -41,10 +40,8 @@
     </a>
     <ul>
         <a href="/index/categorize_page"><li>관광지 분류</li></a>
+		<li>|</li>
         <a href="/index/map_page"><li>지도로 보기</li></a>
-        <a href="/index/board_page"><li>여행 게시판</li></a>
-        <li>menu4</li>
-        <li>menu5</li>
     </ul>
     <br>
 </div>

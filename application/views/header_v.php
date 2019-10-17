@@ -1,7 +1,10 @@
 <head>
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=858cb96bc6458a7a0e355b095c6c5a5e"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://kit.fontawesome.com/6156759e4a.js" crossorigin="anonymous"></script>
+</head>
 <style>
 * {
     margin : 0px;  
@@ -21,7 +24,8 @@ button {
     display : none;
 }
 #map_wrapper{
-    width : 90%;
+    margin : auto;
+    width : 80%;
     display : grid;
     grid-template-columns: 30% 70%;
 }
@@ -29,7 +33,8 @@ button {
         width : 100%;
         height : 700px;
         border : 1px solid black;
-        overflow : scroll;
+        /* overflow : auto; */
+        overflow-y : scroll;
     }
     #map_wrapper #item2{
         width : 100%;
@@ -44,6 +49,10 @@ button {
 .each_map{
     border : 1px solid green;
 }
+.spot_iter{
+    padding : 10px;
+}
+
 #sangsangfont{
     font-family : SangSangFlowerRoad;
     font-size : 3em;
@@ -55,28 +64,31 @@ button {
 }
 #view_content{
     margin : auto;
-    width : 90%;
-    text-align : center;
+    width : 75%;
+    
 } 
 #view_content h1{
     margin : 100px;
+}
+#view_map{
+    width : 400px;
+    height : 400px;
 }
 #mark{
     font-family : SangSangFlowerRoad;
     margin-left : 10px;
     position : absolute;
-    color : #FFFFFF;
     font-size : 1.5em;
 }
 .category{
-    background-color : #0174DF;
-    height : 7%;
+    height : 9%;
+    border-bottom : 1px solid black;
 }
 .category_button {
-    background-color : #FF3333;
+    float : right;   
 }
 .subcategory_button {
-    background-color : #33FF33;
+    float : right;
 }
 #container{
     /* text-align : center; */
@@ -98,38 +110,57 @@ button {
     margin : 3px;
     /* border : 1px solid red; */
 }
-#card {
+.categorization_spot_iter {
+    width : 250px;
+    height : 240px;
     float : left;
     display : grid;
     grid-template-columns: 50% 50%;
     /* border : 1px solid black; */
     margin : 20px;
-    box-shadow : 10px 15px 5px 5px #58ACFA;
+    /* box-shadow : 10px 15px 5px 5px #58ACFA; */
+    box-shadow : 10px 15px 5px 5px #BBBBBB;
     background-color : #DDDDDD;
-}	
-#card {
     border-radius : 10px;
+    border : 1px solid black;
+}	
+.categorization_spot_iter_end {
+    width : 250px;
+    height : 240px;
+    float : left;
+    display : grid;
+    grid-template-columns: 50% 50%;
+    margin : 20px;
+    box-shadow : 10px 15px 5px 5px #BBBBBB;
+    border-radius : 10px;
+    border : 2px solid black;
 }
-    #card #item1{
-        overflow : hidden;
-        grid-column: 1 / 3;
-        border-radius : 10px;
-    }
-    #card #item2 {
-        padding : 0 0 0 10%;
-    }
-    #card #item3{
-        text-align : center;
-    }
-    #card #item4{
-        grid-column: 1 / 3;
-        text-align : center;
-    }
-#card img {
+.categorization_spot_iter img {
     /* display : inline; */
     width : 250px;
     height : 200px;
 }
+    #card_item1{
+        overflow : hidden;
+        grid-column: 1 / 3;
+        border-radius : 10px;
+    }
+    #card_item1 h1 {
+        text-align : center;
+        /* vertical-align : middle; */
+        margin-top : 100px;
+    }
+    #card_item2 {
+        padding : 0 0 0 10%;
+    }
+    #card_item3{
+        text-align : center;
+    }
+    #card_item4{
+        grid-column: 1 / 3;
+        text-align : center;
+    }
+
 a, a:link, a:visited {
     text-decoration : none; 
     color : black;
@@ -137,7 +168,7 @@ a, a:link, a:visited {
 
 .jb-wrap {
 	width: 100%;
-    height : 93%;
+    height : 91%;
     /* max-height : 300px; */
 	/* border: 1px solid #000000; */
 	position: relative;

@@ -1,62 +1,50 @@
 <div id="container">
 <div id="subcontainer">
 <br>
+<!-- <center><a href="/index/categorize_page">모두 보기</a></center> -->
 <ul>
-<?php
-
-foreach($category as $iter){
-        ?>
-        <li>
-        	<a href="/index/categorize_page?category=<?php echo $iter->category?>"><?php echo $iter->category?></a>
-        </li>
-        <?php
-}
-?>
+<br>
+	<div id="categorization_category_list">
+	</div>
+</ul>
+<ul>
+	<div id="categorization_subcategory_list"></div>
 </ul>
 <br>
-<div class="subcategory">
-<ul>
-<?php 
-    foreach($subcategory as $iter){
-        ?>
-        <li>
-            <a href="/index/categorize_page?category=<?php echo $_GET['category']?>&subcategory=<?php echo $iter->subcategory?>" id="title">
-            <?php echo $iter->subcategory?>
-            </a>
-        </li>
-        <?php
-    }
-?>
-</ul>
-</div>
-<?php
-
-// spot 테이블 전체 반환
-if(empty($list)){
-	echo '내용이 존재하지 않습니다. ';
-}
-else{
-	foreach ($list as $lt)
-	{
-	?>
-	<div id ="card">
-		<div id="item1"><a href="/index/spot_view?id=<?php echo $lt->id; ?>"><img src="/image/<?php echo $lt->imagepath?>"></a></div>
-		<div id="item2"><a href="/index/spot_view?id=<?php echo $lt->id; ?>"><?php echo $lt->title; ?></a></div>
-		<div id="item3"><?php echo $lt->hits;  ?></div>
-		<div id="item4"><?php echo $lt->desc;  ?></div>
-	</div>
-
-	<?php
-	}
-}
-?>
+<br>
+<div id="categorization_spot_list"></div>
+<div id="categorization_spot_more"></div>
 </div>
 </div>
-			</tbody>
-			<tfoot>
-				<tr>
-                    <!-- <th colspan="5"><?php echo $pagination;?></th> -->
-				</tr>
-			</tfoot>
-		</table>
 </body>
+
+<script>
+	console.log('dfkljs');
+$(function(){
+	// spot들 리스트. 
+	var categorization_spot = <?php echo json_encode($spot_list); ?>;
+
+	// 스팟들 뷰에 추가하기
+	for(var i=0 ; i<categorization_spot.length ; i++){
+			$("#categorization_spot_list").append('<div class="categorization_spot_iter"><div id="card_item1"><a href="/index/spot_view?id='+categorization_spot[i].id+'"><img src="/image/'+categorization_spot[i].imagepath+'"></a></div><div id="card_item2"><a href="/index/spot_view?id='+categorization_spot[i].id+'">'+categorization_spot[i].title+'</a></div><div id="card_item3">'+categorization_spot[i].hits+'</div><div id="card_item4">'+categorization_spot[i].desc+'</div></div>');
+	}
+
+	// 카테고리 추가 문
+	<?php if(isset($category_list)){ ?>
+		var categorization_category = <?php echo json_encode($category_list); ?>;
+		var categorization_subcategory  = <?php echo json_encode($subcategory_list); ?>;
+			
+		// 카테고리 뷰에 추가하기 
+		for(var i = 0 ; i<categorization_category.length ; i++){
+			$("#categorization_category_list").append('<li class="categorization_category_iter"><a href="/index/categorize_page?category='+categorization_category[i].category+'">'+categorization_category[i].category+"</a></li>");
+		}
+
+		// 서브카테고리 뷰에 추가하기 
+		<?php if(isset($_GET['category'])){ ?>
+				for(var i=0 ; i<categorization_subcategory.length; i++){
+						$("#categorization_subcategory_list").append('<li class="categorization_subcategory_iter"><a href="/index/categorize_page?category=<?php echo $_GET['category'];?>&subcategory='+categorization_subcategory[i].subcategory+'">'+categorization_subcategory[i].subcategory+'</li>');
+				}
+		<?php } ?>
+	<?php } ?>
+});
+</script>
