@@ -33,7 +33,6 @@ button {
         width : 100%;
         height : 700px;
         border : 1px solid black;
-        /* overflow : auto; */
         overflow-y : scroll;
     }
     #map_wrapper #item2{
@@ -65,10 +64,9 @@ button {
 #view_content{
     margin : auto;
     width : 75%;
-    
 } 
 #view_content h1{
-    margin : 100px;
+    margin : 50px 0 50px 30px;
 }
 #view_map{
     width : 400px;
@@ -91,36 +89,25 @@ button {
     float : right;
 }
 #container{
-    /* text-align : center; */
-    /* margin : 3px; */
     padding : 3px;
-    /* border : 2px solid blue; */
-    /* background-image : url("/image/sea_main.jpg"); */
     background-repeat : no-repeat;
     background-size : cover;
     width : 100%;
     display : inline-block;
 }
 #subcontainer{
-    /* display : grid;
-    grid-template-columns: 33% 33% 33%; */
     width : 100%;
-    /* display : inline-block; */
     padding: 3px;
     margin : 3px;
-    /* border : 1px solid red; */
 }
 .categorization_spot_iter {
     width : 250px;
     height : 240px;
     float : left;
     display : grid;
-    grid-template-columns: 50% 50%;
-    /* border : 1px solid black; */
+    grid-template-columns: 25% 25% 25% 25%;
     margin : 20px;
-    /* box-shadow : 10px 15px 5px 5px #58ACFA; */
     box-shadow : 10px 15px 5px 5px #BBBBBB;
-    background-color : #DDDDDD;
     border-radius : 10px;
     border : 1px solid black;
 }	
@@ -136,28 +123,27 @@ button {
     border : 2px solid black;
 }
 .categorization_spot_iter img {
-    /* display : inline; */
     width : 250px;
     height : 200px;
 }
     #card_item1{
         overflow : hidden;
-        grid-column: 1 / 3;
+        grid-column: 1 / 5;
         border-radius : 10px;
     }
     #card_item1 h1 {
         text-align : center;
-        /* vertical-align : middle; */
         margin-top : 100px;
     }
     #card_item2 {
+        grid-column: 1 / 3;
         padding : 0 0 0 10%;
     }
-    #card_item3{
-        text-align : center;
+    #card_item3, #card_item4 {
+        float : right;
     }
-    #card_item4{
-        grid-column: 1 / 3;
+    #card_item5{
+        grid-column: 1 / 5;
         text-align : center;
     }
 
@@ -169,12 +155,9 @@ a, a:link, a:visited {
 .jb-wrap {
 	width: 100%;
     height : 91%;
-    /* max-height : 300px; */
-	/* border: 1px solid #000000; */
 	position: relative;
     background-color : gray;
     overflow : hidden;
-    /* object-fit : cover; */
 }
 .jb-wrap img {
     width : 100%;
@@ -189,13 +172,12 @@ a, a:link, a:visited {
 	top: 50%;
 	left: 50%;
 	transform: translate( -50%, -50% );
-    color : #DDDDDD;
+    color : white;
     font-size : 2em;
 }
 .jb-text #title {
     font-family : SangSangFlowerRoad;
     font-size : 3em;
-    color : #DDDDDD;
 }
 .jb-text a {
     text-decoration : none;

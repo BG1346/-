@@ -10,7 +10,6 @@ class Index extends CI_Controller {
 		$this->load->model('Spot_m');
 	}
 	public function index(){
-		// die($this->input->ip_address());
 		$this->load->view('navbar_v');
 		$this->load->view('mainJumbo_v');
 		$this->categorization();
@@ -90,7 +89,6 @@ class Index extends CI_Controller {
 		$this->load->view('navbar_v', $data);
 		$this->load->view('spot_view_v', $data);
 	}
-
     public function _remap($method)
     {
 		$this->load->view('header_v');

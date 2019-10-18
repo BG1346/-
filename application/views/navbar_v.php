@@ -6,8 +6,6 @@
 					return false;
 				}
 				else {
-					// var act = '/index/search?id=3';
-					// $("#search").attr('action', act).submit();
 					$("#search").submit();
 				}
 			});
