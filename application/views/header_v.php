@@ -178,10 +178,8 @@ a, a:link, a:visited {
 }
 .jb-wrap img {
     width : 100%;
-    height : 100%;
-	vertical-align: middle;
-    filter: brightness(60%); 
     overflow : hidden;
+    height : 100%;
 }
 .jb-text {
     width : 100%;
@@ -201,6 +199,7 @@ a, a:link, a:visited {
 }
 .jb-text a {
     text-decoration : none;
+    color : white !important;
 }
 ul{
 	text-align : center;

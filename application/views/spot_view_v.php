@@ -1,12 +1,11 @@
-
 <div class="jb-wrap">
     <div class="jb-image"><img src="/image/<?php echo $data->imagepath ?>" alt="error"></div>
         <div class="jb-text">
             <p id="title"><?php echo $data->title ?></p>
             <p><?php echo $data->desc ?></p>
-            <i class="fas fa-heart"></i>
-            <i class="far fa-heart"></i>
-            <p><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>&nbsp;&nbsp;<?php echo $data->like ?></p>
+            <a id="toggle_like">
+            <i id="heart" class="far fa-heart"></i>
+            &nbsp;<span id="heart_num"><?php echo $data->like ?></span></a>
             <p><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>&nbsp;&nbsp;<?php echo $data->hits ?></p>
         </div>
     </div>
@@ -35,4 +34,26 @@ content = <?php echo($data->content) ?><br>
         level: 3
     };
     var map = new kakao.maps.Map(container, options);
+    $(function(){
+        var like_bool = <?php echo $like_bool?>;
+        if(like_bool)
+            $("#heart").attr('class', 'fas fa-heart');
+        $("#toggle_like").click(function(){
+        $.ajax({
+            url:'/index/toggle_like?id=<?php echo $data->id?>',
+            success:function(data){
+                if(like_bool){
+                    like_bool = 0;
+                    $("#heart").attr('class', 'far fa-heart');
+                    $("#heart_num").html(Number($("#heart_num").html()) - 1);
+                }
+                else{
+                    like_bool = 1;
+                    $("#heart").attr('class', 'fas fa-heart');
+                    $("#heart_num").html(Number($("#heart_num").html()) + 1);
+                }
+            }
+        })
+    })
+    });
 </script>

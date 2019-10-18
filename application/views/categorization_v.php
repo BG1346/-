@@ -1,7 +1,5 @@
 <div id="container">
 <div id="subcontainer">
-<br>
-<!-- <center><a href="/index/categorize_page">모두 보기</a></center> -->
 <ul>
 <br>
 	<div id="categorization_category_list">
@@ -19,11 +17,9 @@
 </body>
 
 <script>
-	console.log('dfkljs');
 $(function(){
 	// spot들 리스트. 
 	var categorization_spot = <?php echo json_encode($spot_list); ?>;
-
 	// 스팟들 뷰에 추가하기
 	for(var i=0 ; i<categorization_spot.length ; i++){
 			$("#categorization_spot_list").append('<div class="categorization_spot_iter"><div id="card_item1"><a href="/index/spot_view?id='+categorization_spot[i].id+'"><img src="/image/'+categorization_spot[i].imagepath+'"></a></div><div id="card_item2"><a href="/index/spot_view?id='+categorization_spot[i].id+'">'+categorization_spot[i].title+'</a></div><div id="card_item3">'+categorization_spot[i].hits+'</div><div id="card_item4">'+categorization_spot[i].desc+'</div></div>');

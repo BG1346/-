@@ -27,7 +27,7 @@
 			<option value="title">제목</option>
 			<option value="content">내용</option>
 		</select>
-		<input type="text" name="s_word" id="q" onkeypress="board_search_enter(document.q);"/>
+		<input type="text" name="s_word"/>
 		<input type="button" id="search_btn" value="검색"/>
     </form>
 </div>

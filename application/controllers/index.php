@@ -10,6 +10,7 @@ class Index extends CI_Controller {
 		$this->load->model('Spot_m');
 	}
 	public function index(){
+		// die($this->input->ip_address());
 		$this->load->view('navbar_v');
 		$this->load->view('mainJumbo_v');
 		$this->categorization();
@@ -64,13 +65,30 @@ class Index extends CI_Controller {
 		$this->load->view('categorization_v', $data);
 	}
 	
+	public function check_if_i_like(){
+		$table = 'LIKE';
+		$id = '';
+		$ip = $this->input->ip_address();
+		if(isset($_GET['id']))	$id = $_GET['id'];
+		$result = $this->Spot_m->check($table, $id, $ip);
+		if($result == null)
+			return 0;
+		return $result;
+	}
+	public function toggle_like(){
+		$table = 'LIKE';
+		$id = '';
+		$ip = $this->input->ip_address();
+		if(isset($_GET['id']))	$id = $_GET['id'];
+		$result = $this->Spot_m->toggle_like($table, $id, $ip);
+	}
 	public function spot_view(){
 		$id = $_GET['id'];
 		$table = 'spot';
 		$data['data'] = $this->Spot_m->get_view($table, $id);
+		$data['like_bool'] = $this->check_if_i_like();
 		$this->load->view('navbar_v', $data);
 		$this->load->view('spot_view_v', $data);
-        // $this->load->view('view_v', $data);
 	}
 
     public function _remap($method)
