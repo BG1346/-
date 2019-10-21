@@ -11,7 +11,7 @@ class Spot_m extends CI_Model
 	* category : 카테고리(attraction, stay, food, cafe)
 	* subcategory : 하위 카테고리(hotel, guesthouse, beach 등)
 	*/ 
-    function get_list($table='spot', $type='', $offset='', $limit='', $s_word='', $category='', $subcategory='')
+    function get_list($table='spot', $type='', $offset='', $limit='', $s_word='', $category='', $subcategory='', $pred='', $pred_column='')
     {
 		// category word
 		$catword='';
@@ -37,10 +37,19 @@ class Spot_m extends CI_Model
      	{
      		//페이징이 있을 경우의 처리
      		$limit_query = ' LIMIT '.$offset.', '.$limit;
-		 }
-		 
+		}
 
-		$sql = "SELECT * FROM ".$table.$sword.$catword.$limit_query;
+		// 정렬 쿼리
+		$pred_query = '';
+		if(isset($_GET['pred']))	$pred = $_GET['pred'];
+		if(isset($_GET['pred_column']))	$pred_column = $_GET['pred_column'];
+		if($pred != '' && $pred_column != ''){
+			$pred_query = " ORDER BY `".$pred_column."` ".$pred;
+		}
+		
+
+		$sql = "SELECT * FROM ".$table.$sword.$catword.$limit_query.$pred_query;
+		// echo ($sql);
 		$query = $this->db->query($sql);
 		$result = $query->result();
 		return $result;
@@ -48,9 +57,14 @@ class Spot_m extends CI_Model
 
     function get_view($table, $id)		
     {	
-    	//조회수 증가
-		$sql0 = "UPDATE ".$table." SET hits=hits+1 WHERE id=".$id;
-   		$this->db->query($sql0);
+		//조회수 증가
+		if(!isset($this->session->userdata['spot_'.$id])){
+			$sql0 = "UPDATE ".$table." SET hits=hits+1 WHERE id=".$id;
+		   	$this->db->query($sql0);
+			$this->session->set_userdata('spot_'.$id, TRUE);
+		}
+
+		
 
     	$sql = "SELECT * FROM ".$table." WHERE id=".$id;
    		$query = $this->db->query($sql);
@@ -84,14 +98,18 @@ class Spot_m extends CI_Model
 		$sql = "SELECT `like` FROM `".$table."` WHERE ip = '".$ip."' AND spot_id =".$id;
 		$query = $this->db->query($sql);
 		if($query->result() == null){
-			$sql_t = "INSERT INTO `LIKE`(spot_id, ip) VALUES($id, '$ip')"; 
-			$query = $this->db->query($sql_t);
+			return null;	
 		}
 		$query = $this->db->query($sql);
 		return $query->row()->like;
 	}
 	function toggle_like($table, $id, $ip){
 		$check = $this->check($table, $id, $ip);
+		if($check == null){
+			$sql_t = "INSERT INTO `LIKE`(spot_id, ip) VALUES($id, '$ip')"; 
+			$query = $this->db->query($sql_t);
+			$check = 0;
+		}
 		$private_like = 1 - $check;
 		$spot_like = $check ? -1 : 1;
 		$sql = "UPDATE spot set `like` = `like` + ".$spot_like." WHERE id = ".$id;

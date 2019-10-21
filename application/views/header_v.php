@@ -23,6 +23,22 @@ button {
 #list_x, #list_y {
     display : none;
 }
+#map_overlay{
+    width : 150px;
+    height : 200px;
+    border : 1px solid black;
+    background-color : white;
+    border-radius : 10px;
+}
+#overlay_image_wrapper {
+    width: auto;
+    height : 50%;
+}
+#overlay_image{
+    width : 100%;
+    height : 100%;
+    border-radius : 10px 10px 0 0;
+}
 #map_wrapper{
     margin : auto;
     width : 80%;
@@ -100,14 +116,14 @@ button {
     padding: 3px;
     margin : 3px;
 }
-.categorization_spot_iter {
+.categorization_spot_iter {2
     width : 250px;
     height : 240px;
     float : left;
     display : grid;
     grid-template-columns: 25% 25% 25% 25%;
     margin : 20px;
-    box-shadow : 10px 15px 5px 5px #BBBBBB;
+    box-shadow : 1px 1px 0.5px 0.5px rgba(134, 134, 134, 35);
     border-radius : 10px;
     border : 1px solid black;
 }	
@@ -118,7 +134,7 @@ button {
     display : grid;
     grid-template-columns: 50% 50%;
     margin : 20px;
-    box-shadow : 10px 15px 5px 5px #BBBBBB;
+    /* box-shadow : 10px 15px 5px 5px #BBBBBB; */
     border-radius : 10px;
     border : 2px solid black;
 }
@@ -129,7 +145,7 @@ button {
     #card_item1{
         overflow : hidden;
         grid-column: 1 / 5;
-        border-radius : 10px;
+        border-radius : 10px 10px 0 0;
     }
     #card_item1 h1 {
         text-align : center;

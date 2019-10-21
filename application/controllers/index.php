@@ -46,8 +46,10 @@ class Index extends CI_Controller {
 		if(isset($_GET['category']))	$category = $_GET['category'];
 		if(isset($_GET['subcategory']))	$subcategory = $_GET['subcategory'];
 		$data['spot_list'] = $this->Spot_m->get_list($table, '', '', '', '', $category, $subcategory);
-		$data['category_list'] = $this->Spot_m->get_list('category', '', '', '', '', '', $subcategory);
-		$data['subcategory_list'] = $this->Spot_m->get_list('SUBCATEGORY', '', '', '', '', $category, '');
+		// $data['category_list'] = $this->Spot_m->get_list('category', '', '', '', '', '', $subcategory);
+		// $data['subcategory_list'] = $this->Spot_m->get_list('SUBCATEGORY', '', '', '', '', $category, '');
+		$data['category_list'] = $this->Spot_m->get_category($table);
+		$data['subcategory_list'] = $this->Spot_m->get_subcategory('SUBCATEGORY', $category);
 		$this->load->view('categorization_v', $data);
 	}
 	
@@ -74,6 +76,7 @@ class Index extends CI_Controller {
 			return 0;
 		return $result;
 	}
+	// 사용자가 좋아요 버튼을 눌렀을 때 
 	public function toggle_like(){
 		$table = 'LIKE';
 		$id = '';
@@ -81,6 +84,7 @@ class Index extends CI_Controller {
 		if(isset($_GET['id']))	$id = $_GET['id'];
 		$result = $this->Spot_m->toggle_like($table, $id, $ip);
 	}
+	// 게시글을 눌렀을 때 상세보기를 보여주는 페이지
 	public function spot_view(){
 		$id = $_GET['id'];
 		$table = 'spot';
