@@ -59,7 +59,7 @@
     '   </a>'+
     '      <p id="overlay_title"></p>'+
     '       <p id="overlay_like"></p>'+
-    '      <button onclick="closeOverlay()">닫기</button>'+
+    '      <button onclick="closeOverlay()" id="overlay_button">닫기</button>'+
     '       </div>'+
     '</div>';
 
@@ -107,13 +107,18 @@
 
 
         //overlay
-        $("#overlay_title").text(entity.title);
-        $("#overlay_like").text(entity.like);
-        $("#overlay_image").attr('src', '/image/'+entity.imagepath);
-        $("#overlay_link").attr('href', '/index/spot_view?id='+entity.id);
-        customOverlay.setPosition(latLngToMove);
-        if(customOverlay.getMap() == null)
-            customOverlay.setMap(map);
+        function vvv(){
+            $("#overlay_title").text(entity.title);
+            $("#overlay_like").text(entity.like);
+            $("#overlay_image").attr('src', '/image/'+entity.imagepath);
+            $("#overlay_link").attr('href', '/index/spot_view?id='+entity.id);
+        };
+        vvv(function(){
+            customOverlay.setPosition(latLngToMove);
+            if(customOverlay.getMap() == null)
+                customOverlay.setMap(map);
+        });    
+        
     });
     function closeOverlay(event){
         customOverlay.setMap(null);
