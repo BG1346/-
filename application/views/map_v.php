@@ -170,6 +170,7 @@
         marker.setMap(map);
 
         //overlay
+<<<<<<< HEAD
         customOverlay.setPosition(latLngToMove);
         if(customOverlay.getMap() == null)
             customOverlay.setMap(map);
@@ -177,6 +178,20 @@
         $("#overlay_like").text(entity.like);
         $("#overlay_image").attr('src', '/image/'+entity.imagepath);
         $(".overlay_link").attr('href', '/index/spot_view?id='+entity.id);
+=======
+        function vvv(){
+            $("#overlay_title").text(entity.title);
+            $("#overlay_like").text(entity.like);
+            $("#overlay_image").attr('src', '/image/'+entity.imagepath);
+            $("#overlay_link").attr('href', '/index/spot_view?id='+entity.id);
+        };
+        vvv(function(){
+            customOverlay.setPosition(latLngToMove);
+            if(customOverlay.getMap() == null)
+                customOverlay.setMap(map);
+        });    
+        
+>>>>>>> 3eda35bc18e33b072cf291c71cd9b6fc0f511e84
     });
     function closeOverlay(event){
         customOverlay.setMap(null);
