@@ -40,7 +40,7 @@ class Spot_m extends CI_Model
 		}
 
 		// 정렬 쿼리
-		$pred_query = '';
+		$pred_query = ' ORDER BY RAND()';
 		if(isset($_GET['pred']))	$pred = $_GET['pred'];
 		if(isset($_GET['pred_column']))	$pred_column = $_GET['pred_column'];
 		if($pred != '' && $pred_column != ''){

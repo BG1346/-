@@ -14,30 +14,48 @@
 button {
     padding : 10px;
 }
-#course_card{
-    display : inline-block;
-    width : 400px;
-    height : 500px;
-    border : 1px solid blue;
-}
 #list_x, #list_y {
     display : none;
 }
 #map_overlay{
-    width : 150px;
-    height : 200px;
+    display : grid;
+    grid-template-columns: 50% 50%;
+    width : 250px;
+    height : 100px;
     border : 1px solid black;
     background-color : white;
     border-radius : 10px;
+    /* opacity : 3; */
+    z-index : 2;
+    margin-bottom : 10px;
+}
+#overlay_pin_background {
+    z-index : 1;
+    /* display : none; */
+    position : absolute;
+    left : -25px;
+    
 }
 #overlay_image_wrapper {
-    width: auto;
-    height : 50%;
+    margin : 6px 6px 6px 6px;
+    height : 86px;
+    /* border : 1px solid red; */
 }
 #overlay_image{
     width : 100%;
     height : 100%;
-    border-radius : 10px 10px 0 0;
+    /* height : 50px; */
+    border-radius : 10px;
+    border : 1px solid gray;
+}
+#overlay_two{
+    text-align : center;
+    padding : 6px;
+    overflow : scroll;
+    z-index : 2;
+}
+#overlay_one{
+    z-index : 2;
 }
 #map_wrapper{
     margin : auto;
@@ -147,6 +165,7 @@ button {
         grid-column: 1 / 5;
         border-radius : 10px 10px 0 0;
     }
+
     #card_item1 h1 {
         text-align : center;
         margin-top : 100px;
@@ -158,10 +177,6 @@ button {
     #card_item3, #card_item4 {
         float : right;
     }
-    #card_item5{
-        grid-column: 1 / 5;
-        text-align : center;
-    }
 
 a, a:link, a:visited {
     text-decoration : none; 
@@ -172,7 +187,7 @@ a, a:link, a:visited {
 	width: 100%;
     height : 91%;
 	position: relative;
-    background-color : gray;
+    /* background-color : black; */
     overflow : hidden;
 }
 .jb-wrap img {
@@ -188,7 +203,7 @@ a, a:link, a:visited {
 	top: 50%;
 	left: 50%;
 	transform: translate( -50%, -50% );
-    color : white;
+    color : black;
     font-size : 2em;
 }
 .jb-text #title {
@@ -197,7 +212,7 @@ a, a:link, a:visited {
 }
 .jb-text a {
     text-decoration : none;
-    color : white !important;
+    /* color : white !important; */
 }
 ul{
 	text-align : center;

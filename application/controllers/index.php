@@ -12,8 +12,8 @@ class Index extends CI_Controller {
 	public function index(){
 		$this->load->view('navbar_v');
 		$this->load->view('mainJumbo_v');
-		$this->categorization();
-		$this->map();
+		// $this->categorization();
+		// $this->map();
 	}
 	public function map_page(){
 		$this->load->view('navbar_v');
@@ -25,12 +25,16 @@ class Index extends CI_Controller {
 		$subcategory = '';
 
 		if(isset($_GET['table']))	$table = $_GET['table'];
-		if(isset($_GET['category']))	$table = $_GET['category'];
-		if(isset($_GET['subcategory']))	$table = $_GET['subcategory'];
+		// if(isset($_GET['category_list']))	$table = $_GET['category'];
+		// if(isset($_GET['subcategory_list']))	$table = $_GET['subcategory'];
+		if(isset($_GET['category']))	$category = $_GET['category'];
+		if(isset($_GET['subcategory']))	$subcategory = $_GET['subcategory'];
 
 		$data['list'] = $this->Spot_m->get_list($table, '', '', '', '', $category, $subcategory);
-		$data['category'] = $this->Spot_m->get_category($table);
-		$data['subcategory'] = $this->Spot_m->get_subcategory('SUBCATEGORY', $category);
+		// $data['category'] = $this->Spot_m->get_category($table);
+		// $data['subcategory'] = $this->Spot_m->get_subcategory('SUBCATEGORY', $category);
+		$data['category_list'] = $this->Spot_m->get_category($table);
+		$data['subcategory_list'] = $this->Spot_m->get_subcategory('SUBCATEGORY', $category);
 		$this->load->view('map_v', $data);
 	}
 	public function categorize_page(){
@@ -46,8 +50,6 @@ class Index extends CI_Controller {
 		if(isset($_GET['category']))	$category = $_GET['category'];
 		if(isset($_GET['subcategory']))	$subcategory = $_GET['subcategory'];
 		$data['spot_list'] = $this->Spot_m->get_list($table, '', '', '', '', $category, $subcategory);
-		// $data['category_list'] = $this->Spot_m->get_list('category', '', '', '', '', '', $subcategory);
-		// $data['subcategory_list'] = $this->Spot_m->get_list('SUBCATEGORY', '', '', '', '', $category, '');
 		$data['category_list'] = $this->Spot_m->get_category($table);
 		$data['subcategory_list'] = $this->Spot_m->get_subcategory('SUBCATEGORY', $category);
 		$this->load->view('categorization_v', $data);
