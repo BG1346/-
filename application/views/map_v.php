@@ -4,8 +4,8 @@
 <br>
 <br>
 <br>
-<button onclick="all_marker_show()">모든 마커 보기</button>
-<button onclick="location.replace('/index/map_page')">모든 관광지 보기</button>
+<!-- <button onclick="all_marker_show()">모든 마커 보기</button>
+<button onclick="location.replace('/index/map_page')">모든 관광지 보기</button> -->
 <ul>
 <br>
 	<div id="categorization_category_list">
@@ -29,6 +29,11 @@
 		var categorization_subcategory  = <?php echo json_encode($subcategory_list); ?>;
 			
 		// 카테고리 뷰에 추가하기 
+        $("#categorization_category_list").append(
+                '<li class="categorization_category_iter">'+
+                '   <a href="/index/map_page">all</a>'+
+                '</li>'
+            );
 		for(var i = 0 ; i<categorization_category.length ; i++){
 			$("#categorization_category_list").append(
                 '<li class="categorization_category_iter">'+
@@ -124,9 +129,25 @@
     var markerlist = [];
     for(var i=0; i<list.length; i++){
         $("#item1").append(
-        '<div class="spot_iter" id="list_id_'+i+'">'+list[i].title
-            // +' <span class="category_button"><a href="/index/map?category='+list[i].category+'"></a>'+list[i].category+'</a> | '+list[i].subcategory+'</span>'
+        '<div class="spot_iter" id="list_id_'+i+'">'
+            +'<div class="spot_iter_left">'
+                +'<div class="spot_iter_left_wrapper">'
+                +'<p class="spot_iter_title">'
+                    +list[i].title + '&nbsp;&nbsp;&nbsp;'
+                    +'<span class="spot_iter_category">'
+                    +list[i].category
+                    +'</span>'
+                +'</p>'
+                +'</div>'
+                +'<div>'
+                    +'<img src="/image/heart_pin.png">&nbsp;'+list[i].like
+                +'</div>'
             +'</div>'
+            // +' <span class="category_button"><a href="/index/map?category='+list[i].category+'"></a>'+list[i].category+'</a> | '+list[i].subcategory+'</span>'
+            +'<div class="spot_iter_image_wrapper">'
+                +'<img src="/image/'+list[i].imagepath+'">'
+            +'</div>'
+        +'</div>'
         );
         var curMarker = new kakao.maps.Marker({ 
             position: new kakao.maps.LatLng(list[i].y, list[i].x),
@@ -170,43 +191,25 @@
         marker.setMap(map);
 
         //overlay
-<<<<<<< HEAD
         customOverlay.setPosition(latLngToMove);
         if(customOverlay.getMap() == null)
             customOverlay.setMap(map);
         $("#overlay_title").text(entity.title);
-        $("#overlay_like").text(entity.like);
+        $("#overlay_like").html('<img src="/image/heart_pin.png">&nbsp;'+entity.like);
         $("#overlay_image").attr('src', '/image/'+entity.imagepath);
         $(".overlay_link").attr('href', '/index/spot_view?id='+entity.id);
-=======
-        function vvv(){
-            $("#overlay_title").text(entity.title);
-            $("#overlay_like").text(entity.like);
-            $("#overlay_image").attr('src', '/image/'+entity.imagepath);
-            $("#overlay_link").attr('href', '/index/spot_view?id='+entity.id);
-        };
-        vvv(function(){
-            customOverlay.setPosition(latLngToMove);
-            if(customOverlay.getMap() == null)
-                customOverlay.setMap(map);
-        });    
-        
->>>>>>> 3eda35bc18e33b072cf291c71cd9b6fc0f511e84
     });
     function closeOverlay(event){
         customOverlay.setMap(null);
     };
-    function all_marker_show(){
-        for(var i = 0 ; i < markerlist.length ; ++i){
-            markerlist[i].setMap(map);
-        }
-        customOverlay.setMap(null);
-        initMarker = false;
-    }
+    // function all_marker_show(){
+    //     for(var i = 0 ; i < markerlist.length ; ++i){
+    //         markerlist[i].setMap(map);
+    //     }
+    //     customOverlay.setMap(null);
+    //     initMarker = false;
+    // }
 </script>
 
 <style>
-    .spot_iter {
-        border : 1px solid black;
-    }
 </style>
