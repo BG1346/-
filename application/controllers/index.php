@@ -10,7 +10,9 @@ class Index extends CI_Controller {
 		$this->load->model('Spot_m');
 	}
 	public function index(){
-		$this->load->view('navbar_v');
+		// $this->load->view('navbar_v');
+		// $this->load->view('categorize_page');
+		// $this->categorize_page();
 		$this->load->view('mainJumbo_v');
 		// $this->categorization();
 		// $this->map();
@@ -105,7 +107,9 @@ class Index extends CI_Controller {
            $this->{"{$method}"}();
        }
 
-    //    푸터 include
-       $this->load->view('footer_v');
+	//    푸터 include
+		if($method != 'index'){
+		$this->load->view('footer_v');
+		}
    }
 }

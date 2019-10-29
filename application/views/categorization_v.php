@@ -1,26 +1,37 @@
-<ul>
-<p id="t1"></p>
-<p id="t2"></p>
-<br>
-	<div id="categorization_category_list">
+<div class="container">
+<p id="scroll1" ></p>
+<p id="scroll2" ></p>
+<p id="scroll3" ></p>
+<p id="scroll4" ></p>
+<div id="categorization_category_list_wrapper">
+	<div></div>
+	<div>
+		<ul class="nav nav-justified dropdown" id="categorization_category_list"></ul>
 	</div>
-</ul>
-<ul>
-	<div id="categorization_subcategory_list"></div>
-</ul>
+	<div></div>
+</div>
+<div id="categorization_subcategory_list_wrapper">
+	<div></div>
+	<div>
+		<ul class="nav nav-justified" id="categorization_subcategory_list"></ul>
+	</div>
+	<div></div>
+</div>
 <br>
-<div class="btn-group" role="group" aria-label="aa2" id="categorization_nav">
-	<button type="button" class="btn btn-default categorization_iter" value="random" onclick="sort_category($(this)[0].value)">랜덤순</button>
-	<button type="button" class="btn btn-default categorization_iter" value="latest_date" onclick="sort_category($(this)[0].value)">최신순</button>
-	<button type="button" class="btn btn-default categorization_iter" value="oldest_date" onclick="sort_category($(this)[0].value)">오래된순</button>
-	<button type="button" class="btn btn-default categorization_iter" value="ASC_alphabet" onclick="sort_category($(this)[0].value)">가나다순</button>
-	<button type="button" class="btn btn-default categorization_iter" value="DESC_like" onclick="sort_category($(this)[0].value)">좋아요수</button>
-	<button type="button" class="btn btn-default categorization_iter" value="DESC_hits" onclick="sort_category($(this)[0].value)">조회수</button>
+<div class="row">
+	<div class="btn-group" role="group" aria-label="aa2" id="categorization_nav">
+		<button type="button" class="btn btn-default categorization_iter" value="random" onclick="sort_category($(this)[0].value)">랜덤순</button>
+		<button type="button" class="btn btn-default categorization_iter" value="latest_date" onclick="sort_category($(this)[0].value)">최신순</button>
+		<button type="button" class="btn btn-default categorization_iter" value="oldest_date" onclick="sort_category($(this)[0].value)">오래된순</button>
+		<button type="button" class="btn btn-default categorization_iter" value="ASC_alphabet" onclick="sort_category($(this)[0].value)">가나다순</button>
+		<button type="button" class="btn btn-default categorization_iter" value="DESC_like" onclick="sort_category($(this)[0].value)">좋아요수</button>
+		<button type="button" class="btn btn-default categorization_iter" value="DESC_hits" onclick="sort_category($(this)[0].value)">조회수</button>
+	</div>
 </div>
 <br>
 <div id="categorization_spot_list"></div>
 <div id="categorization_spot_more"></div>
-
+</div>
 <script>
 	console.log(window.innerWidth);
 function sort_category(opt){
@@ -55,17 +66,17 @@ $(function(){
 	for(var i=0 ; i<cur_iter ; i++){
 		$("#categorization_spot_list").append(
 			'<div class="categorization_spot_iter">'+
-			'<div id="card_item1">'+
-			'	<a href="/index/spot_view?id='+categorization_spot[i].id+'">'+
-			'	<img id="card_item1_img" src="/image/'+categorization_spot[i].imagepath+'"></a>'+
-			'</div>'+
-			'<div id="card_item2">'+
-			'	<a href="/index/spot_view?id='+categorization_spot[i].id+'">'+categorization_spot[i].title+'</a>'+
-			'</div>'+
-			'<div id="card_item3"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>&nbsp;'+categorization_spot[i].hits+'</div>'+
-			'<div id="card_item4">'+
-			'	<i id="heart" class="fas fa-heart"></i>&nbsp;'+categorization_spot[i].like+
-			'</div>'+
+			'	<div id="card_item1">'+
+			'		<a href="/index/spot_view?id='+categorization_spot[i].id+'">'+
+			'		<img id="card_item1_img" src="/image/'+categorization_spot[i].imagepath+'"></a>'+
+			'	</div>'+
+			'	<div id="card_item2">'+
+			'		<a href="/index/spot_view?id='+categorization_spot[i].id+'">'+categorization_spot[i].title+'</a>'+
+			'	</div>'+
+			'	<div id="card_item3"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>&nbsp;'+categorization_spot[i].hits+'</div>'+
+			'	<div id="card_item4">'+
+			'		<i id="heart" class="fas fa-heart"></i>&nbsp;'+categorization_spot[i].like+
+			'	</div>'+
 			'</div>'
 		);
 	}
@@ -114,9 +125,14 @@ $(function(){
 		var categorization_subcategory  = <?php echo json_encode($subcategory_list); ?>;
 			
 		// 카테고리 뷰에 추가하기 
+		$("#categorization_category_list").append('<li class="categorization_category_iter"><a href="/index/categorize_page">all</a></li>');
 		for(var i = 0 ; i<categorization_category.length ; i++){
 			$("#categorization_category_list").append('<li class="categorization_category_iter"><a href="/index/categorize_page?category='+categorization_category[i].category+'">'+categorization_category[i].category+"</a></li>");
 		}
+
+		// for(var i = 0 ; i<categorization_category.length ; i++){
+		// 	$("#categorization_category_list2").append('<li class="categorization_category_iter"><a href="/index/categorize_page?category='+categorization_category[i].category+'">'+categorization_category[i].category+"</a></li>");
+		// }
 
 
 		// 서브카테고리 뷰에 추가하기 
@@ -126,5 +142,24 @@ $(function(){
 				}
 		<?php } ?>
 	<?php } ?>
-});
+
+		// $(window).scroll(function(){
+        //     let $window = $(this);
+		// 	$("#scroll1").text(window);
+        //     let scrollTop = $window.scrollTop();
+		// 	$("#scroll2").text(scrollTop);
+		// 	console.log(scrollTop);
+        //     let windowHeight = $window.height();
+		// 	$("#scroll3").text(windowHeight);
+        //     let documentHeight = $(document).height();
+		// 	$("#scroll4").text(documentHeight);
+            
+        //     // console.log("documentHeight:" + documentHeight + " | scrollTop:" + scrollTop + " | windowHeight: " + windowHeight );
+            
+        //     // // scrollbar의 thumb가 바닥 전 30px까지 도달 하면 리스트를 가져온다.
+        //     // if( scrollTop + windowHeight + 30 > documentHeight ){
+        //     //     fetchList();
+        //     // }
+        // })
+	});
 </script>

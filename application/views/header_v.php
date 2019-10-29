@@ -1,3 +1,4 @@
+
 <head>
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -13,6 +14,18 @@
         margin : 0px;  
         padding : 0px;
         font-family : NanumBarunGothic ; san-serif;
+    }
+    ul{
+        text-align : center;
+    }
+    li {
+        list-style-type : none;
+        display : inline-block;
+        margin : 0 30px 0 30px;
+    }
+    li a{
+        color : #DDDDDD;
+        text-decoration : none;
     }
     #list_x, #list_y {
         display : none;
@@ -135,7 +148,6 @@
             /* -webkit-filter: grayscale(0%);
             filter: none; */
         }
-
     #sangsangfont{
         font-family : SangSangFlowerRoad;
         font-size : 3em;
@@ -158,7 +170,7 @@
     }
     #mark{
         font-family : SangSangFlowerRoad;
-        margin-left : 10px;
+        /* margin-left : 10px; */
         position : absolute;
         font-size : 2em;
     }
@@ -177,6 +189,10 @@
     }
     #nav_ul{
         margin-top :10px;
+    }
+    #nav_row{
+        display : grid;
+        grid-template-columns : 25% 50% 25%;
     }
     #categorization_nav *{
         margin : auto;
@@ -204,6 +220,14 @@
         border-radius : 10px;
         border : 1px solid black;
     }	
+    #categorization_category_list_wrapper{
+        display : grid;
+        grid-template-columns : 33% 33% 33%;
+    }
+    #categorization_subcategory_list_wrapper{
+        display : grid;
+        grid-template-columns : 25% 50% 25%;
+    }
     .categorization_spot_iter_end {
         width : 250px;
         height : 240px;
@@ -236,7 +260,6 @@
             grid-column: 1 / 5;
             border-radius : 10px 10px 0 0;
         }
-
         #card_item1 h1 {
             text-align : center;
             margin-top : 100px;
@@ -248,12 +271,10 @@
         #card_item3, #card_item4 {
             float : right;
         }
-
     a, a:link, a:visited {
         text-decoration : none; 
         color : black;
     }
-
     .jb-wrap {
         width: 100%;
         position: relative;
@@ -287,32 +308,23 @@
         /* color : white !important; */
     }
     .main_jb{
-        height : 500px;
+        height : 100%;
     }
-    .main_jb #title {
-        width : 100%;
-        padding: 5px 10px;
-        text-align: center;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate( -50%, -50% );
-        font-size : 2em;
-        font-family : SangSangFlowerRoad;
-        font-size : 3em;
-    }
-    ul{
-        text-align : center;
-    }
-    li {
-        list-style-type : none;
-        display : inline-block;
-        margin : 0 30px 0 30px;
-    }
-    li a{
-        color : #DDDDDD;
-        text-decoration : none;
-    }
+        #main_jb_wrapper{
+            position : relative;
+            top : 50%;
+            transform: translate( 0 , -50%);
+        }
+        .main_jb_text {
+            text-align : center;
+            padding-bottom : 10%;
+        }
+        .main_jb_text #title{
+            font-family : SangSangFlowerRoad;
+            font-size : 3em;
+        }
+        #main_jb_ul {
+        }
     #subName #subName:visited #subName:link{ 
         color : #DDDDDD;
     }
@@ -327,4 +339,3 @@
 
 </head>
 <body>
-<div class="container">

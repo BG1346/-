@@ -1,20 +1,18 @@
 <div id="map_container">
 </div>
-</ul>
-<br>
-<br>
-<br>
-<!-- <button onclick="all_marker_show()">모든 마커 보기</button>
-<button onclick="location.replace('/index/map_page')">모든 관광지 보기</button> -->
-<ul>
-<br>
-	<div id="categorization_category_list">
-	</div>
-</ul>
-<ul>
-	<div id="categorization_subcategory_list"></div>
-</ul>
-<br>
+<div id="categorization_category_list_wrapper">
+    <div></div>
+    <div>
+        <ul class="nav nav-justified" id="categorization_category_list"></ul>
+    </div>
+    <div></div>
+</div>
+<div id="categorization_category_list_wrapper">
+	<div></div>
+	<div>
+        <ul class="nav nav-justified" id="categorization_subcategory_list"></ul>
+    </div>
+</div>
 <div id="map_wrapper">
     <div id="item1">
     </div>
