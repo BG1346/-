@@ -10,6 +10,7 @@
 </head>
 <style>
 @media screen and (min-width: 1024px) {
+/*
     * {
         margin : 0px;  
         padding : 0px;
@@ -47,13 +48,13 @@
         border : 1px solid black;
         background-color : white;
         border-radius : 10px;
-        /* opacity : 3; */
+        opacity : 3;
         z-index : 2;
         margin-bottom : 10px;
     }
     #overlay_pin_background {
         z-index : 1;
-        /* display : none; */
+        display : none;
         position : absolute;
         left : -25px;
         
@@ -61,12 +62,12 @@
     #overlay_image_wrapper {
         margin : 6px 6px 6px 6px;
         height : 86px;
-        /* border : 1px solid red; */
+        border : 1px solid red;
     }
     #overlay_image{
         width : 100%;
         height : 100%;
-        /* height : 50px; */
+        height : 50px;
         border-radius : 10px;
         border : 1px solid gray;
     }
@@ -128,7 +129,6 @@
         .spot_iter_category{
             font-size : 0.7em;
             text-align : right;
-            /* float : right; */
         }
         .spot_iter_image_wrapper{
             width : 100%;
@@ -136,17 +136,10 @@
             padding : 2px;
         }
         .spot_iter_image_wrapper img{
-            /* margin : 10px; */
             width : 100%;
             height : 100%;
             border-radius : 0 10px 10px 0;
-            /* -webkit-filter: grayscale(100%);
-            filter: gray; */
             border : 1px solid gray;
-        }
-        .spot_iter_image_wrapper img:hover{
-            /* -webkit-filter: grayscale(0%);
-            filter: none; */
         }
     #sangsangfont{
         font-family : SangSangFlowerRoad;
@@ -170,7 +163,6 @@
     }
     #mark{
         font-family : SangSangFlowerRoad;
-        /* margin-left : 10px; */
         position : absolute;
         font-size : 2em;
     }
@@ -186,23 +178,6 @@
         background-size : cover;
         width : 100%;
         display : inline-block;
-    }
-    #nav_ul{
-        margin-top :10px;
-    }
-    #nav_row{
-        display : grid;
-        grid-template-columns : 25% 50% 25%;
-    }
-    #categorization_nav *{
-        margin : auto;
-        /* text-align : auto; */
-        /* margin-left : 30px; */
-        /* margin : auto; */
-        /* padding : auto; */
-        border : 1px solid black;
-        /* display : inline-block; */
-        /* margin : auto; */
     }
     #categorization_subcontainer{
         width : 100%;
@@ -232,18 +207,13 @@
         width : 250px;
         height : 240px;
         float : left;
-        /* display : grid;  */
         margin : 20px;
-        /* box-shadow : 10px 15px 5px 5px #BBBBBB; */
-        /* border-radius : 10px; */
-        /* border : 2px solid black; */
     }
     #innerCircle{
         margin-left : 50px;
         margin-top : 48px;
         width : 150px;
         height : 144px;
-        /* border : 2px solid black; */
         text-align : center;
         border-radius : 100px;
     }
@@ -273,7 +243,6 @@
         }
     a, a:link, a:visited {
         text-decoration : none; 
-        color : black;
     }
     .jb-wrap {
         width: 100%;
@@ -305,28 +274,14 @@
     }
     .jb-text a {
         text-decoration : none;
-        /* color : white !important; */
     }
-    .main_jb{
-        height : 100%;
-    }
-        #main_jb_wrapper{
-            position : relative;
-            top : 50%;
-            transform: translate( 0 , -50%);
-        }
-        .main_jb_text {
-            text-align : center;
-            padding-bottom : 10%;
-        }
-        .main_jb_text #title{
-            font-family : SangSangFlowerRoad;
-            font-size : 3em;
-        }
-        #main_jb_ul {
-        }
     #subName #subName:visited #subName:link{ 
         color : #DDDDDD;
+    }
+*/
+    .categorization_spot_iter img {
+        width : 250px;
+        height : 200px;
     }
 }
 @font-face { 

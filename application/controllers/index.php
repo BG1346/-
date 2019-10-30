@@ -10,7 +10,7 @@ class Index extends CI_Controller {
 		$this->load->model('Spot_m');
 	}
 	public function index(){
-		// $this->load->view('navbar_v');
+		// $this->load->view('navBar_v');
 		// $this->load->view('categorize_page');
 		// $this->categorize_page();
 		$this->load->view('mainJumbo_v');
@@ -18,7 +18,7 @@ class Index extends CI_Controller {
 		// $this->map();
 	}
 	public function map_page(){
-		$this->load->view('navbar_v');
+		$this->load->view('navBar_v');
 		$this->map();
 	}
 	public function map(){
@@ -40,7 +40,7 @@ class Index extends CI_Controller {
 		$this->load->view('map_v', $data);
 	}
 	public function categorize_page(){
-		$this->load->view('navbar_v');
+		$this->load->view('navBar_v');
 		$this->categorization();
 	}
 	public function categorization(){
@@ -66,7 +66,7 @@ class Index extends CI_Controller {
 		if(isset($_GET['table']))	$table = $_GET['table'];
 		if(isset($_GET['s_word']))	$s_word = $_GET['s_word'];
 		$data['spot_list'] = $this->Spot_m->get_list($table, '', '', '', $s_word, $category, $subcategory);
-		$this->load->view('navbar_v');
+		$this->load->view('navBar_v');
 		$this->load->view('categorization_v', $data);
 	}
 	
@@ -94,7 +94,7 @@ class Index extends CI_Controller {
 		$table = 'spot';
 		$data['data'] = $this->Spot_m->get_view($table, $id);
 		$data['like_bool'] = $this->check_if_i_like();
-		$this->load->view('navbar_v', $data);
+		$this->load->view('navBar_v', $data);
 		$this->load->view('spot_view_v', $data);
 	}
     public function _remap($method)

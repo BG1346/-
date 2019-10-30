@@ -1,41 +1,34 @@
-<script>
-	$(document).ready(function(){
-		$("#search_btn").click(function(){
-			if($("#q").val() == ''){
-				alert('검색어를 입력해주세요.');
-				return false;
-			}
-			else {
-				$("#search").submit();
-			}
-		});
-	});
-	function search(){
-		location.replace("/index/categorize_page?s_word="+$("#s_word").val());
-	}
-</script>
-	
-
-	<div id="nav_row">
-		<!-- <div></div><div></div> -->
-		<div id="mark_wrapper">
-			<a id="mark" href="/">
-				강릉관광요람
-			</a>
+<head>
+	<link rel="stylesheet" type="text/css" href="/css/navBar_v.css">
+	<script type="text/javascript" src="/js/navBar_v.js"></script>
+</head>
+<div id="nav_row_wrapper">
+	<div id="main_jb_wrapper">
+		<div id="main_jb_text">
+			<a href="/" id="title">강릉<br>관광<br>요람</a>
 		</div>
 		<div>
-			<ul class="nav nav-justified">
-				<li><a href="/index/categorize_page">관광지 분류</a></li>
-				<li><a href="/index/map_page">지도로 보기</a></li>
-				<li><a href="/index/categorize_page">코스</a></li>
+			<ul id="main_jb_ul">
+				<li><a href="">About</a></li>
+				<li class="delimeter">|</li>
+				<li><a href="/index/categorize_page">Spotlist</a></li>
+				<li class="delimeter">|</li>
+				<li><a href="/index/map_page">map</a></li>
+				<!-- <li><a href="/index/categoriza_page">코스</a></li> -->
 			</ul>
 		</div>
-		<div>
-			<div class="input-group">
-				<input type="text" class="form-control" placeholder="Search for..." id="s_word">
-				<span class="input-group-btn">
-					<button class="btn btn-default" type="button" onclick="search()">검색</button>
-				</span>
-			</div>
+	</div>
+
+	<div id="nav_row">
+		<div id="search_bar_wrapper">
+			<input type="text" placeholder="Search for..." id="s_word">
+			<button type="button" onclick="search()">검색</button>
 		</div>
 	</div>
+
+	<div id="nav_row_img_wrapper">
+		<img src="/image/header.png">
+	</div>
+	
+	
+</div>
