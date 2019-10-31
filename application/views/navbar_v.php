@@ -1,6 +1,7 @@
 <head>
-	<link rel="stylesheet" type="text/css" href="/css/navBar_v.css">
-	<script type="text/javascript" src="/js/navBar_v.js"></script>
+	<link rel="stylesheet" type="text/css" href="/css/navBar.css">
+	<!-- <script type="text/javascript" src="/js/navBar_v.js"></script> -->
+	<script src="/js/navBar.js"></script>
 </head>
 <div id="nav_row_wrapper">
 	<div id="main_jb_wrapper">
@@ -19,10 +20,12 @@
 		</div>
 	</div>
 
-	<div id="nav_row">
+	<div id="search_wrapper">
 		<div id="search_bar_wrapper">
-			<input type="text" placeholder="Search for..." id="s_word">
-			<button type="button" onclick="search()">검색</button>
+			<input type="text" id="s_word">
+			&nbsp;<button type="button" onclick="search()" id="search_btn">
+				<img src="/image/btn_search.png">
+			</button>
 		</div>
 	</div>
 

@@ -172,18 +172,6 @@
     .subcategory_button {
         float : right;
     }
-    #categorization_container{
-        padding : 3px;
-        background-repeat : no-repeat;
-        background-size : cover;
-        width : 100%;
-        display : inline-block;
-    }
-    #categorization_subcontainer{
-        width : 100%;
-        padding: 3px;
-        margin : 3px;
-    }
     .categorization_spot_iter {
         width : 242px;
         height : 240px;
@@ -278,11 +266,10 @@
     #subName #subName:visited #subName:link{ 
         color : #DDDDDD;
     }
-*/
     .categorization_spot_iter img {
         width : 250px;
         height : 200px;
-    }
+    } */
 }
 @font-face { 
     font-family: 'SangSangFlowerRoad'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_three@1.0/SangSangFlowerRoad.woff') format('woff'); font-weight: normal; font-style: normal; 

@@ -1,31 +1,4 @@
-<head>
-	<link rel="stylesheet" type="text/css" href="/css/categorization2.css">
-</head>
-<div class="container">
-<p id="category_name">Spotlist</p>
-<div id="categorization_category_list_wrapper">
-	<div></div>
-	<div>
-		<ul class="nav nav-justified dropdown" id="categorization_category_list"></ul>
-	</div>
-	<div></div>
-</div>
-<div id="categorization_subcategory_list_wrapper">
-	<div></div>
-	<div>
-		<ul class="nav nav-justified" id="categorization_subcategory_list"></ul>
-	</div>
-	<div></div>
-</div>
-<br>
-<div id="categorization_spot_list"></div>
-<div id="categorization_spot_more"></div>
-</div>
-<script>
-	var categorization_category = <?php echo json_encode($category_list); ?>;
-	var categorization_subcategory  = <?php echo json_encode($subcategory_list); ?>;
-	
-	function sort_category(opt){
+function sort_category(opt){
 	var url = '/index/categorize_page?'
 	if(opt == 'latest_date')	url += 'pred=ASC&pred_column=id&selected_pred=latest_date';
 	else if(opt == 'oldest_date')	url += 'pred=DESC&pred_column=id&selected_pred=oldest_date';
@@ -39,36 +12,6 @@
 }
 
 $(function(){
-	// 카테고리 추가 문
-	<?php if(isset($category_list)){ ?>
-		var categorization_category = <?php echo json_encode($category_list); ?>;
-		var categorization_subcategory  = <?php echo json_encode($subcategory_list); ?>;
-			
-		// 카테고리 뷰에 추가하기 
-		$("#categorization_category_list").append('<li class="categorization_category_iter"><a href="/index/categorize_page">all</a></li>');
-		for(var i = 0 ; i<categorization_category.length ; i++){
-			$("#categorization_category_list").append('<li class="categorization_category_iter"><a href="/index/categorize_page?category='+categorization_category[i].category+'">'+categorization_category[i].category+"</a></li>");
-		}
-
-		// 서브카테고리 뷰에 추가하기 
-		<?php if(isset($_GET['category'])){ ?>
-				for(var i=0 ; i<categorization_subcategory.length; i++){
-					$("#categorization_subcategory_list").append('<li class="categorization_subcategory_iter"><a href="/index/categorize_page?category=<?php echo $_GET['category'];?>&subcategory='+categorization_subcategory[i].subcategory+'">'+categorization_subcategory[i].subcategory+'</li>');
-				}
-		<?php } ?>
-	<?php } ?>
-
-	<?php if(isset($_GET['category'])){?>
-		console.log('if');
-		// $(".categorization_category_iter").addClass('category_selected');
-		// console.log($(".categorization_category_iter"));
-		// console.log($("#categorization_category_list"));
-		$(".categorization_category_iter").addClass("category_selected");
-		// $(".categorization_category_iter").hide();
-	<?}else{?>
-		console.log('else');
-	<? }?>
-
 	<?php if(isset($_GET['selected_pred'])){ ?>
 		$(".categorization_iter[value='<?php echo $_GET['selected_pred'] ?>'").addClass('active');
 	<?php } else{?>
@@ -76,12 +19,11 @@ $(function(){
 	<?php } ?>
 	// spot들 리스트. 
 	var categorization_spot = <?php echo json_encode($spot_list); ?>;
-	// console.log($_GET["spot_list"]);
 	// 스팟들 뷰에 추가하기
 	
 	iter_for_row = $(".container").width();
 	iter_for_row = parseInt(iter_for_row/240);
-	cur_iter = iter_for_row*2;
+	cur_iter = iter_for_row*2-1;
 	if(cur_iter > categorization_spot.length){
 		cur_iter = categorization_spot.length;
 	}
@@ -141,7 +83,29 @@ $(function(){
 
 	
 
-	
+	// 카테고리 추가 문
+	<?php if(isset($category_list)){ ?>
+		var categorization_category = <?php echo json_encode($category_list); ?>;
+		var categorization_subcategory  = <?php echo json_encode($subcategory_list); ?>;
+			
+		// 카테고리 뷰에 추가하기 
+		$("#categorization_category_list").append('<li class="categorization_category_iter"><a href="/index/categorize_page">all</a></li>');
+		for(var i = 0 ; i<categorization_category.length ; i++){
+			$("#categorization_category_list").append('<li class="categorization_category_iter"><a href="/index/categorize_page?category='+categorization_category[i].category+'">'+categorization_category[i].category+"</a></li>");
+		}
+
+		// for(var i = 0 ; i<categorization_category.length ; i++){
+		// 	$("#categorization_category_list2").append('<li class="categorization_category_iter"><a href="/index/categorize_page?category='+categorization_category[i].category+'">'+categorization_category[i].category+"</a></li>");
+		// }
+
+
+		// 서브카테고리 뷰에 추가하기 
+		<?php if(isset($_GET['category'])){ ?>
+				for(var i=0 ; i<categorization_subcategory.length; i++){
+					$("#categorization_subcategory_list").append('<li class="categorization_subcategory_iter"><a href="/index/categorize_page?category=<?php echo $_GET['category'];?>&subcategory='+categorization_subcategory[i].subcategory+'">'+categorization_subcategory[i].subcategory+'</li>');
+				}
+		<?php } ?>
+	<?php } ?>
 
 		// $(window).scroll(function(){
         //     let $window = $(this);
@@ -162,10 +126,3 @@ $(function(){
         //     // }
         // })
 	});
-	function getParameterByName(name) {
-		name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-		var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-			results = regex.exec(location.search);
-		return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-	}
-</script>
