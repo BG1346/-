@@ -13,8 +13,9 @@ class Spot_m extends CI_Model
 	*/ 
     function get_list($table='spot', $type='', $offset='', $limit='', $s_word='', $category='', $subcategory='', $pred='', $pred_column='')
     {
+		
 		// category word
-		$catword='';
+		$catword = '';
 		if($category != ''){
 			$catword = ' AND category = \''.$category.'\''; 
 			if($subcategory != ''){
@@ -48,9 +49,17 @@ class Spot_m extends CI_Model
 		}
 		
 
-		$sql = "SELECT * FROM ".$table.$sword.$catword.$limit_query.$pred_query;
+		// $sql = "SELECT * FROM ".$table.$sword.$catword.$limit_query.$pred_query;
+		$sql = "SELECT * FROM ".$table.$sword.$catword.$limit_query;
 		// echo ($sql);
 		$query = $this->db->query($sql);
+		if ( $type == 'count' )
+     	{               
+     		//리스트를 반환하는 것이 아니라 전체 게시물의 갯수를 반환
+			$result = $query->num_rows();
+			return $result;
+	    	// $this->db->count_all($table);
+     	}
 		$result = $query->result();
 		return $result;
     }

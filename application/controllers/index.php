@@ -8,14 +8,19 @@ class Index extends CI_Controller {
 		parent::__construct();
 		$this->load->database();
 		$this->load->model('Spot_m');
+		$this->load->library('pagination');
 	}
 	public function index(){
-		// $this->load->view('navBar_v');
-		// $this->load->view('categorize_page');
-		// $this->categorize_page();
 		$this->load->view('mainJumbo_v');
-		// $this->categorization();
-		// $this->map();
+	}
+	public function check_if_i_like($id = ''){
+		$table = 'LIKE';
+		$ip = $this->input->ip_address();
+		if(isset($_GET['id']))	$id = $_GET['id'];
+		$result = $this->Spot_m->check($table, $id, $ip);
+		if($result == null)
+			return 0;
+		return $result;
 	}
 	public function map_page(){
 		$this->load->view('navBar_v');
@@ -32,11 +37,43 @@ class Index extends CI_Controller {
 		if(isset($_GET['category']))	$category = $_GET['category'];
 		if(isset($_GET['subcategory']))	$subcategory = $_GET['subcategory'];
 
-		$data['list'] = $this->Spot_m->get_list($table, '', '', '', '', $category, $subcategory);
-		// $data['category'] = $this->Spot_m->get_category($table);
-		// $data['subcategory'] = $this->Spot_m->get_subcategory('SUBCATEGORY', $category);
+		
+
+
+		$uri_segment = 3;
+		$page_url = '';
+		$config['base_url'] = '/index/map_page/';
+		// $config['base_url'] = 'http://localhost/index.php/test/page/';
+		// $config['total_rows'] = 200;
+		$config['total_rows'] = $this->Spot_m->get_list('spot', 'count', '', '', '', $category, $subcategory); //게시물의 전체 갯수
+		$config['per_page'] = 6;
+		$config['uri_segment'] = $uri_segment;
+
+		$this->pagination->initialize($config);
+		$data['pagination'] = $this->pagination->create_links();
+
+
+		
+		$page = $this->uri->segment($uri_segment, 1);
+		if ( $page > 1 )
+		{
+			$start = (($page/$config['per_page'])) * $config['per_page'];
+		}
+		else
+		{
+			$start = ($page-1) * $config['per_page'];
+		}
+
+		$limit = $config['per_page'];
+
+
+		$data['list'] = $this->Spot_m->get_list($table, '', $start, $limit, '', $category, $subcategory);
 		$data['category_list'] = $this->Spot_m->get_category($table);
 		$data['subcategory_list'] = $this->Spot_m->get_subcategory('SUBCATEGORY', $category);
+
+
+
+		// echo $this->pagination->create_links();
 		$this->load->view('map_v', $data);
 	}
 	public function categorize_page(){
@@ -51,9 +88,20 @@ class Index extends CI_Controller {
 		if(isset($_GET['table']))	$table = $_GET['table'];
 		if(isset($_GET['category']))	$category = $_GET['category'];
 		if(isset($_GET['subcategory']))	$subcategory = $_GET['subcategory'];
+
+		// echo $data['list'].length;
+		
+
 		$data['spot_list'] = $this->Spot_m->get_list($table, '', '', '', '', $category, $subcategory);
 		$data['category_list'] = $this->Spot_m->get_category($table);
 		$data['subcategory_list'] = $this->Spot_m->get_subcategory('SUBCATEGORY', $category);
+	
+		$like_list = array();
+		for($i=0 ; $i<count($data['spot_list']) ; $i++){
+			
+			$like_list[$data['spot_list'][$i]->id] = $this->check_if_i_like($data['spot_list'][$i]->id);
+		}
+		$data['like_list'] = $like_list;
 		$this->load->view('categorization_v', $data);
 	}
 	
@@ -70,16 +118,7 @@ class Index extends CI_Controller {
 		$this->load->view('categorization_v', $data);
 	}
 	
-	public function check_if_i_like(){
-		$table = 'LIKE';
-		$id = '';
-		$ip = $this->input->ip_address();
-		if(isset($_GET['id']))	$id = $_GET['id'];
-		$result = $this->Spot_m->check($table, $id, $ip);
-		if($result == null)
-			return 0;
-		return $result;
-	}
+	
 	// 사용자가 좋아요 버튼을 눌렀을 때 
 	public function toggle_like(){
 		$table = 'LIKE';

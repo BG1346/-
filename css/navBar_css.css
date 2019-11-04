@@ -1,9 +1,9 @@
-#main_jb_ul{
+#nav_jb_ul{
     text-align : center;
     margin : 0px;
     padding : 0px;
 }
-#main_jb_ul li {
+#nav_jb_ul li {
     list-style-type : none;
     display : inline-block;
     margin : 0px;
@@ -28,14 +28,14 @@
 }
 
 
-#main_jb_wrapper{
+#nav_jb_wrapper{
     position : absolute;
     top : 60px;
     left : 50%;
     transform: translate( -50%, 0 );
     width : 100%;
 }
-    #main_jb_text {
+    #nav_jb_text {
         text-align : center;
         padding-bottom : 60px;
         text-align: center;
@@ -46,13 +46,13 @@
             line-height : 40px;
             font-family : SangSangFlowerRoad;
         }
-#main_jb_ul {
+#nav_jb_ul {
     font-size : 14px;
     line-height : 16px;
     font-family : NanumBarunGothic;
     letter-spacing: 0;
 }
-    #main_jb_ul li{
+    #nav_jb_ul li{
         padding : 0 10px 0 10px;
     }
 #search_wrapper{
@@ -66,6 +66,8 @@
         border-bottom : 1px solid #FFFFFF;
     }
     #search_btn{
+        position : absolute;
+        top : 2px;
         padding: 0;
         background : none;
         border : none;

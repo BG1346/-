@@ -1,24 +1,119 @@
-<div id="map_container">
-</div>
-<div id="categorization_category_list_wrapper">
-    <div></div>
-    <div>
-        <ul class="nav nav-justified" id="categorization_category_list"></ul>
-    </div>
-    <div></div>
-</div>
-<div id="categorization_category_list_wrapper">
-	<div></div>
-	<div>
-        <ul class="nav nav-justified" id="categorization_subcategory_list"></ul>
-    </div>
-</div>
-<div id="map_wrapper">
-    <div id="item1">
-    </div>
-    <div id="item2">
-        <div id="right_map">
+
+
+<head>
+    <link rel="stylesheet" type="text/css" href="/css/map_css.css">
+    <style>
+    #map_category_name {
+        padding-top : 40px;
+        text-align: center;
+        font-size : 18px;
+        line-height : 20px;
+        color : #AAAAAA;
+        font-family : NanumBarunGothic;
+    }
+    #map_category_list_wrapper{
+        display : grid;
+        grid-template-columns : 33% 33% 33%;
+    }
+    #map_category_list_wrapper * {
+        color : #AAAAAA;
+    }
+    img { 
+        width : 100px;
+        height : 100px;
+    }
+    #map_table{
+        /* border : solid black; */
+    }
+    #map_tr{
+        /* padding : 20px;
+        margin : 20px; */
+        /* border : 3px solid green; */
+    }
+    .spot_iter{
+        padding : 15px;
+        /* margin : 20px; */
+    }
+    .map_table_i_1{
+        /* font: Regular 16px/19px */
+        font-size : 16px;
+        line-height : 19px;
+        
+    }
+    .map_table_i_2{
+        /* display : inline; */
+        /* float  :left; */
+        color: #AAAAAA;
+        /* padding : 20px;
+        margin : 20px; */
+    }
+    #map_container{
+        margin-top : 50px;
+        display : grid;
+        grid-template-columns : 30% 70%;
+        height : 80%;
+    }
+    
+    #map_list{
+        border : 1px solid green;
+        overflow : scroll;
+    }
+    #kakao_map{
+        border : 1px solid red;
+    }
+    #pagination_list{
+        padding : 20px;
+        text-align : center;
+    }
+    
+    </style>
+</head>
+<div class="container">
+    <p id="map_category_name">Map</p>
+    <div id="map_category_list_wrapper">
+        <div></div>
+        <div>
+            <ul class="nav nav-justified" id="map_category_list"></ul>
         </div>
+        <div></div>
+    </div>
+<div id="map_container">
+    <div id="map_list">
+<?php
+foreach ($list as $lt)
+{
+?>
+				<div class="spot_iter">
+                    <!-- <tr id="map_tr"> -->
+                        <span class="map_table_i_1"><?php echo $lt->title ?></span>
+                        <br>
+                        <span class="map_table_i_2"><?php echo $lt->desc ?></span>
+                        <br>
+                    <!-- </tr> -->
+                </div>
+<?php
+}
+?>
+            
+                    <div id="pagination_list">
+                        <?php echo $pagination;?>
+                    </div>
+            
+    </div>
+    <div id="kakao_map">
+    </div>
+</div>
+
+
+
+
+    <div id="map_wrapper">
+        <!-- <div id="item1">
+        </div>
+        <div id="item2">
+            <div id="right_map">
+            </div>
+        </div> -->
     </div>
 </div>
 <script>
@@ -27,34 +122,34 @@
 		var categorization_subcategory  = <?php echo json_encode($subcategory_list); ?>;
 			
 		// 카테고리 뷰에 추가하기 
-        $("#categorization_category_list").append(
-                '<li class="categorization_category_iter">'+
+        $("#map_category_list").append(
+                '<li class="map_category_iter">'+
                 '   <a href="/index/map_page">all</a>'+
                 '</li>'
-            );
+        );
 		for(var i = 0 ; i<categorization_category.length ; i++){
-			$("#categorization_category_list").append(
-                '<li class="categorization_category_iter">'+
+			$("#map_category_list").append(
+                '<li class="map_category_iter">'+
                 '   <a href="/index/map_page?category='+categorization_category[i].category+'">'+categorization_category[i].category+'</a>'+
                 '</li>'
             );
 		}
 
 		// 서브카테고리 뷰에 추가하기 
-		<?php if(isset($_GET['category'])){ ?>
-				for(var i=0 ; i<categorization_subcategory.length; i++){
-						$("#categorization_subcategory_list").append(
-                        '<li class="categorization_subcategory_iter">'+
-                            '<a href="/index/map_page?category=<?php echo $_GET['category'];?>&subcategory='+categorization_subcategory[i].subcategory+'">'+
-                                categorization_subcategory[i].subcategory+
-                            '</a>'+
-                        '</li>');
-				}
-		<?php } ?>
-	<?php } ?>
+	// 	<?php if(isset($_GET['category'])){ ?>
+	// 			for(var i=0 ; i<categorization_subcategory.length; i++){
+	// 					$("#map_subcategory_list").append(
+    //                     '<li class="map_subcategory_iter">'+
+    //                         '<a href="/index/map_page?category=<?php echo $_GET['category'];?>&subcategory='+categorization_subcategory[i].subcategory+'">'+
+    //                             categorization_subcategory[i].subcategory+
+    //                         '</a>'+
+    //                     '</li>');
+	// 			}
+	// 	<?php } ?>
+	// <?php } ?>
     
     // 카카오 지도 API
-    var container = document.getElementById('right_map');
+    var container = document.getElementById('kakao_map');
     var options = {
             center : new kakao.maps.LatLng(37.76632121829326, 128.90701331720723),
             // center: new kakao.maps.LatLng(33.450701, 126.570667),
@@ -136,9 +231,6 @@
                     +list[i].category
                     +'</span>'
                 +'</p>'
-                +'</div>'
-                +'<div>'
-                    +'<img src="/image/heart_pin.png">&nbsp;'+list[i].like
                 +'</div>'
             +'</div>'
             // +' <span class="category_button"><a href="/index/map?category='+list[i].category+'"></a>'+list[i].category+'</a> | '+list[i].subcategory+'</span>'

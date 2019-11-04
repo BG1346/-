@@ -1,5 +1,5 @@
 <head>
-    <link rel="stylesheet" type="text/css" href="/css/mainJumbo_v.css">
+    <link rel="stylesheet" type="text/css" href="/css/mainJumbo.css">
 </head>
 <div id="main_jb">
     <div id="main_jb_img_wrapper">

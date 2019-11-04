@@ -1,22 +1,22 @@
-ul{
+#main_jb_ul{
     text-align : center;
     margin : 0px;
     padding : 0px;
 }
-li {
+#main_jb_ul li {
     list-style-type : none;
     display : inline-block;
     margin : 0px;
     padding : 0px;
 }
-li a{
+#main_jb_ul li a{
     color : #DDDDDD;
     text-decoration : none;
 }
-a, a:link, a:visited {
+#main_jb a, a:link, a:visited {
     text-decoration : none; 
 }
-a:hover {
+#main_jb a:hover {
     color : #FFFFFF;
 }
 #main_jb{
@@ -27,7 +27,7 @@ a:hover {
     #main_jb_img_wrapper{
         width : 100%;
         height : 100%;
-        /* overflow : hidden; */
+        overflow : hidden;
         text-align : center;
     }
     #main_jb_img img{ 
@@ -47,7 +47,7 @@ a:hover {
             letter-spacing: 0.3px;
             color: #FFFFFF;
         }
-            #title{
+            #main_jb #title{
                 font-size : 100px;
                 line-height : 100px;
                 font-family : SangSangFlowerRoad;

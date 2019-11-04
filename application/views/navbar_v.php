@@ -1,15 +1,15 @@
 <head>
-	<link rel="stylesheet" type="text/css" href="/css/navBar.css">
+	<link rel="stylesheet" type="text/css" href="/css/navBar_css.css">
 	<!-- <script type="text/javascript" src="/js/navBar_v.js"></script> -->
 	<script src="/js/navBar.js"></script>
 </head>
 <div id="nav_row_wrapper">
-	<div id="main_jb_wrapper">
-		<div id="main_jb_text">
+	<div id="nav_jb_wrapper">
+		<div id="nav_jb_text">
 			<a href="/" id="title">강릉<br>관광<br>요람</a>
 		</div>
 		<div>
-			<ul id="main_jb_ul">
+			<ul id="nav_jb_ul">
 				<li><a href="">About</a></li>
 				<li class="delimeter">|</li>
 				<li><a href="/index/categorize_page">Spotlist</a></li>
