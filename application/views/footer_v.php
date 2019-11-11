@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container footer">
     <div id="wrapper">
         <div id="space"></div>
         <div>
@@ -20,7 +20,17 @@
         margin : 100px 0 50px 0;
     }
     #credit * {
-        color : gray;
+        color : #AAAAAA;
+    }
+    #sangsangfont{
+        font-family : SangSangFlowerRoad;
+        font-size : 3em;
+        color : #AAAAAA;   
+    }
+    @media screen and (max-width: 1023px) {
+        .footer{
+            display : none;
+        };
     }
 </style>
         

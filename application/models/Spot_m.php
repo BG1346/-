@@ -106,24 +106,31 @@ class Spot_m extends CI_Model
 	function check($table, $id, $ip){
 		$sql = "SELECT `like` FROM `".$table."` WHERE ip = '".$ip."' AND spot_id =".$id;
 		$query = $this->db->query($sql);
+		// echo $sql;
+		// echo $query->result();
 		if($query->result() == null){
-			return null;	
+			$sql_t = "INSERT INTO `LIKE`(spot_id, ip) VALUES($id, '$ip')"; 
+			$query = $this->db->query($sql_t);
 		}
-		$query = $this->db->query($sql);
-		return $query->row()->like;
+		if($query->row()->like == 0){
+			// echo ('영');
+			return '0';
+		}
+		// echo('일');
+		return '1';
+		// return $query->row()->like;
 	}
 	function toggle_like($table, $id, $ip){
 		$check = $this->check($table, $id, $ip);
-		if($check == null){
-			$sql_t = "INSERT INTO `LIKE`(spot_id, ip) VALUES($id, '$ip')"; 
-			$query = $this->db->query($sql_t);
-			$check = 0;
-		}
 		$private_like = 1 - $check;
 		$spot_like = $check ? -1 : 1;
 		$sql = "UPDATE spot set `like` = `like` + ".$spot_like." WHERE id = ".$id;
 		$query = $this->db->query($sql);
 		$sql = "UPDATE `LIKE` set `like` = ".$private_like." WHERE spot_id = ".$id." AND ip = '".$ip."'";
 		$query = $this->db->query($sql);
+		if($private_like == 0)
+			return '0';
+		else
+			return '1';
 	}
 }

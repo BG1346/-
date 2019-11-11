@@ -1,7 +1,7 @@
 <head>
-	<link rel="stylesheet" type="text/css" href="/css/navBar_css.css">
-	<!-- <script type="text/javascript" src="/js/navBar_v.js"></script> -->
+	<link rel="stylesheet" type="text/css" href="/css/navBar.css">
 	<script src="/js/navBar.js"></script>
+
 </head>
 <div id="nav_row_wrapper">
 	<div id="nav_jb_wrapper">
@@ -35,3 +35,5 @@
 	
 	
 </div>
+<script>
+</script>							

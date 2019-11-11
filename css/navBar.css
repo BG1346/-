@@ -55,24 +55,39 @@
     #nav_jb_ul li{
         padding : 0 10px 0 10px;
     }
-#search_wrapper{
-    position : absolute;
-    right : 10%;
-    top : 235px;
+#s_word{
+    background : none;
+    border : none;
+    
 }
-    #s_word{
-        background : none;
-        border : none;
-        border-bottom : 1px solid #FFFFFF;
+#search_btn{
+    position : absolute;
+    top : 2px;
+    padding: 0;
+    background : none;
+    border : none;
+    outline : none;
+}
+textarea:focus, input:focus{
+    outline: none;
+}
+@media screen and (max-width: 1023px) {
+    #search_wrapper{
+        display : none;
     }
-    #search_btn{
+    /* #search_wrapper{
         position : absolute;
-        top : 2px;
-        padding: 0;
-        background : none;
-        border : none;
-        outline : none;
+        right : 8%;
+        margin-top : 10px;
+    } */
+}
+@media screen and (min-width: 1024px) {
+    #search_wrapper{
+        position : absolute;
+        right : 10%;
+        top : 235px;
     }
-    textarea:focus, input:focus{
-        outline: none;
-    }
+    #s_word{
+        border-bottom : 1px solid #FFFFFF;
+    }	
+}

@@ -1,4 +1,5 @@
 <head>
+    <link rel="stylesheet" type="text/css" href="/css/mainJumbo_m.css">
     <link rel="stylesheet" type="text/css" href="/css/mainJumbo.css">
 </head>
 <div id="main_jb">
@@ -18,7 +19,6 @@
                 <li class="main_jb_ul_li"><a href="/index/categorize_page">Spotlist</a></li>
                 <li>|</li>
                 <li class="main_jb_ul_li"><a href="/index/map_page">map</a></li>
-                <!-- <li><a href="/index/categoriza_page">코스</a></li> -->
             </ul>
         </div>
     </div>

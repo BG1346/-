@@ -1,7 +1,7 @@
 </head>
 <style>
 @media screen and (max-width: 1023px) {
-    * {
+    /* * {
         padding : 0px;
         margin : 0px;
     }
@@ -80,7 +80,7 @@
     }
     #categorization_spot_iter_end {
         float : left;
-        /* display : grid; */
+        display : grid;
     }
     .main_jb{
         height : 100%;
@@ -97,11 +97,7 @@
         .main_jb_text #title{
             font-family : SangSangFlowerRoad;
             font-size : 3em;
-        }
-        #main_jb_ul {
-            /* position: relative; */
-            /* text-align : center; */
-        }
+        } */
 }
 
 </style>

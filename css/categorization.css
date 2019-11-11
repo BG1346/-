@@ -3,13 +3,9 @@
     text-align: center;
     font-size : 18px;
     line-height : 20px;
-    color : #AAAAAA;
+    /* color : #AAAAAA; */
     font-family : NanumBarunGothic;
 }
-    #categorization_category_list_wrapper{
-        display : grid;
-        grid-template-columns : 33% 33% 33%;
-    }
     #categorization_category_list_wrapper *{
         color : #AAAAAA;
     }
@@ -53,7 +49,7 @@
         #card_item1{
             overflow : hidden;
             grid-column: 1 / 5;
-            /* border-radius : 10px 10px 0 0; */
+
             border-radius : 10px;
         }
         #card_item1 h1 {

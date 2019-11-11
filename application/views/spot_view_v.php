@@ -64,22 +64,22 @@ content = <?php echo($data->content) ?><br>
         if(like_bool)
             $("#heart").attr('class', 'fas fa-heart');
         $("#toggle_like").click(function(){
-        $.ajax({
-            url:'/index/toggle_like?id=<?php echo $data->id?>',
-            success:function(data){
-                if(like_bool){
-                    like_bool = 0;
-                    $("#heart").attr('class', 'far fa-heart');
-                    $("#heart_num").html(Number($("#heart_num").html()) - 1);
+            $.ajax({
+                url:'/index/toggle_like?id=<?php echo $data->id?>',
+                success:function(data){
+                    if(like_bool){
+                        like_bool = 0;
+                        $("#heart").attr('class', 'far fa-heart');
+                        $("#heart_num").html(Number($("#heart_num").html()) - 1);
+                    }
+                    else{
+                        like_bool = 1;
+                        $("#heart").attr('class', 'fas fa-heart');
+                        $("#heart_num").html(Number($("#heart_num").html()) + 1);
+                    }
                 }
-                else{
-                    like_bool = 1;
-                    $("#heart").attr('class', 'fas fa-heart');
-                    $("#heart_num").html(Number($("#heart_num").html()) + 1);
-                }
-            }
+            })
         })
-    })
     });
 
     // 게시글 hover
