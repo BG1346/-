@@ -108,15 +108,16 @@ class Spot_m extends CI_Model
 		$query = $this->db->query($sql);
 		if($query->result() == null){
 			$sql_t = "INSERT INTO `LIKE`(spot_id, ip) VALUES($id, '$ip')"; 
-			$query = $this->db->query($sql_t);
+			// $query = $this->db->query($sql_t);
+			$this->db->query($sql_t);
 		}
-		if($query == false){
-			return '0';
-		}
+		// if($query == false){
+		// 	return '0';
+		// }
 		if($query->row()->like == 0){
 			return '0';
 		}
-		// echo('일');
+		// // echo('일');
 		return '1';
 		// return $query->row()->like;
 	}
