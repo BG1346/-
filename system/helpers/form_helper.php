@@ -73,7 +73,10 @@ if ( ! function_exists('form_open'))
 		// If an action is not a full URL then turn it into one
 		elseif (strpos($action, '://') === FALSE)
 		{
-			$action = $CI->config->site_url($action);
+			// $action = $CI->config->site_url($action);  원본
+
+			//  private ip로 설정하지 않고 public ip를 사용하는 솔루션
+			$action = "http://".$_SERVER['HTTP_HOST'].$action;
 		}
 
 		$attributes = _attributes_to_string($attributes);

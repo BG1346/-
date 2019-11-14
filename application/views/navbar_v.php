@@ -15,7 +15,10 @@
 				<li><a href="/index/categorize_page">Spotlist</a></li>
 				<li class="delimeter">|</li>
 				<li><a href="/index/map_page">map</a></li>
-				<!-- <li><a href="/index/categoriza_page">코스</a></li> -->
+				<li class="delimeter">|</li>
+				<li><a href="/index/board_page">board</a></li>
+				<li class="delimeter">|</li>
+				<li><a href="/index/signup">signup</a></li>
 			</ul>
 		</div>
 	</div>

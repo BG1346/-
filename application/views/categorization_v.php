@@ -213,7 +213,7 @@
 		location.replace(url);
 	}
 	function list_append(start, end){
-		if(end >= categorization_spot.length){
+		if(end >= categorization_spot.length - 1){
 			end = categorization_spot.length;
 			$(".categorization_spot_iter_end").hide();
 		}
@@ -245,7 +245,7 @@
 		height_adj();
 	}
 	function list_append_for_mobile(start, end){
-		if(end >= categorization_spot.length){
+		if(end >= categorization_spot.length - 1){
 			end = categorization_spot.length;
 			$(".categorization_spot_iter_end").hide();
 		}
@@ -370,19 +370,21 @@ $(document).ready(function(){
 	if(cur_iter > categorization_spot.length){
 		cur_iter = categorization_spot.length;
 	}
+	console.log(iter_for_row);
 
 	// if($(window).width() > 1024){
+	$("#categorization_spot_more").append(
+	'<div class="categorization_spot_iter_end">'+
+			'<p>MORE</p>'+
+	'</div>'
+	);
 	if(desktop_view == 1)
 		list_append(0, cur_iter);
 	else
 		list_append_for_mobile(0, cur_iter);
 	
 
-	$("#categorization_spot_more").append(
-		'<div class="categorization_spot_iter_end">'+
-				'<p>MORE</p>'+
-		'</div>'
-	);
+	
 	
 
 	$("#categorization_spot_more").click(function(){

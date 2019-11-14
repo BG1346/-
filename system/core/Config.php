@@ -255,7 +255,6 @@ class CI_Config {
 				$base_url = $protocol.substr($base_url, strpos($base_url, '://'));
 			}
 		}
-
 		if (empty($uri))
 		{
 			return $base_url.$this->item('index_page');

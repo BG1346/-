@@ -531,8 +531,12 @@ if ( ! function_exists('redirect'))
 	 */
 	function redirect($uri = '', $method = 'auto', $code = NULL)
 	{
+
+		// echo 'uri2 : '.$uri.'<br>';
+
 		if ( ! preg_match('#^(\w+:)?//#i', $uri))
 		{
+			// echo 'no match preg<br>';
 			$uri = site_url($uri);
 		}
 
@@ -561,6 +565,8 @@ if ( ! function_exists('redirect'))
 				header('Refresh:0;url='.$uri);
 				break;
 			default:
+				// echo 'uri1 : '.$uri.'<br>';
+				// echo 'code1 : '.$code.'<br>';
 				header('Location: '.$uri, TRUE, $code);
 				break;
 		}
