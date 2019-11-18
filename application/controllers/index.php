@@ -7,20 +7,21 @@ class Index extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->database();
+
 		$this->load->model('Spot_m');
 		$this->load->model('Board_m');
-		$this->load->library('pagination');
-
-
-
-		// parent::__construct();
-		// $this->load->database();
 		$this->load->model('Auth_m');
+
+		$this->load->library('pagination');
+		$this->load->library('image_lib');
+		$this->load->library('encryption');
+		$this->load->library('form_validation');
+		$this->load->library('email');
+		
 		$this->load->helper('form');
 		$this->load->helper('alert');
 		$this->load->helper('url');
-		$this->load->library('encryption');
-		$this->load->library('form_validation');
+		
 		$this->encryption->initialize(
 			array(
 				'cipher'=> 'aes-256',
@@ -158,7 +159,54 @@ class Index extends CI_Controller {
 		if(isset($_GET['category']))	$category = $_GET['category'];
 		if(isset($_GET['subcategory']))	$subcategory = $_GET['subcategory'];
 
-		// echo $data['list'].length;
+		
+
+
+
+
+		// $config['image_library'] = 'gd2';		
+		// $config['create_thumb'] = TRUE;
+		// $config['maintain_ratio'] = TRUE;
+		// $config['thumb_marker'] = '';
+		// // $config['width'] = 75;
+		// $config['height'] = 150;
+		// $this->load->library('image_lib', $config);
+		
+		// // file list 구하기
+		// $dir = "image/";
+		// // 핸들 획득
+		// $handle  = opendir($dir);
+		// $files = array();
+		
+		// // 디렉터리에 포함된 파일을 저장한다.
+		// while (false !== ($filename = readdir($handle))) {
+		// 	if($filename == "." || $filename == "..")
+		// 		continue;
+		// 	// 파일인 경우만 목록에 추가한다.
+		// 	if(is_file($dir . "/" . $filename))
+		// 		$files[] = $filename;
+		// }
+		
+
+		// // image 썸네일화
+		// // 핸들 해제 
+		// closedir($handle);
+		
+		// // 정렬, 역순으로 정렬하려면 rsort 사용
+		// // sort($files);
+		
+		// // 파일명을 출력한다.
+		// foreach ($files as $f) {
+		// 	// echo gettype('image/'.$f);
+		// 	$config['source_image'] = 'image/'.$f;
+		// 	$config['new_image'] ='image_mobile/'.$f;
+		// 	// echo 'filename : '.$f;
+		// 	// echo $this->image_lib->display_errors();
+		// 	$this->image_lib->initialize($config);
+		// 	$this->image_lib->resize();
+		// } 
+		// $this->image_lib->clear();
+		
 		
 
 		$data['spot_list'] = $this->Spot_m->get_list($table, '', '', '', '', $category, $subcategory);
@@ -220,53 +268,89 @@ class Index extends CI_Controller {
 
 	public function signup()
 	{
+		$this->load->view('navBar_v');
 		//폼 검증할 필드와 규칙 사전 정의
 		$this->form_validation->set_rules('email', '이메일', 'required');
 		$this->form_validation->set_rules('password', '비밀번호', 'required');
-		$this->form_validation->set_rules('password', '비밀번호2', 'required');
+		$this->form_validation->set_rules('password2', '비밀번호2', 'required|matches[password]');
+		// $this->form_validation->set_rules('password', 'Password', 'required|matches[password');
+		// $this->form_validation->set_rules('passconf', 'Password Confirmation', 'required|matches[password]');
 		$this->form_validation->set_rules('nickname', '닉네임', 'required');
         
 
-		echo '<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />';
+		// echo '<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />';
 		
 		if ( $this->form_validation->run() == TRUE )
   		{
-	 		$auth_data = array(
+			$auth_data = array(
 				'email' => $this->input->post('email', TRUE),
 				'password' => $this->input->post('password', TRUE),
 				'nickname' => $this->input->post('nickname', TRUE)
-	  		);
-
-			// $result = $this->auth_m->login($auth_data);
-			$result = $this->Auth_m->signup($auth_data);
-			if ( $result )
-   			{
-   				//세션 생성
-				$newdata = array(
-                   'email'     => $result->email,
-				   'logged_in' => TRUE,
-				   'nickname' => $result->nickname
-				);
-
-				$this->session->set_userdata($newdata);
-
-  				alert('회원가입 되었습니다.', '/index');
-  				exit;
-   			}
-   			else
-   			{
-  				alert('아이디나 비밀번호를 확인해 주세요.', $this->load->view('signup_v'));
-  				exit;
-               }
+			);
+			$data['auth_data'] = $auth_data;
+			// die($_POST['email']);
+			if($this->Auth_m->same_email_detected($_POST['email'])){
+				// die('sdkfj');
+				$data['error_message']	= '중복된 이메일입니다.';
+				$this->load->view('signup_v', $data);
+			}
+	 		else{
+				$result = $this->Auth_m->signup($auth_data);
+				if ( $result ){
+					//세션 생성
+					$newdata = array(
+						'email'     => $result->email,
+						'logged_in' => TRUE,
+						'nickname' => $result->nickname
+					);
+					$this->session->set_userdata($newdata);
+					$this->load->view('certificate_v');
+				}
+				else{
+					alert('아이디나 비밀번호를 확인해 주세요.', $this->load->view('signup_v'));
+					exit;
+				}
+			}
   		}
-	else
-  		{
+		else{
 	 		//쓰기폼 view 호출
 	 		$this->load->view('signup_v');
 		}
 	}
+	public function certificate(){
+		$this->form_validation->set_rules('cert_number', '인증번호', 'required|numeric');
+		// if($this->form_validation->run() == FALSE)
+		// 	$this->load->view('certificate_v');
+
+		if($this->form_validation->run() == TRUE){
+			$input_email = $this->input->post('email', TRUE);
+			$input_nickname = $this->input->post('nickname', TRUE);
+			$input_cert_number = $this->input->post('cert_number', TRUE);
+
+			$check = $this->Auth_m->check_cert_number($input_email, $input_cert_number);
+			$data['auth_data'] = array(
+				'email' => $input_email,
+				'nickname' => $input_nickname,
+				'cert_number' => $input_cert_number
+			);
+			if($check){
+				$this->Auth_m->certificate($input_email);
+				alert('가입을 축하합니다.', '/index');
+			}
+			else{
+				$data['error_message'] = '인증번호가 맞지 않습니다.';
+				$this->load->view('certificate_v', $data);
+			}
+		}
+		else{
+			// $data['error_message'] = '입력 양식이 맞지 않습니다.';
+			$this->load->view('certificate_v');
+		}
+		
+	}
 	public function signin(){
-		$this->load->helper('alert');
+		$this->load->view('navBar_v');
+		
 
 		//폼 검증할 필드와 규칙 사전 정의
 		$this->form_validation->set_rules('email', '아이디', 'required');
@@ -397,7 +481,6 @@ class Index extends CI_Controller {
 
 	function board_write(){
 		if($this->session->userdata('logged_in') == TRUE){
-
 			//폼 검증할 필드와 규칙 사전 정의
 			$this->form_validation->set_rules('title', '제목', 'required');
 			$this->form_validation->set_rules('contents', '내용', 'required');
@@ -447,6 +530,7 @@ class Index extends CI_Controller {
 		}
 		else
 		{
+			$this->session->set_userdata('referred_from', '/index/board');
 			alert('로그인후 작성하세요', '/index/signin');
 			exit;
 		}

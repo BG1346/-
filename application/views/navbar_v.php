@@ -3,6 +3,17 @@
 	<script src="/js/navBar.js"></script>
 
 </head>
+<?php
+if(isset($this->session->userdata['logged_in']) && $this->session->userdata['logged_in'] == TRUE){
+    
+    // echo '<p>login 정보</p>'.
+    //     '<p>'.$this->session->userdata['nickname'].'</p>'.
+    //     '<p>'.$this->session->userdata['email'].'</p>';
+}
+if(isset($this->session->userdata)){
+    // print_r($this->session);
+}
+?>
 <div id="nav_row_wrapper">
 	<div id="nav_jb_wrapper">
 		<div id="nav_jb_text">

@@ -27,6 +27,7 @@ class Auth_m extends CI_Model
 		$email = $auth['email'];
 		$pw = md5($auth['password']);
 		$sql = "SELECT nickname, email FROM user WHERE email = '".$email."' AND password = '".$pw."' ";
+
    		$query = $this->db->query($sql);
 
 		if ( $query->num_rows() > 0 ){
@@ -48,30 +49,55 @@ class Auth_m extends CI_Model
 		// $un = $auth['username'];
 		// $un = openssl_encrypt($auth['username'], 'AES-256-CBC', KEY_256, 0, KEY_128);
 
-		
-        // $sql = "INSERT INTO users(username, password, email) VALUES ('".$un."', '".md5($auth['password'])."', '".$auth['email']."');";
-		$sql = "INSERT INTO user(email, password, nickname) VALUES ('".$auth['email']."', '".md5($auth['password'])."', '".$auth['nickname']."'); ";
-		// echo $sql.'<br>';
+		$cert_number = mt_rand(1000, 9999);
+		$sql = "INSERT INTO user(email, password, nickname, cert_number) VALUES ('".$auth['email']."', '".md5($auth['password'])."', '".$auth['nickname']."', ".$cert_number."); ";
 		$query = $this->db->query($sql);
 		   
-		// $sql = "SELECT username FROM users WHERE username='".$auth['username']."' AND md5(password) = '".md5($auth['password'])."'; ";
-        // $sql = "SELECT username, email FROM users WHERE username='".$un."' AND password = '".md5($auth['password'])."'; ";
 		$sql = "SELECT * FROM user WHERE email='".$auth['email']."' AND password = '".md5($auth['password'])."' AND nickname = '".$auth['nickname']."'; ";
-		// echo($sql.'<br>');
 		$query = $this->db->query($sql);
 
-		if ( $query->num_rows() > 0 )
-     	{	
-			// die($query->row());
-			//맞는 데이터가 있다면 해당 내용 반환
+		$this->email->from('test', 'mr.ang');
+		$this->email->to('bg1346@naver.com');
+
+		$this->email->subject('회원가입 인증 코드입니다.');
+		$this->email->message('code number is '.$cert_number);
+
+		$this->email->send();
+		// echo $var."<br>";
+
+		if ( $query->num_rows() > 0 ){	
+			// 맞는 데이터가 있다면 해당 내용 반환
      		return $query->row();
      	}
-     	else
-     	{
-			//  die('else');
+     	else{
      		//맞는 데이터가 없을 경우
 	    	return FALSE;
      	}
-    }
+	}
+	function certificate($email)
+    {	
+		$sql = "UPDATE user set certificated = 1 where email = '".$email."'";
+		$query = $this->db->query($sql);
+		if($query)
+			return true;
+		else 
+			return false;
+	}
+	function check_cert_number($email, $cert_number){
+		$sql = "SELECT * FROM user WHERE email='".$email."' and cert_number=".$cert_number;
+		$query = $this->db->query($sql);
+		if($query->num_rows() > 0){
+			return true;
+		}
+		return false;
+
+	}	
+	function same_email_detected($email){
+		$sql  = "SELECT * FROM user WHERE email='".$email."'";
+		$query = $this->db->query($sql);
+		if($query->num_rows() > 0)
+			return true;
+		return false;
+	}
 
 }

@@ -41,12 +41,12 @@ $(document).ready(function(){
             //     '</p>'+
             // '</div>'
             '<div style="border : 1px solid black">'+
-                board_list[i].title+'<br>'+
-                board_list[i].type+'<br>'+
-                board_list[i].contents+'<br>'+
-                board_list[i].reg_date+'<br>'+
-                board_list[i].nickname+'<br>'+
-                board_list[i].hits+'<br>'+
+                'title : ' + board_list[i].title+'<br>'+
+                'type : ' +board_list[i].type+'<br>'+
+                'contents : ' + board_list[i].contents+'<br>'+
+                'reg_data : ' + board_list[i].reg_date+'<br>'+
+                'nickname : ' + board_list[i].nickname+'<br>'+
+                'hits : ' + board_list[i].hits+'<br>'+
             '</div>'
         )
     }

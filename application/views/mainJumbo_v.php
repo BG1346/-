@@ -3,15 +3,6 @@
     <link rel="stylesheet" type="text/css" href="/css/mainJumbo.css">
 </head>
 <?php 
-if(isset($this->session->userdata['logged_in']) && $this->session->userdata['logged_in'] == TRUE){
-    
-    // echo '<p>login 정보</p>'.
-    //     '<p>'.$this->session->userdata['nickname'].'</p>'.
-    //     '<p>'.$this->session->userdata['email'].'</p>';
-}
-if(isset($this->session->userdata)){
-    print_r($this->session);
-}
 ?>
 <div id="main_jb">
     <div id="main_jb_img_wrapper">

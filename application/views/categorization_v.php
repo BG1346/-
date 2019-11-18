@@ -1,5 +1,4 @@
 <head>
-	<!-- <link rel="stylesheet" type="text/css" href="/css/categorization.css"> -->
 	<style>
 		@media screen and (min-width: 1024px) {
 		#category_name {
@@ -200,6 +199,9 @@
 	var like_list = <?php echo json_encode($like_list); ?>;
 	var desktop_view = $(window).width() >= 1024 ? 1 : 0;
 	var mobile_view = $(window).width() < 1024 ? 1 : 0;
+	console.log($(window).width());
+	console.log(desktop_view);
+	console.log(mobile_view);
 	function sort_category(opt){
 		var url = '/index/categorize_page?'
 		if(opt == 'latest_date')	url += 'pred=ASC&pred_column=id&selected_pred=latest_date';
@@ -217,6 +219,12 @@
 			end = categorization_spot.length;
 			$(".categorization_spot_iter_end").hide();
 		}
+		// var path_var;
+		// if(desktop_view)
+		// 	path_var = '/image_desktop/';
+		// if(mobile_view)
+		// 	path_var = '/image_mobile/';
+		// console.log(path_var);
 		for(var i=start ; i<end ; i++){
 			var like_context ;
 			if(like_list[categorization_spot[i].id] == 1)
@@ -228,7 +236,7 @@
 				'	<div class="categorization_spot_iter">'+
 				'		<div class="card_item1">'+
 				'			<a href="/index/spot_view?id='+categorization_spot[i].id+'">'+
-				'			<img id="card_item1_img" src="/image/'+categorization_spot[i].imagepath+'"></a>'+
+				'			<img id="card_item1_img" src="/image_desktop/'+categorization_spot[i].imagepath+'"></a>'+
 				'		</div>'+
 				'		<div id="card_item2">'+
 				'			<a href="/index/spot_view?id='+categorization_spot[i].id+'"><span class="category_spot_category">'+categorization_spot[i].category+'</span>&nbsp&nbsp'+categorization_spot[i].title+'</a>'+
@@ -252,9 +260,9 @@
 		for(var i=start ; i<end ; i++){
 			var like_context ;
 			if(like_list[categorization_spot[i].id] == 1)
-				like_context = '<img id="card_heart_btn" src="/image/btn_heart_on.png" width="10px">';
+				like_context = '<img id="card_heart_btn" src="/image_mobile/btn_heart_on.png" width="10px">';
 			else
-				like_context = '<img id="card_heart_btn" src="/image/btn_heart_off.png" width="10px">';
+				like_context = '<img id="card_heart_btn" src="/image_mobile/btn_heart_off.png" width="10px">';
 			$("#categorization_spot_list").append(
 				'<div class="categorization_spot_iter_wrapper">'+
 				'    <div class=mobile_spot_text>'+
@@ -268,7 +276,7 @@
 				'	<div class="categorization_spot_iter">'+
 				'		<div class="card_item1">'+
 				'			<a href="/index/spot_view?id='+categorization_spot[i].id+'">'+
-				'			<img class="card_item1_img" src="/image/'+categorization_spot[i].imagepath+'"></a>'+
+				'			<img class="card_item1_img" src="/image_mobile/'+categorization_spot[i].imagepath+'"></a>'+
 				'		</div>'+
 				'	</div>'+
 				'</div>'
@@ -370,7 +378,6 @@ $(document).ready(function(){
 	if(cur_iter > categorization_spot.length){
 		cur_iter = categorization_spot.length;
 	}
-	console.log(iter_for_row);
 
 	// if($(window).width() > 1024){
 	$("#categorization_spot_more").append(

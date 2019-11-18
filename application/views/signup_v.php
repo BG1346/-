@@ -3,8 +3,9 @@
 			<h1></h1>
 		</header>
 <?php
-$attributes = array('class' => 'form-horizontal', 'id' => 'auth_login');
-echo form_open('/index/signup', $attributes);
+// $attributes = array('class' => 'form-horizontal', 'id' => 'auth_login');
+// echo form_open('/index/signup', $attributes);
+echo form_open('/index/signup');
 ?>
 		  <fieldset>
 		    <legend>회원가입</legend>
@@ -37,7 +38,12 @@ echo form_open('/index/signup', $attributes);
               
 
 			  <div class="controls">
-		        <p class="help-block"><?php echo validation_errors(); ?></p>
+				<p class="help-block"><?php echo validation_errors(); ?></p>
+				<?php
+				if(isset($error_message)){
+					echo $error_message.'<br>';
+				}
+				?>
 		      </div>
 
 		      <div class="form-actions">
