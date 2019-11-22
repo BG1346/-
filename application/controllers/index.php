@@ -18,9 +18,11 @@ class Index extends CI_Controller {
 		$this->load->library('form_validation');
 		$this->load->library('email');
 		
+		
 		$this->load->helper('form');
 		$this->load->helper('alert');
 		$this->load->helper('url');
+		$this->load->helper('file');
 		
 		$this->encryption->initialize(
 			array(
@@ -35,24 +37,14 @@ class Index extends CI_Controller {
 	}
 	public function index(){
 		$this->load->view('mainJumbo_v');
+		// $string = read_file('./upload/test.png');
+		// echo 'start : '.$string.'    end<br>';
 	}
 	public function check_if_i_like($id = ''){
 		$table = 'LIKE';
 		$ip = $this->input->ip_address();
 		if(isset($_GET['id']))	$id = $_GET['id'];
 		$result = $this->Spot_m->check($table, $id, $ip);
-		// echo '<br>'.$result.'<br>';
-		// if($result == null){
-		// 	die('null2');
-		// }
-		// else if( $result == '1'){
-		// 	die('1');
-		// }
-		// else if($result == '0'){
-		// 	die('0');
-		// }
-
-		// die(gettype($result));
 		if(isset($_GET['ajax']))
 			die($result);
 		return $result;
@@ -60,6 +52,8 @@ class Index extends CI_Controller {
 	public function map_page(){
 		$this->load->view('navBar_v');
 		$this->map();
+
+		
 	}
 	public function map(){
 		$table = 'spot';
@@ -161,6 +155,8 @@ class Index extends CI_Controller {
 
 		
 
+		
+
 
 
 
@@ -233,7 +229,6 @@ class Index extends CI_Controller {
 		$this->load->view('navBar_v');
 		$this->load->view('categorization_v', $data);
 	}
-	
 	
 	// 사용자가 좋아요 버튼을 눌렀을 때 
 	public function toggle_like(){
@@ -370,6 +365,7 @@ class Index extends CI_Controller {
 				//세션 생성
 				$newdata = array(
 					// 'username'  => openssl_decrypt($result->username, 'AES-256-CBC', KEY_256, 0, KEY_128),
+					'user_id' => $result->user_id,
 					'nickname' => $result->nickname,
 					'email'     => $result->email,
 					'logged_in' => TRUE
@@ -480,6 +476,7 @@ class Index extends CI_Controller {
 	}
 
 	function board_write(){
+		$this->load->view('navBar_v');
 		if($this->session->userdata('logged_in') == TRUE){
 			//폼 검증할 필드와 규칙 사전 정의
 			$this->form_validation->set_rules('title', '제목', 'required');
@@ -496,14 +493,94 @@ class Index extends CI_Controller {
 				// else{
 				// 	$pages = 1;
 				// }
+				
+				// file upload init
+				$config['upload_path'] = './upload/';
+				$config['allowed_types'] = 'gif|jpg|png';
+				$config['max_size']	= '10000';
+				// $config['max_filename'] = '99999999';
+				// $config['max_width']  = '1024';
+				// $config['max_height']  = '768';
+				$this->load->library('upload', $config);
+
+				
+				// if user upload file, this statement would return true;
+				// $this->upload->set_filename($this->upload->set_filename()
+				// $this->upload->add_pre_name('dslkfsdfkljfasdjl');
+				$attached_file_name = '';
+				$attached_file_path = '';
+				if($this->upload->do_upload()){
+					// $path =  $this->upload->data()['file_path'];
+					// $this->upload->set_filename($path, 'asldkfjalskdfj');
+					
+					// die($this->upload->get_name());
+					// die($this->upload->data()['file_path']);
+					// die($this->upload->get_name());
+					// die($_file['name']);
+					// $this->upload->
+					// $this->upload->set_filename($this->upload->file_name);
+					
+					$data = array('upload_data' => $this->upload->data());
+					print_r($data);
+					echo'<br>';
+					// print_r($data['upload_data']['file_name']);
+					// echo '<br>';
+					// die($this->upload->get_name());
+					$attached_file_name = $data['upload_data']['file_name'];
+					$attached_file_path = '/upload/'.$attached_file_name;
+					// foreach($data['upload_data'] as $key => $value){
+					// 	echo '<p>'.$key.'   '.$value.'</p>';
+					// }
+					// die();
+				}
+				else if($this->upload->data()['file_name'] != ''){
+					alert($this->upload->display_errors(), '/index/board_write');
+				}
+				
+				
+				// else{
+				// 		echo $this->upload->display_errors();
+				// }
+				// else if($this->input->post('userfile') = ''){
+				// 	echo $this->upload->display_errors();
+				// 	die('else die');
+				// }
+				// echo 'start<br>';
+				// print_r($_POST);
+				// echo'<br>';
+				// $d = $this->upload->data();
+				// print_r($d);
+				// echo'<br>';
+				// print_r(gettype($d));
+				// echo'<br>';
+				// print_r($d['file_name']);
+				// echo'<br>';
+				// echo ($d['file_name'].'<br>');
+				// print_r($this->upload->data());
+				// print_r($this->upload->data());
+				// echo'<br>';
+				// echo ($this->input->post('userfile').'<br>');
+				// if($this->input->post('userfile')){
+					// echo'hi<br>';
+				// }
+				// else{
+					// echo'bie<br>';
+				// }
+				// echo ('title:'.$this->input->post('title').'<br>');
+				// echo 'die<br>';
+				// die();
+				
 
 				$write_data = array(
 					// 'table' => $this->uri->segment(3), //게시판 테이블명
+					'user_id' => $_SESSION['user_id'],
 					'table' => 'board',
 					'title' => $this->input->post('title', TRUE),
 					'type' => $this->input->post('type', TRUE),
 					'contents' => $this->input->post('contents', TRUE),
-					'nickname' => $this->session->userdata('nickname')
+					'nickname' => $this->session->userdata('nickname'),
+					'attached_file_name' => $attached_file_name,
+					'attached_file_path' => $attached_file_path
 				);
 
 				$result = $this->Board_m->insert_board($write_data);
@@ -535,6 +612,45 @@ class Index extends CI_Controller {
 			exit;
 		}
 	 }
+	 public function board_delete(){
+		$id_to_delete = $this->uri->segment(3);
+		$board_written_id = $this->Board_m->get_board_info($id_to_delete)->user_id;
+		if($_SESSION['user_id'] != $board_written_id){
+			alert('아이디가 달라요', '/index/board_page');
+		}
+		else{
+			$this->Board_m->board_delete($id_to_delete);
+			alert('삭제햇슴다', '/index/board_page');
+		}
+	 }
+	public function board_modify(){
+		$this->load->view('navBar_v');
+		$id_to_modify = $this->uri->segment(3);
+		$board_info = $this->Board_m->get_board_info($id_to_modify);
+		if(!isset($_SESSION['user_id']))
+			alert('로그인 해주세요', '/index/signin');
+		if($_SESSION['user_id'] != $board_info->user_id){
+			alert('아이디가 달라요', '/index/board_page');
+		}
+		else{
+			foreach($board_info as $key => $value)
+				$_POST[$key] = $value;
+			$this->load->view('board_modify_v', $board_info);
+		}
+	}
+	public function board_modify_action(){
+		$modify_data = array(
+			'table' => 'board',
+			'board_id' => $_GET['board_id'],
+			'title' => $this->input->post('title', TRUE),
+			'type' => $this->input->post('type', TRUE),
+			'contents' => $this->input->post('contents', TRUE),
+			'nickname' => $this->session->userdata('nickname'),
+			'reg_date' => date("Y-m-d H:i:s", strtotime ("+9 hours"))
+		);
+		$this->Board_m->board_modify($modify_data);
+		alert('수정되었습니다.', '/index/board_page');
+	}
 	 public function _remap($method)
     {
 		if(!isset($_GET['ajax'])){

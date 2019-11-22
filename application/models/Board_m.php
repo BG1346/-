@@ -40,16 +40,32 @@ class Board_m extends CI_Model
             // 'reg_date' => date("Y-m-d H:i:s")
 
 			// 'user_id' => openssl_decrypt($arrays['user_id'], 'AES-256-CBC', KEY_256, 0, KEY_128),
+			'user_id' => $arrays['user_id'],
 			'nickname' => $arrays['nickname'],
             'title' => $arrays['title'],
             'type' => $arrays['type'],
 			'contents' => $arrays['contents'],
-			'reg_date' => date("Y-m-d H:i:s")
+			'reg_date' => date("Y-m-d H:i:s", strtotime("+9 hours")),
+			'attached_file_name' => $arrays['attached_file_name'],
+			'attached_file_path' => $arrays['attached_file_path']
 		);
-
 		$result = $this->db->insert($arrays['table'], $insert_array);
 
 		//결과 반환
 		return $result;
- 	}
+	 }
+	 function board_delete($id){
+		$sql = "delete from board where board_id = '".$id."'";
+		$result = $this->db->query($sql);
+		return $result;
+	 }
+	function get_board_info($id){
+		$sql = "select * from board where board_id = '".$id."'";
+		$query = $this->db->query($sql);
+		return $query->row();
+	}
+	function board_modify($modify_data){
+		$sql  = "update board set title='".$modify_data['title']."', type='".$modify_data['type']."', contents='".$modify_data['contents']."', reg_date = '".$modify_data['reg_date']."' where  board_id = ".$modify_data['board_id'];
+		return $this->db->query($sql);
+	}
 }

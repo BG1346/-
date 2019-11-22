@@ -63,7 +63,8 @@ if ( ! function_exists('site_url'))
 	 */
 	function site_url($uri = '', $protocol = NULL)
 	{
-		return get_instance()->config->site_url($uri, $protocol);
+		// return get_instance()->config->site_url($uri, $protocol);
+		return 'http://'.$_SERVER['HTTP_HOST'].$uri;
 	}
 }
 
@@ -532,14 +533,14 @@ if ( ! function_exists('redirect'))
 	function redirect($uri = '', $method = 'auto', $code = NULL)
 	{
 
-		// echo 'uri2 : '.$uri.'<br>';
+		// echo '0 : '.$uri.'<br>';
 
 		if ( ! preg_match('#^(\w+:)?//#i', $uri))
 		{
 			// echo 'no match preg<br>';
 			$uri = site_url($uri);
 		}
-
+		// echo '1 : '.$uri.'<br>';
 		// IIS environment likely? Use 'refresh' for better compatibility
 		if ($method === 'auto' && isset($_SERVER['SERVER_SOFTWARE']) && strpos($_SERVER['SERVER_SOFTWARE'], 'Microsoft-IIS') !== FALSE)
 		{
@@ -558,7 +559,10 @@ if ( ! function_exists('redirect'))
 				$code = 302;
 			}
 		}
+		// echo $uri.'<br>';
+		// echo $_SERVER['HTTP_HOST'].'<br>';
 
+		// die();
 		switch ($method)
 		{
 			case 'refresh':

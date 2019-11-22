@@ -1,3 +1,9 @@
+<?php
+echo $_SERVER['HTTP_HOST'].'<br>';
+if(isset($_SESSION)){
+    print_r($_SESSION);
+}
+?>
 <head>
     <link rel="stylesheet" type="text/css" href="/css/mainJumbo_m.css">
     <link rel="stylesheet" type="text/css" href="/css/mainJumbo.css">

@@ -9,7 +9,8 @@ class Auth_m extends CI_Model
 {
     function __construct()
     {
-        parent::__construct();
+		parent::__construct();
+		$this->load->library('email');
     }
 
 	/**
@@ -26,7 +27,7 @@ class Auth_m extends CI_Model
 		// $un = openssl_encrypt($auth['username'], 'AES-256-CBC', KEY_256, 0, KEY_128);
 		$email = $auth['email'];
 		$pw = md5($auth['password']);
-		$sql = "SELECT nickname, email FROM user WHERE email = '".$email."' AND password = '".$pw."' ";
+		$sql = "SELECT nickname, email, user_id FROM user WHERE email = '".$email."' AND password = '".$pw."' ";
 
    		$query = $this->db->query($sql);
 
@@ -41,14 +42,6 @@ class Auth_m extends CI_Model
 	}
 	function signup($auth)
     {
-		// $sql = "SELECT username, email FROM users WHERE username = '".$auth['username']."' AND password = '".$auth['password']."' ";
-		// $sql = "INSERT INTO users VALUES (2, '".$auth['username']."', '".md5($auth['password'])."');";
-		// $un = $this->encryption->encrypt($auth['username']);
-		
-
-		// $un = $auth['username'];
-		// $un = openssl_encrypt($auth['username'], 'AES-256-CBC', KEY_256, 0, KEY_128);
-
 		$cert_number = mt_rand(1000, 9999);
 		$sql = "INSERT INTO user(email, password, nickname, cert_number) VALUES ('".$auth['email']."', '".md5($auth['password'])."', '".$auth['nickname']."', ".$cert_number."); ";
 		$query = $this->db->query($sql);
@@ -56,14 +49,31 @@ class Auth_m extends CI_Model
 		$sql = "SELECT * FROM user WHERE email='".$auth['email']."' AND password = '".md5($auth['password'])."' AND nickname = '".$auth['nickname']."'; ";
 		$query = $this->db->query($sql);
 
-		$this->email->from('test', 'mr.ang');
+		// $this->email->from('bg134@naver.com', 'mr.jenson');
+		$this->email->from('bg1346@naver.com', 'Your Name');
 		$this->email->to('bg1346@naver.com');
+		// $this->email->to($auth['email']);
 
 		$this->email->subject('회원가입 인증 코드입니다.');
 		$this->email->message('code number is '.$cert_number);
+		$var = $this->email->send();
+		if ($var)
+		{
+			echo '성공 '.$auth['email'].'<br>';
+			echo $this->email->print_debugger().'<br>';
+			echo '사유끝<br>';
+		}
+		else{
+			
+			echo'실패<br>';
+			echo $this->email->print_debugger().'<br>';
+			echo '사유끝<br>';
+			
+		}
 
-		$this->email->send();
-		// echo $var."<br>";
+
+
+		// $this->email->clear();
 
 		if ( $query->num_rows() > 0 ){	
 			// 맞는 데이터가 있다면 해당 내용 반환

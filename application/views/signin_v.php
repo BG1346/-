@@ -3,10 +3,10 @@
 			<h1></h1>
 		</header>
 <?php
-$attributes = array('class' => 'form-horizontal', 'id' => 'auth_login');
-echo form_open('/index/signin', $attributes);
+// $attributes = array('class' => 'form-horizontal', 'id' => 'auth_login');
+// echo form_open('/index/signin', $attributes);
 ?>
-<!-- <form action="/index/signin" method="post"> -->
+<form action="/index/signin" method="post">
 		  <fieldset>
 		    <legend>로그인</legend>
 		    <div class="control-group">

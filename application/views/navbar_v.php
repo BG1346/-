@@ -24,12 +24,16 @@ if(isset($this->session->userdata)){
 				<li><a href="">About</a></li>
 				<li class="delimeter">|</li>
 				<li><a href="/index/categorize_page">Spotlist</a></li>
-				<li class="delimeter">|</li>
+				<li cla\ss="delimeter">|</li>
 				<li><a href="/index/map_page">map</a></li>
 				<li class="delimeter">|</li>
 				<li><a href="/index/board_page">board</a></li>
 				<li class="delimeter">|</li>
 				<li><a href="/index/signup">signup</a></li>
+				<li class="delimeter">|</li>
+				<li><a href="/index/signin">signin</a></li>
+				<li class="delimeter">|</li>
+				<li><a href="/index/signout">signout</a></li>
 			</ul>
 		</div>
 	</div>

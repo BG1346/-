@@ -6,7 +6,7 @@
 		<!--<form class="form-horizontal" method="post" action="" id="write_action">-->
 <?php
 $attributes = array('class' => 'form-horizontal', 'id' => 'write_action');
-echo form_open('/index/board_write', $attributes);
+echo form_open_multipart('/index/board_write', $attributes);
 ?>
 		  <fieldset>
 		    <legend>게시물 쓰기</legend>
@@ -31,6 +31,11 @@ echo form_open('/index/board_write', $attributes);
                 <div class="controls">
                     <textarea class="input-xlarge" id="input02" name="contents" rows="5"><?php echo set_value('contents'); ?></textarea>
                     <p class="help-block">게시물의 내용을 써주세요.</p>
+                </div>
+
+                <label class="control-label" for="input02">첨부파일</label>
+                <div class="controls">
+                    <input type="file" name="userfile" size="20" value="<?php echo set_value('userfile');?>"/>
                 </div>
 
                 <div class="controls">
