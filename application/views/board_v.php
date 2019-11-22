@@ -44,8 +44,9 @@ $(document).ready(function(){
                     'reg_data : ' + board_list[i].reg_date+'<br>'+
                     'nickname : ' + board_list[i].nickname+'<br>'+
                     'hits : ' + board_list[i].hits+'<br>'+
-                    'filename : ' + board_list[i].attached_file_name+'<br>'+
-                    'fileimage : <image class="attached_image" src="'+board_list[i].attached_file_path+'"><br>'+
+                    // 'filename : ' + board_list[i].attached_file_name+'<br>'+
+                    // 'fileimage : <image class="attached_image" src="'+board_list[i].attached_file_path+'"><br>'+
+                    '<a href="'+board_list[i].attached_file_path+'">'+board_list[i].attached_file_name+'</a><br>'+
                     '<button onclick="board_modify('+board_list[i].board_id+')">수정</button>'+
                     '<button onclick="board_delete('+board_list[i].board_id+')">삭제</button>'+
                     '<a href="/index/board_modify/'+board_list[i].board_id+'"><button >수정</button></a>'+

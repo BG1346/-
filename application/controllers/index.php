@@ -496,7 +496,7 @@ class Index extends CI_Controller {
 				
 				// file upload init
 				$config['upload_path'] = './upload/';
-				$config['allowed_types'] = 'gif|jpg|png';
+				$config['allowed_types'] = 'gif|jpg|png|zip';
 				$config['max_size']	= '10000';
 				// $config['max_filename'] = '99999999';
 				// $config['max_width']  = '1024';
@@ -614,7 +614,12 @@ class Index extends CI_Controller {
 	 }
 	 public function board_delete(){
 		$id_to_delete = $this->uri->segment(3);
-		$board_written_id = $this->Board_m->get_board_info($id_to_delete)->user_id;
+		$board_data = $this->Board_m->get_board_info($id_to_delete);
+		$board_written_id = $board_data->user_id;
+		$board_file_path = $board_data->attached_file_path;
+		unlink('.'.$board_file_path);
+		
+
 		if($_SESSION['user_id'] != $board_written_id){
 			alert('아이디가 달라요', '/index/board_page');
 		}
