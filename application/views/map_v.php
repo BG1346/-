@@ -39,12 +39,18 @@
         .map_table_i_2{
             color: #AAAAAA;
         }
+        /* #map_list{
+            height : 80%;
+        } */
         #map_container{
             margin-top : 50px;
             display : grid;
             grid-template-columns : 30% 70%;
-            height : 80%;
-            max-height : 500px;
+            height : 500px;
+            
+            /* height : 1000px; */
+            /* max-height : 500px; */
+            /* border : 3px solid red; */
         }
         #pagination_div_wrapper{
             display : grid;

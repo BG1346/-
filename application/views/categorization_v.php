@@ -22,8 +22,9 @@
 				display : inline-block;
 				margin : 0 30px 0 30px;
 			}
-			.category_selected {
+			.category_selected *{
 				color : #CC7B33 !important;
+				/* border : 1px solid black; */
 			}
 		#categorization_spot_list_wrapper{
 			padding : 10px;
@@ -82,6 +83,9 @@
 				display : inline;
 				border-bottom : 1px solid #AAAAAA;
 			}
+			#loading{
+				margin : 100px auto;
+			}
 		}
 		@media screen and (max-width: 1023px) {
 			#category_name {
@@ -107,7 +111,7 @@
 			}			
 			#categorization_spot_list_wrapper{
 			display : table;
-		}
+			}
 		#categorization_spot_list{
 			display : table-cell;
 			text-align : center;
@@ -172,6 +176,30 @@
 				display : inline;
 				border-bottom : 1px solid #AAAAAA;
 			}	
+			#loading{
+				/* margin : 200px;  */
+				margin : 50px auto;
+			}
+		}
+		#loading {
+			/* display: inline-block; */
+			/* display : center; */
+			/* display : none; */
+			/* visibility : hidden; */
+			
+			width: 50px;
+			height: 50px;
+			border: 3px solid rgba(255,255,255,.3);
+			border-radius: 50%;
+			border-top-color: black;
+			animation: spin 1s ease-in-out infinite;
+			-webkit-animation: spin 1s ease-in-out infinite;
+		}
+		@keyframes spin {
+			to { -webkit-transform: rotate(360deg); }
+		}
+		@-webkit-keyframes spin {
+			to { -webkit-transform: rotate(360deg); }
 		}
 	</style>
 </head>
@@ -181,7 +209,6 @@
 <div id="categorization_category_list_wrapper">
 	<div></div>
 	<div>
-		<!-- <ul class="nav nav-justified dropdown" id="categorization_category_list"></ul> -->
 		<ul id="categorization_category_list"></ul>
 	</div>
 	<div></div>
@@ -190,7 +217,7 @@
 <div id="categorization_spot_list_wrapper">
 	<div id="categorization_spot_list"></div>
 </div>
-<div id="categorization_spot_more"></div>
+<div id="loading"></div>
 </div>
 <script>
 	var categorization_category = <?php echo json_encode($category_list); ?>;
@@ -199,9 +226,7 @@
 	var like_list = <?php echo json_encode($like_list); ?>;
 	var desktop_view = $(window).width() >= 1024 ? 1 : 0;
 	var mobile_view = $(window).width() < 1024 ? 1 : 0;
-	console.log($(window).width());
-	console.log(desktop_view);
-	console.log(mobile_view);
+	var padding_num = 0;
 	function sort_category(opt){
 		var url = '/index/categorize_page?'
 		if(opt == 'latest_date')	url += 'pred=ASC&pred_column=id&selected_pred=latest_date';
@@ -215,17 +240,14 @@
 		location.replace(url);
 	}
 	function list_append(start, end){
-		if(end >= categorization_spot.length - 1){
+		// $('#loading').show();
+		if(end >= categorization_spot.length){
 			end = categorization_spot.length;
-			$(".categorization_spot_iter_end").hide();
+			$('#loading').hide();
 		}
-		// var path_var;
-		// if(desktop_view)
-		// 	path_var = '/image_desktop/';
-		// if(mobile_view)
-		// 	path_var = '/image_mobile/';
-		// console.log(path_var);
+		// console.log(start, end);
 		for(var i=start ; i<end ; i++){
+			// console.log(i +' : ' +categorization_spot[i].title);
 			var like_context ;
 			if(like_list[categorization_spot[i].id] == 1)
 				like_context = '<img id="card_heart_btn" src="/image/btn_heart_on.png" width="10px">';
@@ -250,12 +272,32 @@
 				'</div>'
 			);
 		}
+		padding_num = iter_for_row - (end % iter_for_row);
+		if(padding_num < iter_for_row){
+			for(var i = 0; i < padding_num ; i++){
+				$("#categorization_spot_list").append(
+					'<div class="categorization_spot_iter_wrapper padding_div">'+
+					'	<div class="categorization_spot_iter">'+
+					'		<div class="card_item1">'+
+					'		</div>'+
+					'		<div id="card_item2">'+
+					'		</div>'+
+					'		<div id="card_item4"><span class="category_spot_category">'+
+					'		</div>'+
+					'	</div>'+
+					'</div>'
+				);
+			}
+		}
 		height_adj();
+		// $('#loading').hide();
 	}
 	function list_append_for_mobile(start, end){
+		// $('#loading').show();
 		if(end >= categorization_spot.length - 1){
 			end = categorization_spot.length;
-			$(".categorization_spot_iter_end").hide();
+			// $(".categorization_spot_iter_end").hide();
+			$('#loading').hide();
 		}
 		for(var i=start ; i<end ; i++){
 			var like_context ;
@@ -283,11 +325,16 @@
 			);
 		}
 		height_adj();
+		// $('#loading').hide();
 	}
 	function list_remove(start, end){
 		for(var i=end-1 ; i>= start ; i--){
 			$(".categorization_spot_iter_wrapper").eq(i).remove();
 		}
+	}
+	function list_remove_last_n(n){
+		for(var i=0 ; i<n ; i++)
+			$(".categorization_spot_iter_wrapper").eq(categorization_spot.length - 1).remove();
 	}
 	function height_adj(){
 		$(".card_item1").css('height', $(".card_item1").width());
@@ -326,6 +373,17 @@ window.onresize = function() {
 		}
 	}
 }
+$(window).scroll(function(){
+	if($(window).scrollTop() >= $(document).height() - $(window).height() - $(".footer").height() && cur_iter < categorization_spot.length){
+		$('#loading').show();
+		list_remove(padding_num);
+		padding_num = 0;
+		next_iter = cur_iter + iter_for_row*2;
+		if(desktop_view)	list_append(cur_iter, next_iter);
+		else	list_append_for_mobile(cur_iter, next_iter);
+		cur_iter = next_iter;
+	}
+})
 
 $(document).ready(function(){
 	var repeat = setInterval(() => {
@@ -341,31 +399,29 @@ $(document).ready(function(){
 		var categorization_subcategory  = <?php echo json_encode($subcategory_list); ?>;
 			
 		// 카테고리 뷰에 추가하기 
-		$("#categorization_category_list").append('<li class="categorization_category_iter"><a class="categorization_category_iter_a" href="/index/categorize_page">all</a></li>');
+		$("#categorization_category_list").append('<li class="categorization_category_iter" id="category_all"><a class="categorization_category_iter_a" href="/index/categorize_page">all</a></li>');
 		for(var i = 0 ; i<categorization_category.length ; i++){
-			$("#categorization_category_list").append('<li class="categorization_category_iter"><a class="categorization_category_iter_a" href="/index/categorize_page?category='+categorization_category[i].category+'">'+categorization_category[i].category+"</a></li>");
+			$("#categorization_category_list").append('<li class="categorization_category_iter" id="category_'+categorization_category[i].category+'"><a class="categorization_category_iter_a" href="/index/categorize_page?category='+categorization_category[i].category+'">'+categorization_category[i].category+"</a></li>");
 		}
 
 		// 서브카테고리 뷰에 추가하기 
-		<?php if(isset($_GET['category'])){ ?>
-				for(var i=0 ; i<categorization_subcategory.length; i++){
-					$("#categorization_subcategory_list").append('<li class="categorization_subcategory_iter"><a href="/index/categorize_page?category=<?php echo $_GET['category'];?>&subcategory='+categorization_subcategory[i].subcategory+'">'+categorization_subcategory[i].subcategory+'</li>');
-				}
-		<?php } ?>
+		// <?php if(isset($_GET['category'])){ ?>
+		// 		for(var i=0 ; i<categorization_subcategory.length; i++){
+		// 			$("#categorization_subcategory_list").append('<li class="categorization_subcategory_iter"><a href="/index/categorize_page?category=<?php echo $_GET['category'];?>&subcategory='+categorization_subcategory[i].subcategory+'">'+categorization_subcategory[i].subcategory+'</li>');
+		// 		}
+		// <?php } ?>
 	<?php } ?>
 			
 
 
-	<?php if(isset($_GET['selected_pred'])){ ?>
-		$(".categorization_iter[value='<?php echo $_GET['selected_pred'] ?>'").addClass('active');
+	// category_selected
+	<?php if(isset($_GET['category'])){ ?>
+		$(".categorization_category_iter[id='category_<?php echo $_GET['category'] ?>'").addClass('category_selected');
 	<?php } else{?>
-		$(".categorization_iter[value='random']").addClass('active');
+		$(".categorization_category_iter[id='category_all']").addClass('category_selected');
 	<?php } ?>
-
-	// spot들 리스트. 
 	
-	// console.log($_GET["spot_list"]);
-	// 스팟들 뷰에 추가하기
+	// set list_append config
 	if($(window).width() > 1024){
 		iter_for_row = $(".container").width();
 		iter_for_row = parseInt(iter_for_row/350);
@@ -375,37 +431,14 @@ $(document).ready(function(){
 		iter_for_row = 2;
 		cur_iter = 4;
 	}
-	if(cur_iter > categorization_spot.length){
+	if(cur_iter > categorization_spot.length)
 		cur_iter = categorization_spot.length;
-	}
 
-	// if($(window).width() > 1024){
-	$("#categorization_spot_more").append(
-	'<div class="categorization_spot_iter_end">'+
-			'<p>MORE</p>'+
-	'</div>'
-	);
+	// init first list_append
 	if(desktop_view == 1)
 		list_append(0, cur_iter);
 	else
 		list_append_for_mobile(0, cur_iter);
-	
-
-	
-	
-
-	$("#categorization_spot_more").click(function(){
-		next_iter = cur_iter + iter_for_row*2;
-		if(desktop_view)
-			list_append(cur_iter, next_iter);
-		else
-			list_append_for_mobile(cur_iter, next_iter);
-
-		cur_iter = next_iter;
-		
-	});
-
-	
 })
 
 </script>
