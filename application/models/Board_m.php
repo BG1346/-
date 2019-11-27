@@ -31,15 +31,6 @@ class Board_m extends CI_Model
     }
     function insert_board($arrays){
 		$insert_array = array(
-			// 'board_pid' => 0, //원글이라 0을 입력, 댓글일 경우 원글번호 입력
-			// // 'user_id' => $this->enc$arrays['user_id'],
-			// 'user_id' => openssl_decrypt($arrays['user_id'], 'AES-256-CBC', KEY_256, 0, KEY_128),
-			// 'user_name' => openssl_decrypt($arrays['user_id'], 'AES-256-CBC', KEY_256, 0, KEY_128),
-			// 'subject' => $arrays['subject'],
-			// 'contents' => $arrays['contents'],
-            // 'reg_date' => date("Y-m-d H:i:s")
-
-			// 'user_id' => openssl_decrypt($arrays['user_id'], 'AES-256-CBC', KEY_256, 0, KEY_128),
 			'user_id' => $arrays['user_id'],
 			'nickname' => $arrays['nickname'],
             'title' => $arrays['title'],

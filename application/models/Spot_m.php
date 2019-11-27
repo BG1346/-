@@ -129,4 +129,22 @@ class Spot_m extends CI_Model
 		else
 			return '1';
 	}
+
+	function insert_spot($arrays){
+		$insert_array = array(
+			// 'user_id' => $arrays['user_id'],
+			// 'nickname' => $arrays['nickname'],
+            // 'title' => $arrays['title'],
+            // 'type' => $arrays['type'],
+			// 'contents' => $arrays['contents'],
+			// 'reg_date' => date("Y-m-d H:i:s", strtotime("+9 hours")),
+			// 'attached_file_name' => $arrays['attached_file_name'],
+			// 'attached_file_path' => $arrays['attached_file_path']
+		);
+		// $result = $this->db->insert($arrays['table'], $insert_array);
+		$result = $this->db->insert('spot', $arrays);
+
+		//결과 반환
+		return $result;
+	 }
 }

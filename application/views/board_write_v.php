@@ -19,7 +19,7 @@ echo form_open_multipart('/index/board_write', $attributes);
                 <label class="control-label" for="input01">타입</label>
                 <div class="controls">
                     <select name="type" value="<?php echo set_value('type') ?>">
-                    <option value="일반">일반</option>
+                        <option value="일반">일반</option>
                         <option value="문의">문의</option>
                         <option value="기타">기타</option>
                     </select>

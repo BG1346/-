@@ -258,7 +258,7 @@
 				'	<div class="categorization_spot_iter">'+
 				'		<div class="card_item1">'+
 				'			<a href="/index/spot_view?id='+categorization_spot[i].id+'">'+
-				'			<img id="card_item1_img" src="/image_desktop/'+categorization_spot[i].imagepath+'"></a>'+
+				'			<img id="card_item1_img" src="/image_square_desktop/'+categorization_spot[i].imagepath+'"></a>'+
 				'		</div>'+
 				'		<div id="card_item2">'+
 				'			<a href="/index/spot_view?id='+categorization_spot[i].id+'"><span class="category_spot_category">'+categorization_spot[i].category+'</span>&nbsp&nbsp'+categorization_spot[i].title+'</a>'+
@@ -318,7 +318,7 @@
 				'	<div class="categorization_spot_iter">'+
 				'		<div class="card_item1">'+
 				'			<a href="/index/spot_view?id='+categorization_spot[i].id+'">'+
-				'			<img class="card_item1_img" src="/image_mobile/'+categorization_spot[i].imagepath+'"></a>'+
+				'			<img class="card_item1_img" src="/image_square_mobile/'+categorization_spot[i].imagepath+'"></a>'+
 				'		</div>'+
 				'	</div>'+
 				'</div>'
