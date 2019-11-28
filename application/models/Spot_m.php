@@ -147,4 +147,25 @@ class Spot_m extends CI_Model
 		//결과 반환
 		return $result;
 	 }
+	 function delete_spot($id){
+		$this->db->delete('spot', array('id'=>$id));
+	 }
+	function modify_spot($data){
+		$write_data = array(
+			'title' => $this->input->post('title', TRUE),
+			'category' => $this->input->post('category', TRUE),
+			'desc' => $this->input->post('desc', TRUE),
+			'content' => $this->input->post('contents', TRUE),
+			'addr' => $this->input->post('addr', TRUE),
+			'hours' => $this->input->post('hours', TRUE),
+			'tel1' => $this->input->post('tel1', TRUE),
+			'tel2' => $this->input->post('tel2', TRUE),
+			'x' => $this->input->post('x', TRUE),
+			'y' => $this->input->post('y', TRUE),
+			'district' => $this->input->post('district', TRUE)
+		);
+
+		$sql = "update ";
+
+	}
 }

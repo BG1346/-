@@ -25,7 +25,11 @@ class Admin extends CI_Controller {
 	}
 	public function index()
 	{
-        $this->load->view('/admin/signin_v');
+		if($this->session->userdata('email') != 'admin')
+			$this->load->view('/admin/signin_v');
+		else	$this->load->view('/admin/home_v');
+
+			
     }
     public function signin(){
 		//폼 검증할 필드와 규칙 사전 정의
@@ -104,13 +108,8 @@ class Admin extends CI_Controller {
 					// print_r($data);
 					// die();
 				}
-				else if($this->upload->data()['file_name'] != ''){
+				else if($this->upload->data()['file_name'] != '')
 					alert($this->upload->display_errors(), '/admin/spotlist_write');
-				}
-				else{
-					die('else');
-				}
-
 				$write_data = array(
 					'title' => $this->input->post('title', TRUE),
 					'category' => $this->input->post('category', TRUE),
@@ -125,11 +124,7 @@ class Admin extends CI_Controller {
 					'imagepath' => $uploaded_file_name,
 					'district' => $this->input->post('district', TRUE)
 				);
-
 				$result = $this->Spot_m->insert_spot($write_data);
-
-
-
 				$full_path = $data['upload_data']['full_path'];
 				$width = $data['upload_data']['image_width'];
 				$height = $data['upload_data']['image_height'];
@@ -150,35 +145,17 @@ class Admin extends CI_Controller {
 					exit;
 				}
 			}
-			else
-			{
+			else{
 				//쓰기폼 view 호출
 				$this->load->view('/admin/spotlist_write_v', $data);
 			}
 		}
-		else
-		{
+		else{
 			$this->session->set_userdata('referred_from', '/index/board');
 			alert('로그인후 작성하세요', '/admin/signin');
 			exit;
 		}
 	 }
-	 public function my_resize($source_path, $new_path, $wid_size, $hei_size, $width, $height){
-		$this->image_lib->clear();
-		$config['image_library'] = 'gd2';
-		$config['source_image'] = $source_path;
-		$config['new_image'] = $new_path;
-		$config['create_thumb'] = TRUE;
-		$config['maintain_ratio'] = TRUE;
-		$config['thumb_marker'] = '';
-		if($width > $height)
-			$config['height'] = $hei_size;	
-		else
-			$config['width'] = $wid_size;
-		// $this->load->library('image_lib', $config);
-		$this->image_lib->initialize($config);
-		$this->image_lib->resize();
-	}
 	 public function my_square_resize($source_path, $new_path, $size, $width, $height){
 		$this->image_lib->clear();
 		$config['image_library'] = 'gd2';
@@ -213,23 +190,95 @@ class Admin extends CI_Controller {
 		$this->image_lib->initialize($config);
 		$this->image_lib->crop();	
 	}
-	 public function board_delete(){
+	public function delete_spotlist(){
+		$id_to_delete = $this->uri->segment(3);
+		$board_data = $this->Spot_m->get_view('spot', $id_to_delete);
+		$board_written_id = $board_data->id;
+		$board_file_path = $board_data->imagepath;
+		if(is_file('./image/'.$board_file_path))	unlink('./image/'.$board_file_path);
+		if(is_file('./image_FHD/'.$board_file_path))	unlink('./image_FHD/'.$board_file_path);
+		if(is_file('./image_square_desktop/'.$board_file_path))	unlink('./image_square_desktop/'.$board_file_path);
+		if(is_file('./image_square_mobile/'.$board_file_path))	unlink('./image_square_mobile/'.$board_file_path);
+		$this->Spot_m->delete_spot($id_to_delete);
+		alert('지웠다.', '/admin/spotlist');
+	}
+	public function modify_spotlist(){
+		$id = $this->uri->segment(3, 3);
+		$spot_data = $this->Spot_m->get_view('spot', $id);
+		if($spot_data)
+			foreach($spot_data as $key => $value)
+				$_POST[$key] = $value;
+		$this->form_validation->set_rules('title', 'title', 'required');
+		$this->form_validation->set_rules('content', 'content', 'required');
+		if ( $this->form_validation->run() == TRUE ){
+			$write_data = array(
+				'id' => $this->input->post('id', TRUE),
+				'title' => $this->input->post('title', TRUE),
+				'category' => $this->input->post('category', TRUE),
+				'desc' => $this->input->post('desc', TRUE),
+				'content' => $this->input->post('content', TRUE),
+				'addr' => $this->input->post('addr', TRUE),
+				'hours' => $this->input->post('hours', TRUE),
+				'tel1' => $this->input->post('tel1', TRUE),
+				'tel2' => $this->input->post('tel2', TRUE),
+				'x' => $this->input->post('x', TRUE),
+				'y' => $this->input->post('y', TRUE),
+				'district' => $this->input->post('district', TRUE)
+			);
+			$result1 = $this->db->delete('spot', array('id' => $this->input->post('id', TRUE)));
+			$result2 = $this->db->insert('spot', $write_data);
+			if ( $result1 && $result2){
+				//글 작성 성공시 게시판 목록으로
+				alert('수정하였습니다.', '/admin/spotlist');
+			}
+			else{
+				//글 실패시 게시판 목록으로
+				alert('DB오류, 다시 입력해 주세요.', '/admin/modify_spotlist/'.$this->input->post('id', TRUE));
+			}
+		}
+		else{
+			$data['category_list'] = $this->Spot_m->get_category('spot');
+			$this->load->view('/admin/spotlist_modify_v', $data);
+		}
+	}
+	public function delete_board(){
 		$id_to_delete = $this->uri->segment(3);
 		$board_data = $this->Board_m->get_board_info($id_to_delete);
 		$board_written_id = $board_data->user_id;
 		$board_file_path = $board_data->attached_file_path;
-		unlink('.'.$board_file_path);
-		
-
-		if($_SESSION['user_id'] != $board_written_id){
-			alert('아이디가 달라요', '/index/board_page');
+		$this->Board_m->board_delete($id_to_delete);
+		if($board_file_path != '')
+			unlink('.'.$board_file_path);
+		alert('삭제햇슴다', '/index/board_page');
+	}
+	public function modify_board(){
+		// print_r($_GET);
+		// echo'<br>';
+		// print_r($_POST);
+		if(!empty($_GET)){
+			$modify_data = array(
+				'table' => 'board',
+				'board_id' => $this->input->post('board_id', TRUE),
+				'title' => $this->input->post('title', TRUE),
+				'type' => $this->input->post('type', TRUE),
+				'contents' => $this->input->post('contents', TRUE),
+				'nickname' => $this->session->userdata('nickname'),
+				'reg_date' => date("Y-m-d H:i:s", strtotime ("+9 hours"))
+			);
+			$this->Board_m->board_modify($modify_data);
+			alert('수정되었습니다.', '/admin/board');
 		}
 		else{
-			$this->Board_m->board_delete($id_to_delete);
-			alert('삭제햇슴다', '/index/board_page');
+			$id = $this->uri->segment(3, 3);
+			$board_data = $this->Board_m->get_board_info($id);
+			if($board_data)
+				foreach($board_data as $key => $value)
+					$_POST[$key] = $value;
+			$this->load->view("/admin/modify_board_v");
 		}
 	}
 	public function board(){
+		$data['board_list'] = $this->Board_m->get_list('board');
 		$this->load->view('/admin/board_v', $data);
 	}
 	public function user(){
@@ -237,14 +286,20 @@ class Admin extends CI_Controller {
 	}
 	public function _remap($method)
     {
+		
+		if($this->session->userdata('email') != 'admin' && $this->uri->segment(1) == 'admin' && $this->uri->segment(2) != 'signin'){
+			alert('미 로그인 혹은 세션완료, 다시로그인해주세요', '/admin/signin');
+			exit;
+		}
 		if(!isset($_GET['ajax'])){
 			$this->load->view('header_v');
 			$this->load->view('header_v_m');
 		}
-       if( method_exists($this, $method) )
-       {
-           $this->{"{$method}"}();
-       }
+		if( method_exists($this, $method) )
+		{
+			echo '<a href="/index/signout">signout</a><br>';
+			$this->{"{$method}"}();
+		}
 
 		if(!isset($_GET['ajax'])){
 			$this->load->view('footer_v');

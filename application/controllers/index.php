@@ -256,11 +256,6 @@ class Index extends CI_Controller {
 		$this->load->view('navBar_v', $data);
 		$this->load->view('spot_view_v', $data);
 	}
-
-
-
-    
-
 	public function signup()
 	{
 		$this->load->view('navBar_v');
@@ -613,18 +608,16 @@ class Index extends CI_Controller {
 		}
 	 }
 	 public function board_delete(){
-		$id_to_delete = $this->uri->segment(3);
-		$board_data = $this->Board_m->get_board_info($id_to_delete);
-		$board_written_id = $board_data->user_id;
-		$board_file_path = $board_data->attached_file_path;
-		unlink('.'.$board_file_path);
-		
-
 		if($_SESSION['user_id'] != $board_written_id){
 			alert('아이디가 달라요', '/index/board_page');
 		}
 		else{
+			$id_to_delete = $this->uri->segment(3);
+			$board_data = $this->Board_m->get_board_info($id_to_delete);
+			$board_written_id = $board_data->user_id;
+			$board_file_path = $board_data->attached_file_path;
 			$this->Board_m->board_delete($id_to_delete);
+			unlink('.'.$board_file_path);
 			alert('삭제햇슴다', '/index/board_page');
 		}
 	 }

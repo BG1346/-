@@ -264,8 +264,8 @@
                 '   <div></div>'+
                 '   <div id="card_item2">'+
                 '       <a href="/index/spot_view?id='+categorization_spot[i].id+'">미리보기</a>'+
-                '       <a href="/admin/modify/'+categorization_spot[i].id+'">수정</a>'+
-                '       <a href="/admin/modify/'+categorization_spot[i].id+'">삭제</a>'+
+                '       <a href="/admin/modify_spotlist/'+categorization_spot[i].id+'">수정</a>'+
+                '       <a href="/admin/delete_spotlist/'+categorization_spot[i].id+'">삭제</a>'+
                 '   </div>'+
 				'	</div>'+
 				'</div>'
