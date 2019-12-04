@@ -1,9 +1,4 @@
 <article id="board_area">
-		<header>
-			<h1></h1>
-		</header>
-
-		<!--<form class="form-horizontal" method="post" action="" id="write_action">-->
 <?php
 $attributes = array('class' => 'form-horizontal');
 echo form_open('/admin/modify_board?board_id='.$this->uri->segment(3), $attributes);
@@ -25,8 +20,6 @@ echo form_open('/admin/modify_board?board_id='.$this->uri->segment(3), $attribut
                         <option value="문의">문의</option>
                         <option value="기타">기타</option>
                     </select>
-                    <!-- <input type="text" class="input-xlarge" id="input03" name="type" value="<?php echo set_value('type'); ?>">
-                    dfkjsdlkfj<?php echo set_value('type');?>ㄹ이ㅏ널 -->
                     <p class="help-block">게시물의 타입 써주세요.</p>
                 </div>
                 <label class="control-label" for="input02">내용</label>
@@ -41,7 +34,6 @@ echo form_open('/admin/modify_board?board_id='.$this->uri->segment(3), $attribut
 
                 <div class="form-actions">
                     <button type="submit" class="btn btn-primary" id="write_btn">작성</button>
-                    <!-- <button class="btn" onclick="document.location.reload()">취소</button> -->
                 </div>
 		    </div>
 		  </fieldset>

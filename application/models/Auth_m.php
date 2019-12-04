@@ -56,24 +56,7 @@ class Auth_m extends CI_Model
 
 		$this->email->subject('회원가입 인증 코드입니다.');
 		$this->email->message('code number is '.$cert_number);
-		$var = $this->email->send();
-		if ($var)
-		{
-			echo '성공 '.$auth['email'].'<br>';
-			echo $this->email->print_debugger().'<br>';
-			echo '사유끝<br>';
-		}
-		else{
-			
-			echo'실패<br>';
-			echo $this->email->print_debugger().'<br>';
-			echo '사유끝<br>';
-			
-		}
-
-
-
-		// $this->email->clear();
+		$this->email->send();
 
 		if ( $query->num_rows() > 0 ){	
 			// 맞는 데이터가 있다면 해당 내용 반환
@@ -108,6 +91,10 @@ class Auth_m extends CI_Model
 		if($query->num_rows() > 0)
 			return true;
 		return false;
+	}
+	function get_info($id){
+		$sql = "select * from user where user_id='".$id."'";
+		return $this->db->query($sql)->row();
 	}
 
 }

@@ -150,17 +150,6 @@
         z-index : 2;
         right : 0px;
     }
-    #view_content{
-        margin : auto;
-        width : 75%;
-    } 
-    #view_content h1{
-        margin : 50px 0 50px 30px;
-    }
-    #view_map{
-        width : 400px;
-        height : 400px;
-    }
     #mark{
         font-family : SangSangFlowerRoad;
         position : absolute;
@@ -231,37 +220,6 @@
         }
     a, a:link, a:visited {
         text-decoration : none; 
-    }
-    .jb-wrap {
-        width: 100%;
-        position: relative;
-        overflow : hidden;
-    }
-    .jb-wrap img {
-        width : 100%;
-        overflow : hidden;
-        -webkit-filter: grayscale(70%);
-        -webkit-filter: brightness(50%);
-    }
-    .jb-text {
-        width : 100%;
-        padding: 5px 10px;
-        text-align: center;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate( -50%, -50% );
-        font-size : 2em;
-    }
-    .jb-text * {
-        color : white;
-    }
-    .jb-text #title {
-        font-family : SangSangFlowerRoad;
-        font-size : 3em;
-    }
-    .jb-text a {
-        text-decoration : none;
     }
     #subName #subName:visited #subName:link{ 
         color : #DDDDDD;

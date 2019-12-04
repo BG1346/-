@@ -1,0 +1,125 @@
+@media screen and (max-width: 1023px) {
+    .container { 
+        padding : 0px;
+    }
+    #map_category_name {
+            padding-top : 20px;
+            text-align: center;
+            font-size : 18px;
+            line-height : 20px;
+            color : #AAAAAA;
+            font-family : NanumBarunGothic;
+            margin : 0;
+        }
+        #map_category_list_wrapper *{
+            color : #AAAAAA;
+        }
+        #map_category_list{
+            padding : 0;
+            margin : 0;
+            text-align : center;
+        }
+        #map_category_list li {
+            list-style-type : none;
+            display : inline-block;
+            margin : 0 10px 0 10px;
+        }
+    .spot_iter {
+        display : none;
+    }			
+    #pagination_div_wrapper{
+        display : none;
+    }
+    #kakao_map{
+        width : 100%;
+        height : 60%;
+        margin-top : 20px;
+    }
+    #map_overlay{
+        display : grid;
+        grid-template-columns: 50% 50%;
+        
+        width : 250px;
+        height : 100px;
+        border : 1px solid black;
+        background-color : white;
+        border-radius : 10px;
+        opacity : 3;
+        z-index : 2;
+        /* margin-bottom : 10px; */
+
+        /* display : none; */
+        /* padding : 20px; */
+        /* border : 10px solid red; */
+        /* bottom : 300px; */
+        /* position : relative; */
+        /* position : absolute; */
+        /* left : 100%; */
+        /* top : 80%; */
+        /* height : 20%; */
+    }
+    #map_overlay{
+        position : absolute;
+        top : 100%;
+    }
+    #overlay_image_wrapper {
+        margin : 6px 6px 6px 6px;
+        height : 86px;
+    }
+    #overlay_image{
+        width : 100%;
+        height : 100%;
+        border-radius : 10px;
+        border : 1px solid gray;
+    }
+    #overlay_two{
+        text-align : center;
+        padding : 6px;
+        padding-top : 12px;
+        z-index : 2;
+    }
+    #overlay_one{
+        z-index : 2;
+    }
+    #mobile_overlay_wrapper {
+        display : none;
+        z-index : 5;
+        background-color : white;
+        width : 100%;
+        position : relative;
+    }
+        #mobile_overlay{
+            padding : 10px;
+        }
+        #mobile_overlay *{
+            margin : 2px;
+            color : #AAAAAA;
+            font-size : 0.8em;
+        }
+        #mobile_overlay_title {
+            font-size : 1em;
+        }
+        #mobile_overlay_like_anchor {
+            margin : 0;
+            /* border : 1px solid black; */
+        }
+        #mobile_overlay_like {
+            position : absolute;
+            right : 10px;
+        }
+        #mobile_overlay_desc {
+            color : #CC7B33;
+        }
+    .footer {
+        display : none;
+    }
+    /* #map_container{
+        height : 500px;   
+    } */
+    #kakao_map {
+        height : 500px;
+    }
+    .category_selected *{
+        color : #CC7B33 !important;
+    }
+}

@@ -108,8 +108,6 @@ class Admin extends CI_Controller {
 					// print_r($data);
 					// die();
 				}
-				else if($this->upload->data()['file_name'] != '')
-					alert($this->upload->display_errors(), '/admin/spotlist_write');
 				$write_data = array(
 					'title' => $this->input->post('title', TRUE),
 					'category' => $this->input->post('category', TRUE),
@@ -123,6 +121,7 @@ class Admin extends CI_Controller {
 					'y' => $this->input->post('y', TRUE),
 					'imagepath' => $uploaded_file_name,
 					'district' => $this->input->post('district', TRUE)
+					// 'hits' =>$this->input->post('hits', TRUE)
 				);
 				$result = $this->Spot_m->insert_spot($write_data);
 				$full_path = $data['upload_data']['full_path'];
@@ -156,7 +155,7 @@ class Admin extends CI_Controller {
 			exit;
 		}
 	 }
-	 public function my_square_resize($source_path, $new_path, $size, $width, $height){
+	 public function my_resize($source_path, $new_path, $wid_size, $hei_size, $width, $height){
 		$this->image_lib->clear();
 		$config['image_library'] = 'gd2';
 		$config['source_image'] = $source_path;
@@ -165,9 +164,9 @@ class Admin extends CI_Controller {
 		$config['maintain_ratio'] = TRUE;
 		$config['thumb_marker'] = '';
 		if($width > $height)
-			$config['height'] = $size;	
+			$config['height'] = $hei_size;	
 		else
-			$config['width'] = $size;
+			$config['width'] = $wid_size;
 		// $this->load->library('image_lib', $config);
 		$this->image_lib->initialize($config);
 		$this->image_lib->resize();
@@ -195,14 +194,13 @@ class Admin extends CI_Controller {
 		$board_data = $this->Spot_m->get_view('spot', $id_to_delete);
 		$board_written_id = $board_data->id;
 		$board_file_path = $board_data->imagepath;
-		if(is_file('./image/'.$board_file_path))	unlink('./image/'.$board_file_path);
-		if(is_file('./image_FHD/'.$board_file_path))	unlink('./image_FHD/'.$board_file_path);
-		if(is_file('./image_square_desktop/'.$board_file_path))	unlink('./image_square_desktop/'.$board_file_path);
-		if(is_file('./image_square_mobile/'.$board_file_path))	unlink('./image_square_mobile/'.$board_file_path);
+		$this->delete_file($board_file_path);
 		$this->Spot_m->delete_spot($id_to_delete);
 		alert('지웠다.', '/admin/spotlist');
 	}
 	public function modify_spotlist(){
+		print_r($_POST);
+		echo '<br>';
 		$id = $this->uri->segment(3, 3);
 		$spot_data = $this->Spot_m->get_view('spot', $id);
 		if($spot_data)
@@ -211,6 +209,27 @@ class Admin extends CI_Controller {
 		$this->form_validation->set_rules('title', 'title', 'required');
 		$this->form_validation->set_rules('content', 'content', 'required');
 		if ( $this->form_validation->run() == TRUE ){
+			$attached_file_path = '';
+			$attached_file_name = $this->Spot_m->get_view('spot', $this->input->post('id', TRUE))->imagepath;
+			$config['upload_path'] = './image/';
+			$config['allowed_types'] = 'gif|jpg|png|zip';
+			$config['max_size']	= '10000';
+			$this->load->library('upload', $config);	
+			if($this->upload->do_upload()){
+				$data = array('upload_data' => $this->upload->data());
+				$this->delete_file($attached_file_name);
+				$attached_file_name = $data['upload_data']['file_name'];
+				$attached_file_path = '/upload/'.$attached_file_name;
+				$full_path = $data['upload_data']['full_path'];
+				$width = $data['upload_data']['image_width'];
+				$height = $data['upload_data']['image_height'];
+				$this->my_resize($full_path, './image_FHD/'.$attached_file_name, 1920, 1080, $width, $height);
+				$this->my_resize($full_path, './image_square_desktop/'.$attached_file_name, 310, 310, $width, $height);
+				$this->my_crop('./image_square_desktop/'.$attached_file_name, $width, $height, 310, 310);
+				$this->my_resize($full_path, './image_square_mobile/'.$attached_file_name, 150, 150, $width, $height);
+				$this->my_crop('./image_square_mobile/'.$attached_file_name, $width, $height, 150, 150);
+			}
+			// die($attached_file_name);
 			$write_data = array(
 				'id' => $this->input->post('id', TRUE),
 				'title' => $this->input->post('title', TRUE),
@@ -223,12 +242,18 @@ class Admin extends CI_Controller {
 				'tel2' => $this->input->post('tel2', TRUE),
 				'x' => $this->input->post('x', TRUE),
 				'y' => $this->input->post('y', TRUE),
-				'district' => $this->input->post('district', TRUE)
+				'district' => $this->input->post('district', TRUE),
+				'imagepath' => $attached_file_name,
+				'like' => $this->input->post('like', TRUE),
+				'hits' => $this->input->post('hits', TRUE)
 			);
 			$result1 = $this->db->delete('spot', array('id' => $this->input->post('id', TRUE)));
 			$result2 = $this->db->insert('spot', $write_data);
-			if ( $result1 && $result2){
+			// if ( $result1 && $result2){
+			if($result1 && $result2){
 				//글 작성 성공시 게시판 목록으로
+				// print_r($result2);
+				// die();
 				alert('수정하였습니다.', '/admin/spotlist');
 			}
 			else{
@@ -249,13 +274,31 @@ class Admin extends CI_Controller {
 		$this->Board_m->board_delete($id_to_delete);
 		if($board_file_path != '')
 			unlink('.'.$board_file_path);
-		alert('삭제햇슴다', '/index/board_page');
+		alert('삭제햇슴다', '/admin/board');
 	}
 	public function modify_board(){
 		// print_r($_GET);
 		// echo'<br>';
 		// print_r($_POST);
 		if(!empty($_GET)){
+			$attached_file_name = '';
+			$attached_file_path = '';
+			if($this->upload->data()['file_name'] != ''){
+				$config['upload_path'] = './upload/';
+				$config['allowed_types'] = 'gif|jpg|png|zip';
+				$config['max_size']	= '10000';
+				$this->load->library('upload', $config);	
+				if($this->upload->do_upload()){
+					$data = array('upload_data' => $this->upload->data());
+					$attached_file_name = $data['upload_data']['file_name'];
+					$attached_file_path = '/upload/'.$attached_file_name;
+				}
+			}
+
+			if($attached_file_name = ''){
+				$attached_file_name = $this->Spot_m->get_view('spot', $this->input->post('board_id', TRUE))['imagepath'];
+			}
+			die($attached_file_name);
 			$modify_data = array(
 				'table' => 'board',
 				'board_id' => $this->input->post('board_id', TRUE),
@@ -263,7 +306,8 @@ class Admin extends CI_Controller {
 				'type' => $this->input->post('type', TRUE),
 				'contents' => $this->input->post('contents', TRUE),
 				'nickname' => $this->session->userdata('nickname'),
-				'reg_date' => date("Y-m-d H:i:s", strtotime ("+9 hours"))
+				'reg_date' => date("Y-m-d H:i:s", strtotime ("+9 hours")),
+				'imagepath' => $attached_file_name
 			);
 			$this->Board_m->board_modify($modify_data);
 			alert('수정되었습니다.', '/admin/board');
@@ -284,9 +328,17 @@ class Admin extends CI_Controller {
 	public function user(){
 		$this->load->view('/admin/user_v', $data);
 	}
+	public function delete_file($file_name){
+		if(is_file('./image/'.$file_name))	unlink('./image/'.$file_name);
+		if(is_file('./image_FHD/'.$file_name))	unlink('./image_FHD/'.$file_name);
+		if(is_file('./image_square_desktop/'.$file_name))	unlink('./image_square_desktop/'.$file_name);
+		if(is_file('./image_square_mobile/'.$file_name))	unlink('./image_square_mobile/'.$file_name);
+	}
 	public function _remap($method)
     {
-		
+		echo '<a href="/admin/spotlist">spotlist 관리</a><br>';
+		echo '<a href="/admin/board">board 관리</a><br>';
+
 		if($this->session->userdata('email') != 'admin' && $this->uri->segment(1) == 'admin' && $this->uri->segment(2) != 'signin'){
 			alert('미 로그인 혹은 세션완료, 다시로그인해주세요', '/admin/signin');
 			exit;

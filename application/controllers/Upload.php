@@ -10,7 +10,7 @@ class Upload extends CI_Controller {
 	
 	function index()
 	{	
-		$this->load->view('upload_form', array('error' => ' ' ));
+		$this->load->view('/board/upload_form', array('error' => ' ' ));
 	}
 
 	function do_upload()
@@ -27,14 +27,14 @@ class Upload extends CI_Controller {
 		{
 			$error = array('error' => $this->upload->display_errors());
 			
-			$this->load->view('upload_form', $error);
+			$this->load->view('/board/upload_form', $error);
 		}	
 		else
 		{
 			$data = array('upload_data' => $this->upload->data());
 			print_r($data);
 			die();
-			$this->load->view('upload_success', $data);
+			$this->load->view('/boardupload_success', $data);
 		}
 	}	
 }

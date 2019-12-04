@@ -138,7 +138,7 @@ class Index extends CI_Controller {
 
 
 		// echo $this->pagination->create_links();
-		$this->load->view('map_v', $data);
+		$this->load->view('/map/map_v', $data);
 	}
 	public function categorize_page(){
 		$this->load->view('navBar_v');
@@ -214,7 +214,7 @@ class Index extends CI_Controller {
 			$like_list[$data['spot_list'][$i]->id] = $this->check_if_i_like($data['spot_list'][$i]->id);
 		}
 		$data['like_list'] = $like_list;
-		$this->load->view('categorization_v', $data);
+		$this->load->view('/spotlist/categorization_v', $data);
 	}
 	
 	public function search(){
@@ -227,7 +227,7 @@ class Index extends CI_Controller {
 		if(isset($_GET['s_word']))	$s_word = $_GET['s_word'];
 		$data['spot_list'] = $this->Spot_m->get_list($table, '', '', '', $s_word, $category, $subcategory);
 		$this->load->view('navBar_v');
-		$this->load->view('categorization_v', $data);
+		$this->load->view('/spotlist/categorization_v', $data);
 	}
 	
 	// 사용자가 좋아요 버튼을 눌렀을 때 
@@ -254,7 +254,7 @@ class Index extends CI_Controller {
 		$data['data'] = $this->Spot_m->get_view($table, $id);
 		$data['like_bool'] = $this->check_if_i_like();
 		$this->load->view('navBar_v', $data);
-		$this->load->view('spot_view_v', $data);
+		$this->load->view('/spotlist/spot_view_v', $data);
 	}
 	public function signup()
 	{
@@ -282,7 +282,7 @@ class Index extends CI_Controller {
 			if($this->Auth_m->same_email_detected($_POST['email'])){
 				// die('sdkfj');
 				$data['error_message']	= '중복된 이메일입니다.';
-				$this->load->view('signup_v', $data);
+				$this->load->view('/auth/signup_v', $data);
 			}
 	 		else{
 				$result = $this->Auth_m->signup($auth_data);
@@ -294,17 +294,17 @@ class Index extends CI_Controller {
 						'nickname' => $result->nickname
 					);
 					$this->session->set_userdata($newdata);
-					$this->load->view('certificate_v');
+					$this->load->view('/auth/certificate_v');
 				}
 				else{
-					alert('아이디나 비밀번호를 확인해 주세요.', $this->load->view('signup_v'));
+					alert('아이디나 비밀번호를 확인해 주세요.', $this->load->view('/auth/signup_v'));
 					exit;
 				}
 			}
   		}
 		else{
 	 		//쓰기폼 view 호출
-	 		$this->load->view('signup_v');
+	 		$this->load->view('/auth/signup_v');
 		}
 	}
 	public function certificate(){
@@ -329,12 +329,12 @@ class Index extends CI_Controller {
 			}
 			else{
 				$data['error_message'] = '인증번호가 맞지 않습니다.';
-				$this->load->view('certificate_v', $data);
+				$this->load->view('/auth/certificate_v', $data);
 			}
 		}
 		else{
 			// $data['error_message'] = '입력 양식이 맞지 않습니다.';
-			$this->load->view('certificate_v');
+			$this->load->view('/auth/certificate_v');
 		}
 		
 	}
@@ -367,25 +367,20 @@ class Index extends CI_Controller {
 				);
 
 				$this->session->set_userdata($newdata);
-				// alert('로그인 되었습니다.', '/index');
-				// die($this->session->userdata('referred_from'));
-				// redirect($this->session->userdata('referred_from'));
-				// echo ($this->session->userdata['referred_from'].'<br>');
-				// die($this->session->userdata['referred_from_-2']);
 				redirect('/index');
 				
 				exit;
 			}
 			else{
 				//실패시
-				alert('아이디나 비밀번호를 확인해 주세요.', 'signin_v');
+				alert('아이디나 비밀번호를 확인해 주세요.', '/index/signin');
 				exit;
 			}
 
 		}
 		else{
 			//쓰기폼 view 호출
-			$this->load->view('signin_v');
+			$this->load->view('/auth/signin_v');
 		}
 		
 	}
@@ -467,7 +462,7 @@ class Index extends CI_Controller {
 
 		$data['board_pagination_list'] = $this->Board_m->get_list('board', '', $start, $limit);
 		// $data['board_pagination_list'] = $this->Spot_m->get_list($table, '', $start, $limit, '', $category, $subcategory);
-		$this->load->view('board_v', $data);
+		$this->load->view('/board/board_v', $data);
 	}
 
 	function board_write(){
@@ -479,95 +474,24 @@ class Index extends CI_Controller {
 			$this->form_validation->set_rules('type', '타입', 'required');
 
 			if ( $this->form_validation->run() == TRUE ){
-				//주소중에서 page 세그먼트가 있는지 검사하기 위해 주소를 배열로 변환
-				// $uri_array = $this->segment_explode($this->uri->uri_string());
-
-				// if( in_array('page', $uri_array) ){
-				// 	$pages = urldecode($this->url_explode($uri_array, 'page'));
-				// }
-				// else{
-				// 	$pages = 1;
-				// }
-				
-				// file upload init
 				$config['upload_path'] = './upload/';
 				$config['allowed_types'] = 'gif|jpg|png|zip';
 				$config['max_size']	= '10000';
-				// $config['max_filename'] = '99999999';
-				// $config['max_width']  = '1024';
-				// $config['max_height']  = '768';
 				$this->load->library('upload', $config);
 
 				
 				// if user upload file, this statement would return true;
-				// $this->upload->set_filename($this->upload->set_filename()
-				// $this->upload->add_pre_name('dslkfsdfkljfasdjl');
 				$attached_file_name = '';
 				$attached_file_path = '';
 				if($this->upload->do_upload()){
-					// $path =  $this->upload->data()['file_path'];
-					// $this->upload->set_filename($path, 'asldkfjalskdfj');
-					
-					// die($this->upload->get_name());
-					// die($this->upload->data()['file_path']);
-					// die($this->upload->get_name());
-					// die($_file['name']);
-					// $this->upload->
-					// $this->upload->set_filename($this->upload->file_name);
-					
 					$data = array('upload_data' => $this->upload->data());
-					print_r($data);
-					echo'<br>';
-					// print_r($data['upload_data']['file_name']);
-					// echo '<br>';
-					// die($this->upload->get_name());
 					$attached_file_name = $data['upload_data']['file_name'];
 					$attached_file_path = '/upload/'.$attached_file_name;
-					// foreach($data['upload_data'] as $key => $value){
-					// 	echo '<p>'.$key.'   '.$value.'</p>';
-					// }
-					// die();
 				}
 				else if($this->upload->data()['file_name'] != ''){
 					alert($this->upload->display_errors(), '/index/board_write');
 				}
-				
-				
-				// else{
-				// 		echo $this->upload->display_errors();
-				// }
-				// else if($this->input->post('userfile') = ''){
-				// 	echo $this->upload->display_errors();
-				// 	die('else die');
-				// }
-				// echo 'start<br>';
-				// print_r($_POST);
-				// echo'<br>';
-				// $d = $this->upload->data();
-				// print_r($d);
-				// echo'<br>';
-				// print_r(gettype($d));
-				// echo'<br>';
-				// print_r($d['file_name']);
-				// echo'<br>';
-				// echo ($d['file_name'].'<br>');
-				// print_r($this->upload->data());
-				// print_r($this->upload->data());
-				// echo'<br>';
-				// echo ($this->input->post('userfile').'<br>');
-				// if($this->input->post('userfile')){
-					// echo'hi<br>';
-				// }
-				// else{
-					// echo'bie<br>';
-				// }
-				// echo ('title:'.$this->input->post('title').'<br>');
-				// echo 'die<br>';
-				// die();
-				
-
 				$write_data = array(
-					// 'table' => $this->uri->segment(3), //게시판 테이블명
 					'user_id' => $_SESSION['user_id'],
 					'table' => 'board',
 					'title' => $this->input->post('title', TRUE),
@@ -582,13 +506,11 @@ class Index extends CI_Controller {
 
 				if ( $result ){
 					//글 작성 성공시 게시판 목록으로
-					// alert('입력되었습니다. ', '/bbs/board/lists/'.$this->uri->segment(3).'/page/'.$pages);
 					alert('입력되었습니다. ', '/index/board_page');
 					exit;
 				}
 				else{
 					//글 실패시 게시판 목록으로
-					// alert('다시 입력해 주세요.', '/bbs/board/lists/'.$this->uri->segment(3).'/page/'.$pages);
 					alert('다시 입력해 주세요.', '/index/board_page');
 					exit;
 				}
@@ -597,7 +519,7 @@ class Index extends CI_Controller {
 			else
 			{
 				//쓰기폼 view 호출
-				$this->load->view('board_write_v');
+				$this->load->view('/board/board_write_v');
 			}
 		}
 		else
@@ -608,13 +530,18 @@ class Index extends CI_Controller {
 		}
 	 }
 	 public function board_delete(){
-		if($_SESSION['user_id'] != $board_written_id){
-			alert('아이디가 달라요', '/index/board_page');
+		if(!isset($_SESSION['user_id'])){
+			alert('로그인 하세요!', '/index/signin');
 		}
+		
 		else{
 			$id_to_delete = $this->uri->segment(3);
 			$board_data = $this->Board_m->get_board_info($id_to_delete);
 			$board_written_id = $board_data->user_id;
+			if($_SESSION['user_id'] != $board_written_id){
+				alert('아이디가 달라요', '/index/board_page');
+				exit;
+			}
 			$board_file_path = $board_data->attached_file_path;
 			$this->Board_m->board_delete($id_to_delete);
 			unlink('.'.$board_file_path);
@@ -633,7 +560,7 @@ class Index extends CI_Controller {
 		else{
 			foreach($board_info as $key => $value)
 				$_POST[$key] = $value;
-			$this->load->view('board_modify_v', $board_info);
+			$this->load->view('/board/board_modify_v', $board_info);
 		}
 	}
 	public function board_modify_action(){
@@ -660,7 +587,7 @@ class Index extends CI_Controller {
            $this->{"{$method}"}();
        }
 
-		if(!isset($_GET['ajax'])){
+		if(!isset($_GET['ajax']) && $method != 'index'){
 			$this->load->view('footer_v');
 		}
 		

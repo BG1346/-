@@ -29,7 +29,7 @@
     }
     @media screen and (max-width: 1023px) {
         .footer{
-            display : none;
+            /* display : none; */
         };
     }
 </style>

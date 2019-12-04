@@ -1,0 +1,87 @@
+@media screen and (max-width: 1023px) {
+    #main_jb a, a:link, a:visited {
+        text-decoration : none; 
+    }
+    #main_jb a:hover {
+        color : #FFFFFF;
+    }
+    #main_jb{
+        height : 100%;
+        width : 100%;
+        overflow:hidden;
+    }
+        #main_jb_img_wrapper{
+            width : 100%;
+            height : 100%;
+            overflow : hidden;
+            text-align : center;
+        }
+        #main_jb_img img{ 
+            height : 100%;
+        }
+        #main_jb{
+            height : 100%;
+        }
+        #main_jb_img_wrapper{
+            /* position: relative; 
+            overflow: hidden;
+            height : 100%; */
+        }
+        #main_jb_img_wrapper #main_jb_img{
+            /* position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            -webkit-transform: translate(50%,50%);
+            -ms-transform: translate(50%,50%);
+            transform: translate(50%,50%); */
+        }
+        #main_jb_img_wrapper #main_jb_img img{
+            /* position: absolute;
+            top: 0;
+            left: 0;
+            height : 100%;
+            -webkit-transform: translate(-50%,-50%);
+            -ms-transform: translate(-50%,-50%);
+            transform: translate(-50%,-50%);             */
+        }
+    
+
+        #main_jb_wrapper{
+            position : absolute;
+            top : 50%;
+            left : 50%;
+            transform: translate( -50%, -50% );
+            width : 100%;
+        }
+            #main_jb_text {
+                padding-bottom : 20%;
+                text-align: center;
+                letter-spacing: 0.3px;
+                color: #FFFFFF;
+            }
+                #main_jb #title{
+                    font-size : 75px;
+                    line-height : 75px;
+                    font-family : SangSangFlowerRoad;
+                    color : #FFFFFF;
+                }
+            #main_jb_ul{
+                text-align : center;
+                margin : 0px;
+                padding : 0px;
+            }
+            #main_jb_ul *{
+                color: #DDDDDD;
+            }
+            #main_jb_ul li {
+                list-style-type : none;
+                display : inline-block;
+                margin : 0px;
+                padding : 3%;
+            }
+            #main_jb_ul li a{
+                text-decoration : none;
+            }            
+}

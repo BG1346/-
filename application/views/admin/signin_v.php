@@ -1,11 +1,4 @@
 <article id="board_area">
-		<header>
-			<h1></h1>
-		</header>
-<?php
-// $attributes = array('class' => 'form-horizontal', 'id' => 'auth_login');
-// echo form_open('/index/signin', $attributes);
-?>
 <form action="/admin/signin" method="post">
 		  <fieldset>
 		    <legend>로그인</legend>
@@ -18,7 +11,6 @@
 		      <label class="control-label" for="input02">비밀번호</label>
 		      <div class="controls">
 			  <input type="password" class="input-xlarge" id="input02" name="password" value="<?php echo set_value('password'); ?>">
-			  <!-- <input type="password" class="input-xlarge" id="input02" name="password"> -->
 		        <p class="help-block"></p>
 		      </div>
 

@@ -1,13 +1,11 @@
 <head>
-    <link rel="stylesheet" type="text/css" href="/css/mainJumbo_m.css">
-    <link rel="stylesheet" type="text/css" href="/css/mainJumbo.css">
+    <link rel="stylesheet" type="text/css" href="/css/mainJumbo_m_css.css">
+    <link rel="stylesheet" type="text/css" href="/css/mainJumbo_css.css">
 </head>
-<?php 
-?>
 <div id="main_jb">
     <div id="main_jb_img_wrapper">
         <div id="main_jb_img">
-            <img src="/image/back_2560.png">
+            <img src="/image/back_1920.png">
         </div>
     </div>
     <div id="main_jb_wrapper">
@@ -23,13 +21,15 @@
                 <li class="main_jb_ul_li"><a href="/index/map_page">map</a></li>
                 <li>|</li>
                 <li class="main_jb_ul_li"><a href="/index/board_page">board</a></li>
-                <li>|</li>
-                <li class="main_jb_ul_li"><a href="/index/signup">signup</a></li>
-                <li>|</li>
-                <li class="main_jb_ul_li"><a href="/index/signin">signin</a></li>
-                <li>|</li>
-                <li class="main_jb_ul_li"><a href="/index/signout">signout</a></li>
             </ul>
         </div>
     </div>
 </div>
+
+<script>
+    if(window.innerWidth >= 1024)
+        $("#main_jb_img").attr('src', '/image/back_1920.png');
+    else{
+        $("#main_jb_img").attr('src', '/image/back_m.png');
+    }
+</script>

@@ -37,7 +37,7 @@
 		.categorization_spot_iter_wrapper{
 			display : inline-block;
 		}
-		.categorization_spot_iter {
+		.categorization_spot_iter {ㅐ
 			width : 310px;
 			height : 400px;
 			float : left;
@@ -229,8 +229,6 @@
 	var desktop_view = $(window).width() >= 1024 ? 1 : 0;
 	var mobile_view = $(window).width() < 1024 ? 1 : 0;
 	var padding_num = 0;
-    console.log(categorization_spot.length);
-    console.log('hi');
 	function sort_category(opt){
 		var url = '/index/categorize_page?'
 		if(opt == 'latest_date')	url += 'pred=ASC&pred_column=id&selected_pred=latest_date';
@@ -244,12 +242,10 @@
 		location.replace(url);
 	}
 	function list_append(start, end){
-		// $('#loading').show();
 		if(end >= categorization_spot.length){
 			end = categorization_spot.length;
 			$('#loading').hide();
 		}
-		// console.log(start, end);
 		for(var i=start ; i<end ; i++){
 			$("#categorization_spot_list").append(
 				'<div class="categorization_spot_iter_wrapper">'+
@@ -289,7 +285,6 @@
 			}
 		}
 		height_adj();
-		// $('#loading').hide();
 	}
 	function list_remove(start, end){
 		for(var i=end-1 ; i>= start ; i--){
@@ -318,8 +313,6 @@ window.onresize = function() {
 			$(".categorization_spot_iter_wrapper").remove();
 			list_append(0, cur_iter);
 		}
-		// iter_for_row = $(".container").width();
-		// iter_for_row = parseInt(iter_for_row/350);
 		var new_iter_for_row = parseInt($(".container").width()/350);
 		if(new_iter_for_row > iter_for_row){
 			var row = parseInt(cur_iter/iter_for_row);
@@ -367,13 +360,6 @@ $(document).ready(function(){
 		for(var i = 0 ; i<categorization_category.length ; i++){
 			$("#categorization_category_list").append('<li class="categorization_category_iter" id="category_'+categorization_category[i].category+'"><a class="categorization_category_iter_a" href="/admin/spotlist?category='+categorization_category[i].category+'">'+categorization_category[i].category+"</a></li>");
 		}
-
-		// 서브카테고리 뷰에 추가하기 
-		// <?php if(isset($_GET['category'])){ ?>
-		// 		for(var i=0 ; i<categorization_subcategory.length; i++){
-		// 			$("#categorization_subcategory_list").append('<li class="categorization_subcategory_iter"><a href="/index/categorize_page?category=<?php echo $_GET['category'];?>&subcategory='+categorization_subcategory[i].subcategory+'">'+categorization_subcategory[i].subcategory+'</li>');
-		// 		}
-		// <?php } ?>
 	<?php } ?>
 			
 

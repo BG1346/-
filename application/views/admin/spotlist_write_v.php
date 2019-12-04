@@ -1,9 +1,4 @@
 <article id="board_area">
-		<header>
-			<h1></h1>
-		</header>
-
-		<!--<form class="form-horizontal" method="post" action="" id="write_action">-->
 <?php
 $attributes = array('class' => 'form-horizontal', 'id' => 'write_action');
 echo form_open_multipart('/admin/spotlist_write', $attributes);
@@ -60,7 +55,6 @@ echo form_open_multipart('/admin/spotlist_write', $attributes);
                     <textarea class="input-xlarge" id="input02" name="tel2" rows="5"><?php echo set_value('tel2'); ?></textarea>
                 </div>
 
-
                 <label class="control-label" for="input02">x좌표(kakao)</label>
                 <div class="controls">
                     <textarea class="input-xlarge" id="input02" name="x" rows="5"><?php echo set_value('x'); ?></textarea>
@@ -81,15 +75,12 @@ echo form_open_multipart('/admin/spotlist_write', $attributes);
                     <textarea class="input-xlarge" id="input02" name="district" rows="5"><?php echo set_value('district'); ?></textarea>
                 </div>
                 
-                
-
                 <div class="controls">
                     <p class="help-block"><?php echo validation_errors(); ?></p>
                 </div>
 
                 <div class="form-actions">
                     <button type="submit" class="btn btn-primary" id="write_btn">작성</button>
-                    <!-- <button class="btn" onclick="document.location.reload()">취소</button> -->
                 </div>
 		    </div>
 		  </fieldset>

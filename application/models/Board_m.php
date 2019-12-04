@@ -20,7 +20,7 @@ class Board_m extends CI_Model
         }
 
 		
-		$sql = "SELECT * FROM ".$table.$type_query.$limit_query;
+		$sql = "SELECT * FROM ".$table.$type_query." order by -board_id".$limit_query;
         $query = $this->db->query($sql);
         if ( $page_type == 'count' ){               
 			$result = $query->num_rows();
