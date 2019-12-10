@@ -3,8 +3,6 @@
 			<h1></h1>
 		</header>
 <?php
-// $attributes = array('class' => 'form-horizontal', 'id' => 'auth_login');
-// echo form_open('/index/signup', $attributes);
 echo form_open('/index/signup');
 ?>
 		  <fieldset>

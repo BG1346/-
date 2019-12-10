@@ -10,16 +10,10 @@
     #category_name {
         padding-top : 40px;
         text-align: center;
-        /* font-size : 18px;
-        line-height : 20px; */
         color : #AAAAAA;
         font-family : NanumBarunGothic;
     }
     #write_button{
-        /* color : #AAAAAA; */
-        /* position : relative; */
-        /* float : right; */
-        /* text-align : right; */
         margin : 10px;
     }
     #write_button_wrapper {
@@ -30,12 +24,8 @@
     .board_button_wrapper{
         position : absolute;
         right : 10px;
-        /* right : 0px; */
-        /* margin-top : 10px;
-        margin-right : 10px; */
     }
     .user_icon{
-        /* position : absolute; */
         display : inline;
         width : 30px;
         height : 30px;
@@ -103,28 +93,14 @@ $(document).ready(function(){
     for(var i = 0 ;i <board_list.length ; i++){
 
             var today = new Date();
-            console.log(today);
             reg_date = '';
-            // console.log(board_list[i].reg_date.substr(0, 4));
-            // console.log(board_list[i].reg_date.substr(5).substr(0, 2));
-            // console.log(board_list[i].reg_date.substr(8).substr(0, 2));
             if(today.getFullYear() == board_list[i].reg_date.substr(0, 4) && today.getMonth()+1 == board_list[i].reg_date.substr(5).substr(0, 2)
                 && today.getDate() == board_list[i].reg_date.substr(8).substr(0, 2)){
-                    // console.log('hi');
                     reg_date = board_list[i].reg_date.substr(10).substr(0, 6);
-                    // console.log(reg_date);
             }
             else{
                 reg_date = board_list[i].reg_date.substr(2, 8);
-                // console.log(reg_date);
             }
-            // console.log(reg_date);
-            // console.log(today.getFullYear());
-            // console.log(today.getMonth()+1);
-            // console.log(today.getDate());
-            
-            
-            // console.log(board_list[i].reg_date);
             $("#board_list").append(
                 '<div style="border : 1px solid black; position : relative" id="'+board_list[i].board_id+'" class="board_contents">'+
                     '<a href="/auth/get_account/'+board_list[i].user_id+'"><img src="/image/user_icon.png" class="user_icon"></a>'+
@@ -136,8 +112,6 @@ $(document).ready(function(){
                         '<span id="board_list_delete_button_'+i+'"></span>'+
                     '</div>'+
                     '' + reg_date+'<br>'+
-                    // 'nickname : ' + board_list[i].nickname+'<br>'+
-                    // 'hits : ' + board_list[i].hits+
                     '<span id="board_list_file_'+i+'"></span>'+
                     
                 '</div>'
@@ -149,7 +123,6 @@ $(document).ready(function(){
             if(board_list[i].attached_file_name != '' && board_list[i].attached_file_name != null){
                 $("#board_list_file_"+i).append(
                     '<br>'+
-                    // 'filename : ' + board_list[i].attached_file_name+'<br>'+
                     '<h4>첨부파일</h4><br>'+
                     '<a href="'+board_list[i].attached_file_path+'"><image class="attached_image" src="'+board_list[i].attached_file_path+'"></a><br>'
                 );

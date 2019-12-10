@@ -26,11 +26,11 @@ class Spot_m extends CI_Model
 		$opt = 'title';
 		$sword= ' WHERE 1=1 ';
 		if(isset($_GET['s_word']))	$s_word = $_GET['s_word'];
-		if(isset($_GET['opt']))	$opt = $_GET['opt'];
+		// if(isset($_GET['opt']))	$opt = $_GET['opt'];
 		if ( $s_word != '' )
      	{
 			if(strpos($opt, 'title') !== false)	$sword = $sword.' AND title like "%'.$s_word.'%" ';
-			if (strpos($opt, 'content') != false)	$sword = $sword.' AND content like "%'.$s_word.'%" ';
+			$sword = $sword.' OR content like "%'.$s_word.'%" ';
      	}
 
     	$limit_query = '';
@@ -48,17 +48,13 @@ class Spot_m extends CI_Model
 			$pred_query = " ORDER BY `".$pred_column."` ".$pred;
 		}
 		
-
-		// $sql = "SELECT * FROM ".$table.$sword.$catword.$limit_query.$pred_query;
 		$sql = "SELECT * FROM ".$table.$sword.$catword.$limit_query;
-		// echo ($sql);
 		$query = $this->db->query($sql);
 		if ( $type == 'count' )
      	{               
      		//리스트를 반환하는 것이 아니라 전체 게시물의 갯수를 반환
 			$result = $query->num_rows();
 			return $result;
-	    	// $this->db->count_all($table);
      	}
 		$result = $query->result();
 		return $result;

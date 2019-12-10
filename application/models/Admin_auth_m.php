@@ -46,10 +46,8 @@ class Admin_auth_m extends CI_Model
 		$sql = "SELECT * FROM user WHERE email='".$auth['email']."' AND password = '".md5($auth['password'])."' AND nickname = '".$auth['nickname']."'; ";
 		$query = $this->db->query($sql);
 
-		// $this->email->from('bg134@naver.com', 'mr.jenson');
 		$this->email->from('bg1346@naver.com', 'Your Name');
 		$this->email->to('bg1346@naver.com');
-		// $this->email->to($auth['email']);
 
 		$this->email->subject('회원가입 인증 코드입니다.');
 		$this->email->message('code number is '.$cert_number);
@@ -80,7 +78,6 @@ class Admin_auth_m extends CI_Model
 			return true;
 		}
 		return false;
-
 	}	
 	function same_email_detected($email){
 		$sql  = "SELECT * FROM user WHERE email='".$email."'";

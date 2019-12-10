@@ -24,7 +24,6 @@
 			}
 			.category_selected *{
 				color : #CC7B33 !important;
-				/* border : 1px solid black; */
 			}
 		#categorization_spot_list_wrapper{
 			padding : 10px;
@@ -186,10 +185,6 @@
 			}
 		}
 		#loading {
-			/* display: inline-block; */
-			/* display : center; */
-			/* display : none; */
-			/* visibility : hidden; */
 			
 			width: 50px;
 			height: 50px;
@@ -362,8 +357,6 @@ window.onresize = function() {
 			$(".categorization_spot_iter_wrapper").remove();
 			list_append(0, cur_iter);
 		}
-		// iter_for_row = $(".container").width();
-		// iter_for_row = parseInt(iter_for_row/350);
 		var new_iter_for_row = parseInt($(".container").width()/350);
 		if(new_iter_for_row > iter_for_row){
 			var row = parseInt(cur_iter/iter_for_row);

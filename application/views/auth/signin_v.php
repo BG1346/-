@@ -6,29 +6,20 @@
 				margin : 100px auto;
 			}
 		}
-		@media screen and (max-width: 1023px){
-			#signin_box{
-
-			}
-		}
 		#signin_form{
 			text-align : center;
 		}
 		#signin_table{
 			margin : auto;
 			text-align :center;
-			/* border : 1px solid black; */
 		}
 		.first_td{
 			width : 100px;
-			/* border : 3px solid red; */
 		}
 		.signin_button_wrapper{
 			padding-left : 30px;
-			/* border : 2px solid green; */
 		}
 		#signin_button{
-			/* border : 1px solid blue; */
 			height : 100%;
 		}
 	</style>
@@ -37,7 +28,6 @@
 <div id="signin_box">
 <form action="/index/signin" method="post" id="signin_form">
 	<fieldset>
-	<!-- <legend>로그인</legend> -->
 	<p>로그인</p>
 	<div class="control-group">
 		<table id="signin_table">

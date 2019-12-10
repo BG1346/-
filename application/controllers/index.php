@@ -37,8 +37,6 @@ class Index extends CI_Controller {
 	}
 	public function index(){
 		$this->load->view('mainJumbo_v');
-		// $string = read_file('./upload/test.png');
-		// echo 'start : '.$string.'    end<br>';
 	}
 	public function check_if_i_like($id = ''){
 		$table = 'LIKE';
@@ -52,8 +50,6 @@ class Index extends CI_Controller {
 	public function map_page(){
 		$this->load->view('navBar_v');
 		$this->map();
-
-		
 	}
 	public function map(){
 		$table = 'spot';
@@ -61,34 +57,25 @@ class Index extends CI_Controller {
 		$subcategory = '';
 
 		if(isset($_GET['table']))	$table = $_GET['table'];
-		// if(isset($_GET['category_list']))	$table = $_GET['category'];
-		// if(isset($_GET['subcategory_list']))	$table = $_GET['subcategory'];
 		if(isset($_GET['category']))	$category = $_GET['category'];
 		if(isset($_GET['subcategory']))	$subcategory = $_GET['subcategory'];
-
-		
 
 		// init pagination
 		$uri_segment = 3;
 		$page_url = '';
 		$config['base_url'] = '/index/map_page/';
-		// $config['base_url'] = 'http://localhost/index.php/test/page/';
-		// $config['total_rows'] = 200;
+
 
 		//set pagination num_links, set total page 5.
 		$config['total_rows'] = $this->Spot_m->get_list('spot', 'count', '', '', '', $category, $subcategory); //게시물의 전체 갯수
 		$config['per_page'] = 7;
-		// $cur_page = $this->uri->segment($uri_segment, $config['per_page']);
 		$cur_page = $this->uri->segment($uri_segment, $config['per_page'])/$config['per_page'] + 1;
 		$last_page = ceil($config['total_rows'] / $config['per_page']);
-		if($cur_page == 1 || $last_page - $cur_page == 0)
-			$config['num_links'] = 4;
-		else if($cur_page == 2 || $last_page - $cur_page == 1)
-			$config['num_links'] = 3;
-		else
-			$config['num_links'] = 2;
+		if($cur_page == 1 || $last_page - $cur_page == 0)	$config['num_links'] = 4;
+		else if($cur_page == 2 || $last_page - $cur_page == 1)	$config['num_links'] = 3;
+		else	$config['num_links'] = 2;
 		
-		if($config['total_rows'])
+		// if($config['total_rows'])
 		
 		$config['uri_segment'] = $uri_segment;
 
@@ -114,30 +101,20 @@ class Index extends CI_Controller {
 		$config['last_tag_open'] = '<pagination_last_tag>';
 		$config['last_link'] = '<img src="/image/btn_last.png">';
 		$config['last_tag_close'] = '</pagination_last_tag>';
-
 		$this->pagination->initialize($config);
 		$data['pagination'] = $this->pagination->create_links();
-		
 		$page = $this->uri->segment($uri_segment, 1);
-		if ( $page > 1 )
-		{
+		if ( $page > 1 ){
 			$start = (($page/$config['per_page'])) * $config['per_page'];
 		}
-		else
-		{
+		else{
 			$start = ($page-1) * $config['per_page'];
 		}
-
 		$limit = $config['per_page'];
-
 		$data['spot_list'] = $this->Spot_m->get_list($table, '', '', '', '', $category, $subcategory);
 		$data['pagination_list'] = $this->Spot_m->get_list($table, '', $start, $limit, '', $category, $subcategory);
 		$data['category_list'] = $this->Spot_m->get_category($table);
 		$data['subcategory_list'] = $this->Spot_m->get_subcategory('SUBCATEGORY', $category);
-
-
-
-		// echo $this->pagination->create_links();
 		$this->load->view('/map/map_v', $data);
 	}
 	public function categorize_page(){
@@ -148,71 +125,17 @@ class Index extends CI_Controller {
 		$table = 'spot';
 		$category = '';
 		$subcategory = '';
-
 		if(isset($_GET['table']))	$table = $_GET['table'];
 		if(isset($_GET['category']))	$category = $_GET['category'];
-		if(isset($_GET['subcategory']))	$subcategory = $_GET['subcategory'];
-
-		
-
-		
-
-
-
-
-		// $config['image_library'] = 'gd2';		
-		// $config['create_thumb'] = TRUE;
-		// $config['maintain_ratio'] = TRUE;
-		// $config['thumb_marker'] = '';
-		// // $config['width'] = 75;
-		// $config['height'] = 150;
-		// $this->load->library('image_lib', $config);
-		
-		// // file list 구하기
-		// $dir = "image/";
-		// // 핸들 획득
-		// $handle  = opendir($dir);
-		// $files = array();
-		
-		// // 디렉터리에 포함된 파일을 저장한다.
-		// while (false !== ($filename = readdir($handle))) {
-		// 	if($filename == "." || $filename == "..")
-		// 		continue;
-		// 	// 파일인 경우만 목록에 추가한다.
-		// 	if(is_file($dir . "/" . $filename))
-		// 		$files[] = $filename;
-		// }
-		
-
-		// // image 썸네일화
-		// // 핸들 해제 
-		// closedir($handle);
-		
-		// // 정렬, 역순으로 정렬하려면 rsort 사용
-		// // sort($files);
-		
-		// // 파일명을 출력한다.
-		// foreach ($files as $f) {
-		// 	// echo gettype('image/'.$f);
-		// 	$config['source_image'] = 'image/'.$f;
-		// 	$config['new_image'] ='image_mobile/'.$f;
-		// 	// echo 'filename : '.$f;
-		// 	// echo $this->image_lib->display_errors();
-		// 	$this->image_lib->initialize($config);
-		// 	$this->image_lib->resize();
-		// } 
-		// $this->image_lib->clear();
-		
-		
+		if(isset($_GET['subcategory']))	$subcategory = $_GET['subcategory'];		
 
 		$data['spot_list'] = $this->Spot_m->get_list($table, '', '', '', '', $category, $subcategory);
 		$data['category_list'] = $this->Spot_m->get_category($table);
 		$data['subcategory_list'] = $this->Spot_m->get_subcategory('SUBCATEGORY', $category);
 	
 		$like_list = array();
-		for($i=0 ; $i<count($data['spot_list']) ; $i++){
+		for($i=0 ; $i<count($data['spot_list']) ; $i++)
 			$like_list[$data['spot_list'][$i]->id] = $this->check_if_i_like($data['spot_list'][$i]->id);
-		}
 		$data['like_list'] = $like_list;
 		$this->load->view('/spotlist/categorization_v', $data);
 	}
@@ -238,12 +161,10 @@ class Index extends CI_Controller {
 		if(isset($_GET['id']))	$id = $_GET['id'];
 		$result = $this->Spot_m->toggle_like($table, $id, $ip);
 		if(isset($_GET['ajax'])){
-			if($result == 0){
+			if($result == 0)
 				die('0');
-			}
-			else{
+			else
 				die('1');
-			}
 		}
 		return $result;
 	}
@@ -263,12 +184,7 @@ class Index extends CI_Controller {
 		$this->form_validation->set_rules('email', '이메일', 'required');
 		$this->form_validation->set_rules('password', '비밀번호', 'required');
 		$this->form_validation->set_rules('password2', '비밀번호2', 'required|matches[password]');
-		// $this->form_validation->set_rules('password', 'Password', 'required|matches[password');
-		// $this->form_validation->set_rules('passconf', 'Password Confirmation', 'required|matches[password]');
 		$this->form_validation->set_rules('nickname', '닉네임', 'required');
-        
-
-		// echo '<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />';
 		
 		if ( $this->form_validation->run() == TRUE )
   		{
@@ -278,9 +194,7 @@ class Index extends CI_Controller {
 				'nickname' => $this->input->post('nickname', TRUE)
 			);
 			$data['auth_data'] = $auth_data;
-			// die($_POST['email']);
 			if($this->Auth_m->same_email_detected($_POST['email'])){
-				// die('sdkfj');
 				$data['error_message']	= '중복된 이메일입니다.';
 				$this->load->view('/auth/signup_v', $data);
 			}
@@ -309,8 +223,6 @@ class Index extends CI_Controller {
 	}
 	public function certificate(){
 		$this->form_validation->set_rules('cert_number', '인증번호', 'required|numeric');
-		// if($this->form_validation->run() == FALSE)
-		// 	$this->load->view('certificate_v');
 
 		if($this->form_validation->run() == TRUE){
 			$input_email = $this->input->post('email', TRUE);
@@ -333,7 +245,6 @@ class Index extends CI_Controller {
 			}
 		}
 		else{
-			// $data['error_message'] = '입력 양식이 맞지 않습니다.';
 			$this->load->view('/auth/certificate_v');
 		}
 		
@@ -341,12 +252,8 @@ class Index extends CI_Controller {
 	public function signin(){
 		$this->load->view('navBar_v');
 		
-
-		//폼 검증할 필드와 규칙 사전 정의
 		$this->form_validation->set_rules('email', '아이디', 'required');
 		$this->form_validation->set_rules('password', '비밀번호', 'required');
-
-		// echo '<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />';
 
 		if ( $this->form_validation->run() == TRUE ){
 			$auth_data = array(
@@ -359,16 +266,13 @@ class Index extends CI_Controller {
 			if ( $result ){
 				//세션 생성
 				$newdata = array(
-					// 'username'  => openssl_decrypt($result->username, 'AES-256-CBC', KEY_256, 0, KEY_128),
 					'user_id' => $result->user_id,
 					'nickname' => $result->nickname,
 					'email'     => $result->email,
 					'logged_in' => TRUE
 				);
-
 				$this->session->set_userdata($newdata);
-				redirect('/index');
-				
+				redirect('/index');	
 				exit;
 			}
 			else{
@@ -376,23 +280,17 @@ class Index extends CI_Controller {
 				alert('아이디나 비밀번호를 확인해 주세요.', '/index/signin');
 				exit;
 			}
-
 		}
 		else{
 			//쓰기폼 view 호출
 			$this->load->view('/auth/signin_v');
 		}
-		
 	}
 
 	public function signout()
 	{
-		
 		$this->session->sess_destroy();
-
-		// echo '<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />';
 		$referred_from = $this->session->userdata('referred_from');
-		// die($referred_from);
 		redirect($referred_from);
   		exit;
 	}
@@ -405,13 +303,10 @@ class Index extends CI_Controller {
 		$uri_segment = 3;
 		$page_url = '';
 		$config['base_url'] = '/index/board_page/';
-		// $config['base_url'] = 'http://localhost/index.php/test/page/';
-		// $config['total_rows'] = 200;
 
 		//set pagination num_links, set total page 5.
 		$config['total_rows'] = $this->Board_m->get_list('board', 'count', '', ''); //게시물의 전체 갯수
 		$config['per_page'] = 5;
-		// $cur_page = $this->uri->segment($uri_segment, $config['per_page']);
 		$cur_page = $this->uri->segment($uri_segment, $config['per_page'])/$config['per_page'] + 1;
 		$last_page = ceil($config['total_rows'] / $config['per_page']);
 		if($cur_page == 1 || $last_page - $cur_page == 0)
@@ -420,8 +315,6 @@ class Index extends CI_Controller {
 			$config['num_links'] = 3;
 		else
 			$config['num_links'] = 2;
-		
-		if($config['total_rows'])
 		
 		$config['uri_segment'] = $uri_segment;
 
@@ -447,10 +340,8 @@ class Index extends CI_Controller {
 		$config['last_tag_open'] = '<pagination_last_tag>';
 		$config['last_link'] = '<img src="/image/btn_last.png">';
 		$config['last_tag_close'] = '</pagination_last_tag>';
-
 		$this->pagination->initialize($config);
 		$data['pagination'] = $this->pagination->create_links();
-		
 		$page = $this->uri->segment($uri_segment, 1);
 		if ( $page > 1 ){
 			$start = (($page/$config['per_page'])) * $config['per_page'];
@@ -459,9 +350,7 @@ class Index extends CI_Controller {
 			$start = ($page-1) * $config['per_page'];
 		}
 		$limit = $config['per_page'];
-
 		$data['board_pagination_list'] = $this->Board_m->get_list('board', '', $start, $limit);
-		// $data['board_pagination_list'] = $this->Spot_m->get_list($table, '', $start, $limit, '', $category, $subcategory);
 		$this->load->view('/board/board_v', $data);
 	}
 
@@ -479,7 +368,6 @@ class Index extends CI_Controller {
 				$config['max_size']	= '10000';
 				$this->load->library('upload', $config);
 
-				
 				// if user upload file, this statement would return true;
 				$attached_file_name = '';
 				$attached_file_path = '';
@@ -501,9 +389,7 @@ class Index extends CI_Controller {
 					'attached_file_name' => $attached_file_name,
 					'attached_file_path' => $attached_file_path
 				);
-
 				$result = $this->Board_m->insert_board($write_data);
-
 				if ( $result ){
 					//글 작성 성공시 게시판 목록으로
 					alert('입력되었습니다. ', '/index/board_page');
@@ -533,7 +419,6 @@ class Index extends CI_Controller {
 		if(!isset($_SESSION['user_id'])){
 			alert('로그인 하세요!', '/index/signin');
 		}
-		
 		else{
 			$id_to_delete = $this->uri->segment(3);
 			$board_data = $this->Board_m->get_board_info($id_to_delete);
@@ -590,9 +475,6 @@ class Index extends CI_Controller {
 		if(!isset($_GET['ajax']) && $method != 'index'){
 			$this->load->view('footer_v');
 		}
-		
-		// if($this->session->userdata['reffered_from_-2'])
-		// $this->session->set_userdata('referred_from_-2', $this->session->userdata['referred_from']);
 		$this->session->set_userdata('referred_from', current_url());
    }
 

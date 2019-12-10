@@ -22,9 +22,6 @@ class Auth_m extends CI_Model
 	 */
     function signin($auth)
     {
-		// $un = $this->encryption->encrypt($auth['username']);
-		// $un = $auth['username'];
-		// $un = openssl_encrypt($auth['username'], 'AES-256-CBC', KEY_256, 0, KEY_128);
 		$email = $auth['email'];
 		$pw = md5($auth['password']);
 		$sql = "SELECT nickname, email, user_id FROM user WHERE email = '".$email."' AND password = '".$pw."' ";
@@ -49,10 +46,8 @@ class Auth_m extends CI_Model
 		$sql = "SELECT * FROM user WHERE email='".$auth['email']."' AND password = '".md5($auth['password'])."' AND nickname = '".$auth['nickname']."'; ";
 		$query = $this->db->query($sql);
 
-		// $this->email->from('bg134@naver.com', 'mr.jenson');
 		$this->email->from('bg1346@naver.com', 'Your Name');
 		$this->email->to('bg1346@naver.com');
-		// $this->email->to($auth['email']);
 
 		$this->email->subject('회원가입 인증 코드입니다.');
 		$this->email->message('code number is '.$cert_number);

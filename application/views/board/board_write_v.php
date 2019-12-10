@@ -3,23 +3,13 @@
         #write_wrapper{
             width : 40%;
             margin : 100px auto;
-            /* border : 1px solid black; */
-            /* text-align : center; */
         }
         #write_title{
             text-align : center;
             padding : 30px 0;
         }
         #write_table{
-            /* border : 10px solid black; */
-            /* padding : 100px; */
             margin : auto;
-        }
-        th{
-            /* border : 1px solid red; */
-        }
-        tr{ 
-            /* border : 1px solid blue; */
         }
         .td_l{
             text-align : center;
@@ -65,7 +55,7 @@
                     </th>
                     <td>
                         <input type="text" class="input-xlarge" id="input01" name="title" value="<?php echo set_value('title'); ?>" />
-                        <!-- <p class="help-block">게시물의 제목을 써주세요.</p> -->
+
                     </td>
                 </tr>
                 <tr>
@@ -79,7 +69,7 @@
                                 <option value="문의">문의</option>
                                 <option value="기타">기타</option>
                             </select>
-                            <!-- <p class="help-block">게시물의 타입을 써주세요.</p> -->
+
                         </div>
                     </td>
                 </tr>
@@ -89,7 +79,7 @@
                     </td>
                     <td>
                         <textarea class="input-xlarge" id="input02" name="contents" rows="5"><?php echo set_value('contents'); ?></textarea>
-                        <!-- <p class="help-block">게시물의 내용을 써주세요.</p> -->
+
                     </td>
                 </tr>
 

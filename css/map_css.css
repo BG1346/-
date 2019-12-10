@@ -22,19 +22,14 @@
         }
     .spot_iter{
         padding : 15px;
-        /* margin : 20px; */
     }
     .map_table_i_1{
-        /* font: Regular 16px/19px */
         font-size : 16px;
         line-height : 19px;
     }
     .map_table_i_2{
         color: #AAAAAA;
     }
-    /* #map_list{
-        height : 80%;
-    } */
     #map_container{
         margin-top : 50px;
         display : grid;
