@@ -1,44 +1,5 @@
 <head>
-    <style>
-        #write_wrapper{
-            width : 40%;
-            margin : 100px auto;
-        }
-        #write_title{
-            text-align : center;
-            padding : 30px 0;
-        }
-        #write_table{
-            margin : auto;
-        }
-        .td_l{
-            text-align : center;
-            height : 100px;
-        }
-        .th_f{
-            text-align : center;
-            width : 100px;
-        }
-        input{
-            width : 100%;
-            margin: auto;
-        }
-        textarea{
-            width : 100%;
-        }
-        #write_btn{
-            margin : auto;
-        }
-        .td_l_4{
-            text-align : center;
-        }
-        #write_type{
-            width : 100%;
-        }
-        #write_type option{
-            
-        }
-    </style>
+<link rel="stylesheet" type="text/css" href="/css/board_write_css.css">
 </head>
 <div id="write_wrapper">
     <?php

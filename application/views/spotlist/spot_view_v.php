@@ -1,107 +1,5 @@
 <head>
-    <style>
-    @media screen and (min-width: 1024px) {
-        #view_content{
-            margin : auto;
-            width : 75%;
-        } 
-        #view_content h1{
-            margin : 50px 0 50px 30px;
-        }
-        #view_map{
-            width : 400px;
-            height : 400px;
-        }
-        .jb-wrap {
-            width: 100%;
-            position: relative;
-            overflow : hidden;
-        }
-        .jb-wrap img {
-            width : 100%;
-            overflow : hidden;
-            -webkit-filter: grayscale(70%);
-            -webkit-filter: brightness(50%);
-        }
-        .jb-text {
-            width : 100%;
-            padding: 5px 10px;
-            text-align: center;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate( -50%, -50% );
-            font-size : 2em;
-        }
-        .jb-text * {
-            color : white;
-        }
-        .jb-text #title {
-            font-family : SangSangFlowerRoad;
-            font-size : 3em;
-        }
-        .jb-text a {
-            text-decoration : none;
-        }
-        .jb-image{
-            height : 400px;
-        }
-        .jb-image img{
-            height : 100%;
-        }
-    }
-    @media screen and (max-width: 1023px) {
-        #view_content{
-            margin : auto;
-            width : 75%;
-        } 
-        #view_content h1{
-            margin : 50px 0 50px 30px;
-        }
-        #view_map{
-            width : 100%;
-            height : auto;
-            height : 300px;
-        }
-        .jb-wrap {
-            width: 100%;
-            position: relative;
-            overflow : hidden;
-        }
-        .jb-wrap img {
-            width : 100%;
-            overflow : hidden;
-            -webkit-filter: grayscale(70%);
-            -webkit-filter: brightness(50%);
-        }
-        .jb-text {
-            width : 100%;
-            padding: 5px 10px;
-            text-align: center;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate( -50%, -50% );
-            font-size : 2em;
-        }
-        .jb-text * {
-            color : white;
-        }
-        .jb-text #title {
-            font-family : SangSangFlowerRoad;
-            font-size : 3em;
-        }
-        .jb-text a {
-            text-decoration : none;
-        }
-        .jb-image{
-            height : 400px;
-        }
-        .jb-image img{
-            height : 100%;
-        }
-    }
-    </style>
+<link rel="stylesheet" type="text/css" href="/css/spot_view_css.css">
 </head>
 <div class="jb-wrap">
     <div class="jb-image"><img src="/image/<?php echo $data->imagepath ?>" alt="error"></div>
@@ -154,9 +52,6 @@
     var zoomControl = new kakao.maps.ZoomControl();
     map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 
-
-
-
     // 토글 좋아요
     $(function(){
         var like_bool = <?php echo $like_bool?>;
@@ -180,10 +75,8 @@
             })
         })
     });
-
     // 게시글 hover
     $( ".spot_iter" ).hover(function() {
-
         $( this ).fadeOut( 100 );
         $( this ).fadeIn( 500 );
     });

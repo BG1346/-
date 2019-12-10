@@ -1,3 +1,6 @@
+<head>
+<link rel="stylesheet" type="text/css" href="/css/footer_css.css">
+</head>
 <div class="container footer">
     <div id="wrapper">
         <div id="space"></div>
@@ -13,25 +16,3 @@
     </div>
 </div>
 </body>
-<style>
-    #wrapper {
-        display : grid;
-        grid-template-columns: 5% 20% 75%;
-        margin : 100px 0 50px 0;
-    }
-    #credit * {
-        color : #AAAAAA;
-    }
-    #sangsangfont{
-        font-family : SangSangFlowerRoad;
-        font-size : 3em;
-        color : #AAAAAA;   
-    }
-    @media screen and (max-width: 1023px) {
-        .footer{
-            /* display : none; */
-        };
-    }
-</style>
-        
-

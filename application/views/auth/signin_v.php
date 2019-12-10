@@ -1,28 +1,5 @@
 <head>
-	<style>
-		@media screen and (min-width: 1024px){
-			#signin_box{
-				width : 40%;
-				margin : 100px auto;
-			}
-		}
-		#signin_form{
-			text-align : center;
-		}
-		#signin_table{
-			margin : auto;
-			text-align :center;
-		}
-		.first_td{
-			width : 100px;
-		}
-		.signin_button_wrapper{
-			padding-left : 30px;
-		}
-		#signin_button{
-			height : 100%;
-		}
-	</style>
+<link rel="stylesheet" type="text/css" href="/css/signin_css.css">
 </head>
 
 <div id="signin_box">

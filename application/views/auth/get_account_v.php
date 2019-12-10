@@ -1,22 +1,5 @@
 <head>
-    <style>
-        #account_wrapper{
-            text-align : center;
-        }
-        #account{
-            width : 50%;
-            margin : 100px auto;
-            display : grid;
-            grid-template-columns: 50% 50%;
-        }
-        #user_icon{
-            width : 100%;
-            height : 100%;
-        }
-        p{
-            margin : 0;
-        }
-    </style>
+<link rel="stylesheet" type="text/css" href="/css/get_account_css.css">
 </head>
 <div id="account_wrapper">
     <div id="account">
